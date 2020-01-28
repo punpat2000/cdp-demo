@@ -1,4 +1,6 @@
 export interface Customer {
+  exists: any;
+    customerId?: string,
     firstName: string
     lastName: string,
     gender: string,
