@@ -19,13 +19,16 @@ export class CustomerInputComponent implements OnInit {
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      age: ['', Validators.required],
+      //age: ['', Validators.required],
       address: ['', Validators.required],
       postalCode: ['', Validators.required],
       province: ['', Validators.required],
       email: [''],
       referral: ['', Validators.required],
-      salesID: ['', Validators.required],
+      salesId: ['', Validators.required],
+      day: ['', Validators.required],
+      month: ['', Validators.required],
+      year: ['', Validators.required],
     });
   }
 
@@ -37,7 +40,10 @@ export class CustomerInputComponent implements OnInit {
     const firstName = this.customerForm.get('firstName').value;
     const lastName = this.customerForm.get('lastName').value;
     const gender = this.customerForm.get('gender').value;
-    const age = this.customerForm.get('age').value;
+    const day = this.customerForm.get('day').value;
+    const month = this.customerForm.get('month').value;
+    const year = this.customerForm.get('year').value;
+    const birthDate = new Date(year+"-"+month+"-"+day);
     const phoneNumber = this.customerForm.get('phoneNumber').value;
     const currentAddress = {
       address: this.customerForm.get('address').value,
@@ -46,7 +52,7 @@ export class CustomerInputComponent implements OnInit {
     };
     const email = this.customerForm.get('email').value;
     const referral = this.customerForm.get('referral').value;
-    const salesID = this.customerForm.get('salesID').value;
+    const salesId = this.customerForm.get('salesId').value;
     const recordedDate = new Date();
     const order = new Array<string>();
 
@@ -56,16 +62,18 @@ export class CustomerInputComponent implements OnInit {
         lastName: lastName,
         gender: gender,
         phoneNumber: phoneNumber,
-        age: age,
+        birthDate: birthDate,
         currentAddress: currentAddress,
         email: email,
         referral: referral,
-        salesID: salesID,
+        salesId: salesId,
         order: order,
         recordedDate: recordedDate,
       }
       this.customerService.addCustomer(customer);
+    } else {
+      console.log(`invalid`)
     }
+    
   }
-
 }

@@ -4,7 +4,7 @@ export interface Customer {
     lastName: string,
     gender: string,
     phoneNumber: string,
-    age: number,
+    birthDate: Date,
     currentAddress: {
         province: string,
         address: string,
@@ -12,7 +12,7 @@ export interface Customer {
     },
     email: string,
     referral: string,
-    salesID: string,
+    salesId: string,
     order: Array<string>,
     recordedDate: Date,
 }

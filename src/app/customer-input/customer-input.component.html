@@ -1,3 +1,63 @@
 <p>customer-input works!</p>
+<div>
+    <form [formGroup]="customerForm">
+        First Name: <input type=text formControlName="firstName">
+        Last Name: <input type=text formControlName="lastName"><br>
 
-<form [formGroup]="customerForm"></form>
+        <select formControlName="day">
+            <option value="" disabled selected hidden>Date</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+        </select>
+        <select formControlName="month">
+            <option value="" disabled selected hidden>Month</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="5">5</option>
+        </select>
+        <select formControlName="year">
+            <option value="" disabled selected hidden>Year</option>
+            <option value="1990">1990</option>
+            <option value="1991">1991</option>
+            <option value="1992">1992</option>
+            <option value="1993">1993</option>
+        </select>
+        <select formControlName="gender">
+            <option value="" disabled selected hidden>Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+        Phone Number: <input type=tel formControlName="phoneNumber"><br>
+        Address: <input type=text formControlName="address">
+        <select formControlName="province">
+            <option value="" disabled selected hidden>Select province</option>
+            <option value="Bangkok">BKK</option>
+            <option value="Chiangmai">CHX</option>
+            <option value="Pattaya">Pattaya</option>
+        </select>
+        Postal code: <input type=text formControlName="postalCode">
+        Email: <input type=email formControlName="email">
+        <select formControlName="referral">
+            <option value="" disabled selected hidden>Choose referral</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Instagram">Instagram</option>
+            <option value="Line@">Line@</option>
+            <option value="friends and family">Friends and family</option>
+            <option value="other">Other</option>
+        </select><br>
+        <select formControlName="salesId">
+            <option value="" disabled selected hidden>Choose sales</option>
+            <option value="1">John</option>
+            <option value="2">Mook</option>
+            <option value="3">Home</option>
+            <option value="5">Bank</option>
+        </select>
+        
+
+    </form>
+    <button (click)="submit()">Submit</button>
+</div>
