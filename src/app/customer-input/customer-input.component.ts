@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Customer } from '../models/customer.model'
+import { CustomerService } from '../providers/customer.service';
 
 @Component({
   selector: 'app-customer-input',
@@ -11,6 +12,7 @@ export class CustomerInputComponent implements OnInit {
   public customerForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
+    private customerService: CustomerService
   ) {
     this.customerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
@@ -62,6 +64,7 @@ export class CustomerInputComponent implements OnInit {
         order: order,
         recordedDate: recordedDate,
       }
+      this.customerService.addCustomer(customer);
     }
   }
 
