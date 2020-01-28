@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Customer } from '../models/customer.model'
 
 @Component({
@@ -8,9 +8,8 @@ import { Customer } from '../models/customer.model'
   styleUrls: ['./customer-input.component.scss']
 })
 export class CustomerInputComponent implements OnInit {
-
+  public customerForm: FormGroup;
   constructor(
-    public customerForm: FormGroup,
     private formBuilder: FormBuilder,
   ) {
     this.customerForm = this.formBuilder.group({
