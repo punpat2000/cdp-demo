@@ -9,17 +9,35 @@ import { CustomerInputComponent } from './customer-input/customer-input.componen
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'customers', pathMatch: 'full' },
-  { 
-    path: 'home', component: HomeComponent
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
   },
   { 
-    path: 'customer-input', component: CustomerInputComponent
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
-  { path: 'customers', component: CustomersComponent },
-  { path: 'order-input', component: OrderInputComponent },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'tour-input', component: TourInputComponent }
+  { 
+    path: 'customer-input',
+    loadChildren: () => import('./customer-input/customer-input.module').then(m => m.CustomerInputModule)
+  },
+  { 
+    path: 'customers',
+    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
+  },
+  { 
+    path: 'order-input', 
+    loadChildren: () => import('./order-input/order-input.module').then(m => m.OrderInputModule)
+  },
+  { 
+    path: 'orders',
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)  
+  },
+  { 
+    path: 'tour-input',
+    loadChildren: () => import('./tour-input/tour-input.module').then(m => m.TourInputModule)
+  }
 ];
 
 @NgModule({
