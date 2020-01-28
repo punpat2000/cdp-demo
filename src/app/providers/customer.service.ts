@@ -43,8 +43,8 @@ export class CustomerService implements CustomerServiceModel {
     }
   }
 
-  checkCustomer(id: string): Observable<boolean> {
-    return from(this.afs.doc(`customers/${id}`).ref.get()
+  checkCustomer(customerId: string): Observable<boolean> {
+    return from(this.afs.doc(`customers/${customerId}`).ref.get()
       .then(data => {
         if (data.exists) {
           return true;
@@ -53,5 +53,10 @@ export class CustomerService implements CustomerServiceModel {
           return false;
         }
       }))
+  }
+
+  getCustomerBySales(salesId: string): Observable<Customer[]>{
+    const customersCollection = this.afs.collection<Customer>('customers',ref=> ref.where('salesId','==', salesId));
+    return customersCollection.valueChanges();
   }
 }

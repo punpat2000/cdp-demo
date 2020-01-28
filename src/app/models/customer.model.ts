@@ -6,8 +6,8 @@ export interface Customer {
     phoneNumber: string,
     birthDate: Date,
     currentAddress: {
-        province: string,
         address: string,
+        province: string,
         postalCode: string
     },
     email: string,
