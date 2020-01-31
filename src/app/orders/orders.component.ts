@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public orderArray: Array<Order>;
 
-  displayedColumns: string[] = ['orderId','tourId',''];
+  displayedColumns: string[] = ['orderId','tourId','customerId','salesId','referral'];
 
   constructor(
     private dataShare : DataShareService,
@@ -38,7 +38,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
       this.orderService.getOrdersByCustomer(this.customerId).pipe(takeUntilNgDestroy(this))
       .subscribe(orders=>{
         this.orderArray = orders;
-      })
+        console.log(this.orderArray);
+      });
     });
     
   }

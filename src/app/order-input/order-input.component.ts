@@ -42,7 +42,7 @@ export class OrderInputComponent implements OnInit {
         customerId: customerId,
         tourId: tourId,
         salesId: salesId,
-        referal: referral,
+        referral: referral,
         orderDate: orderDate,
       }
       this.orderService.addOrder(order);
@@ -56,7 +56,7 @@ export class OrderInputComponent implements OnInit {
         customerId: 'hJvJymmO0yeWtRJfRrnQ',
         tourId: 'FHASDJNC',
         salesId: '71283718h',
-        referal: 'Facebook',
+        referral: 'Facebook',
         orderDate: new Date(),
     }
 

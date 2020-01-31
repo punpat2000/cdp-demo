@@ -3,6 +3,6 @@ export interface Order{
     customerId: string,
     tourId: string,
     salesId: string,
-    referal: string,
+    referral: string,
     orderDate: Date
 }
