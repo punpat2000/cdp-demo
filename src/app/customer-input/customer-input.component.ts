@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Customer } from '../models/customer.model'
 import { CustomerService } from '../providers/customer.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-customer-input',
@@ -12,20 +13,19 @@ export class CustomerInputComponent implements OnInit {
   public customerForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private afAuth: AngularFireAuth
   ) {
     this.customerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      //age: ['', Validators.required],
       address: ['', Validators.required],
       postalCode: ['', Validators.required],
       province: ['', Validators.required],
       email: [''],
       referral: ['', Validators.required],
-      salesId: ['', Validators.required],
       day: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
@@ -52,7 +52,7 @@ export class CustomerInputComponent implements OnInit {
     };
     const email = this.customerForm.get('email').value;
     const referral = this.customerForm.get('referral').value;
-    const salesId = this.customerForm.get('salesId').value;
+    const salesId = this.afAuth.auth.currentUser.uid;
     const recordedDate = new Date();
     const order = new Array<string>();
 

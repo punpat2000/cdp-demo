@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public orderArray: Array<Order>;
 
-  displayedColumns: string[] = ['orderId','tourId','customerId','salesId','referral'];
+  displayedColumns: string[] = ['orderId','tourId','salesId','referral'];
 
   constructor(
     private dataShare : DataShareService,
