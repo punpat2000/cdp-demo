@@ -1,20 +1,22 @@
 <p>customer-input works!</p>
 <div class="w3-container">
     <form [formGroup]="customerForm">
-        <label>Name: </label>
-        <input type="text" formControlName="firstName" required>
-        <div *ngIf="checkFirstName()" class="warning">
-            <p>Please enter a valid first name.</p>
-        </div>
+        <mat-form-field>
+            <input matInput placeholder="Name" type="text" formControlName="firstName">
+            <mat-error *ngIf="checkFirstName()">
+                First name <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Last Name" type="text" formControlName="lastName">
+            <mat-error *ngIf="checkLastName()">
+                Last name <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
 
-        <label>Last Name: </label>
-        <input type="text" formControlName="lastName">
-        <div *ngIf="checkLastName()" class="warning">
-            <p>Please enter a valid last name.</p>
-        </div>
 
 
-        <label>Date of birth: </label>
+        <br><label>Date of birth: </label>
         <select formControlName="day">
             <option value="" disabled selected hidden>Date</option>
             <option value="1">1</option>
@@ -46,18 +48,23 @@
             <p style="color: #f04141;">Please enter a valid year.</p>
         </div>
 
+        <mat-form-field>
+            <mat-select placeholder="Gender" formControlName="gender">
+              <mat-option value="male">Male</mat-option>
+              <mat-option value="female">Female</mat-option>
+              <mat-option value="other">Other</mat-option>
+            </mat-select>
+          </mat-form-field>
+
         <select formControlName="gender">
             <option value="" disabled selected hidden>Select gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
         </select>
-        <div *ngIf="checkGender()">
-            <p style="color: #f04141;">Please select gender.</p>
-        </div><br>
 
         <label>Phone Number: </label>
-        <input type="tel" formControlName="phoneNumber">
+        <input type="number" formControlName="phoneNumber">
         <div *ngIf="checkPhoneNumber()">
             <p style="color: #f04141;">Please enter a valid phone number.</p>
         </div><br>
