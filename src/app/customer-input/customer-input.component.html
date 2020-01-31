@@ -1,9 +1,20 @@
 <p>customer-input works!</p>
-<div>
+<div class="w3-container">
     <form [formGroup]="customerForm">
-        First Name: <input type=text formControlName="firstName">
-        Last Name: <input type=text formControlName="lastName"><br>
+        <label>Name: </label>
+        <input type="text" formControlName="firstName" required>
+        <div *ngIf="checkFirstName()" class="warning">
+            <p>Please enter a valid first name.</p>
+        </div>
 
+        <label>Last Name: </label>
+        <input type="text" formControlName="lastName">
+        <div *ngIf="checkLastName()" class="warning">
+            <p>Please enter a valid last name.</p>
+        </div>
+
+
+        <label>Date of birth: </label>
         <select formControlName="day">
             <option value="" disabled selected hidden>Date</option>
             <option value="1">1</option>
@@ -11,6 +22,9 @@
             <option value="3">3</option>
             <option value="5">5</option>
         </select>
+        <div *ngIf="cheackDay()">
+            <p style="color: #f04141;">Please enter a valid day.</p>
+        </div>
         <select formControlName="month">
             <option value="" disabled selected hidden>Month</option>
             <option value="1">1</option>
@@ -18,29 +32,59 @@
             <option value="3">3</option>
             <option value="5">5</option>
         </select>
+        <div *ngIf="checkMonth()">
+            <p style="color: #f04141;">Please enter a valid month.</p>
+        </div>
         <select formControlName="year">
             <option value="" disabled selected hidden>Year</option>
             <option value="1990">1990</option>
             <option value="1991">1991</option>
             <option value="1992">1992</option>
             <option value="1993">1993</option>
-        </select>
+        </select><br>
+        <div *ngIf="checkYear()">
+            <p style="color: #f04141;">Please enter a valid year.</p>
+        </div>
+
         <select formControlName="gender">
             <option value="" disabled selected hidden>Select gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
         </select>
-        Phone Number: <input type=tel formControlName="phoneNumber"><br>
-        Address: <input type=text formControlName="address">
+        <div *ngIf="checkGender()">
+            <p style="color: #f04141;">Please select gender.</p>
+        </div><br>
+
+        <label>Phone Number: </label>
+        <input type="tel" formControlName="phoneNumber">
+        <div *ngIf="checkPhoneNumber()">
+            <p style="color: #f04141;">Please enter a valid phone number.</p>
+        </div><br>
+
+        <label>Address: </label>
+        <input type="text" formControlName="address">
         <select formControlName="province">
             <option value="" disabled selected hidden>Select province</option>
             <option value="Bangkok">BKK</option>
             <option value="Chiangmai">CHX</option>
             <option value="Pattaya">Pattaya</option>
         </select>
-        Postal code: <input type=text formControlName="postalCode">
-        Email: <input type=email formControlName="email">
+        <div *ngIf="checkProvince()">
+            <p style="color: #f04141;">Please enter a valid province.</p>
+        </div><br>
+        <div *ngIf="checkAddress()">
+            <p style="color: #f04141;">Please enter a valid address.</p>
+        </div><br>
+
+        <label>Postal code: </label>
+        <input type="text" formControlName="postalCode">
+        <div *ngIf="checkPostal()">
+            <p style="color: #f04141;">Please enter a valid postal code.</p>
+        </div><br>
+
+        <label>Email: </label>
+        <input type="email" formControlName="email">
         <select formControlName="referral">
             <option value="" disabled selected hidden>Choose referral</option>
             <option value="Facebook">Facebook</option>
@@ -48,16 +92,20 @@
             <option value="Line@">Line@</option>
             <option value="friends and family">Friends and family</option>
             <option value="other">Other</option>
-        </select><br>
+        </select>
+        <div *ngIf="checkReferral()">
+            <p style="color: #f04141;">Please enter a valid referral.</p>
+        </div><br>
         <select formControlName="salesId">
             <option value="" disabled selected hidden>Choose sales</option>
             <option value="1">John</option>
             <option value="2">Mook</option>
             <option value="3">Home</option>
-            <option value="5">Bank</option>
+            <option value="4">Bank</option>
         </select>
-        
-
     </form>
     <button (click)="submit()">Submit</button>
+</div>
+<div class="w3-panel w3-red" *ngIf="!this.customerForm.valid && this.showAlert">
+    <p>Customer form not valid!</p>
 </div>
