@@ -15,9 +15,10 @@ import { Order } from '../models/order.model';
 })
 export class OrdersComponent implements OnInit, OnDestroy {
 
-  private customerId:string;
-  private customer:Customer;
-
+  public customerId:string;
+  public customer:Customer;
+  public showSpinner:boolean = false;
+  public loadFailed:boolean = false;
   public orderArray: Array<Order>;
 
   displayedColumns: string[] = ['orderId','tourId','salesId','referral'];
@@ -27,6 +28,12 @@ export class OrdersComponent implements OnInit, OnDestroy {
     private customerService : CustomerService,
     private orderService : OrderService
   ) { 
+    this.loadData();
+  }
+
+  loadData(){
+    this.showSpinner = true;
+
     this.dataShare.currentCustomerId.subscribe(customerId =>{
       this.customerId = customerId;
       this.customerService.getCustomer(this.customerId).pipe(takeUntilNgDestroy(this))
@@ -34,14 +41,20 @@ export class OrdersComponent implements OnInit, OnDestroy {
         this.customer = customer;
         console.log(this.customer);
       });
-
       this.orderService.getOrdersByCustomer(this.customerId).pipe(takeUntilNgDestroy(this))
       .subscribe(orders=>{
         this.orderArray = orders;
         console.log(this.orderArray);
+        this.showSpinner = false;
       });
+      setTimeout(()=>{
+        if(this.loadFailed === false && this.showSpinner === true){
+          this.showSpinner = false;
+          this.loadFailed = true;
+        }
+      },15000);
+
     });
-    
   }
 
   ngOnInit() {

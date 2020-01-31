@@ -22,9 +22,16 @@ export class AuthService {
                   }else{
                       const data : User = {
                           userId: user.uid,
+                          fullName: user.displayName,
                           email: user.email.toLowerCase(),
                           displayName: user.displayName,
-                          role: {unspecified:true}
+                          role: {
+                            admin: false,
+                            editor: false,
+                            sales: false,
+                            accountant: false,
+                            unspecified: true
+                          }
                       };
                       this.setUserData(data).catch(error =>{
                           console.log(error);
@@ -61,7 +68,7 @@ export class AuthService {
               const userRef: AngularFirestoreDocument<any> = this.afs.doc(
                   `users/${user.uid}`
               );
-              userRef.update({"displayName":name});
+              userRef.update({displayName:name});
           }
       });
     }

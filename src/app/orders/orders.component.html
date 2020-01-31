@@ -7,10 +7,13 @@
             customer id: {{customer.customerId}}
         </h3>
     </div>
-    <h3 *ngIf="!customer">
-        Loading Customer Data
-    </h3>   
 </header>
+<mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+<div *ngIf="loadFailed">
+    <h2>
+        Loading Timeout. Please try again later.
+    </h2>
+</div>
 
 <div>
     <table *ngIf="orderArray" mat-table [dataSource]="orderArray" class="mat-elevation-z8">

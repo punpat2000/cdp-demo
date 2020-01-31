@@ -30,4 +30,7 @@ export class HomeComponent implements OnInit {
   goToTourInput(){
     this.router.navigate(['/tour-input']);
   }
+  goToLandingPage(){
+    this.router.navigate(['/landing-page']);
+  }
 }
