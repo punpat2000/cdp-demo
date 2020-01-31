@@ -25,7 +25,7 @@ const routes: Routes = [
     loadChildren: () => import('./order-input/order-input.module').then(m => m.OrderInputModule)
   },
   { 
-    path: 'orders',
+    path: 'customers/orders',
     loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)  
   },
   { 

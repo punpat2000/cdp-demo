@@ -1,1 +1,14 @@
-<p>orders works!</p>
+<header>
+    <div *ngIf="customer">
+        <h1>
+            {{customer.firstName}} {{customer.lastName}} <br>
+        </h1>
+        <h3>
+            customer id: {{customer.customerId}}
+        </h3>
+    </div>
+    <h3 *ngIf="!customer">
+        Loading Customer
+    </h3>
+    <h1 *ngIf="orderArray.length"> order exists</h1>
+</header>

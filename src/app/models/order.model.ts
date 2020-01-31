@@ -1,5 +1,5 @@
-export interface order{
-    orderId: string,
+export interface Order{
+    orderId?: string,
     customerId: string,
     tourId: string,
     salesId: string,
