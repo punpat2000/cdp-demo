@@ -1,3 +1,28 @@
 <p>order-input works!</p>
 
-<button (click)="testSubmit()">test Submit</button>
+<div>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Customer ID</mat-label>
+      <input matInput placeholder="Placeholder">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Tour ID</mat-label>
+      <input matInput>
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Sales ID</mat-label>
+      <input matInput disabled value="{{salesId}}">
+      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <mat-hint></mat-hint>
+    </mat-form-field>
+  </p>
+</div>

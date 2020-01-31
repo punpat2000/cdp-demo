@@ -13,6 +13,8 @@ export class OrderInputComponent implements OnInit {
 
   public orderForm : FormGroup;
 
+  public salesId:string = "HBRY7DZ"
+
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
