@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { CustomerInputComponent } from './customer-input.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
