@@ -6,7 +6,7 @@ export interface Order{
     referral: string,
     personCount: number,
     payment: Payment,
-    travelPeriod: string,
+    travelPeriod: TravelPeriod,
     netPrice: number,
     orderDate: Date
 }
@@ -14,6 +14,11 @@ export interface Order{
 export interface Payment{
     earnestPaymentDate?: Date,
     fullPaymentDate: Date,
-    paidEarnest?:boolean
+    paidEarnest?:boolean,
     paidFull:boolean
+}
+
+export interface TravelPeriod{
+    startDate: Date,
+    endDate: Date
 }

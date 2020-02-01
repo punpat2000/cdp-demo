@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrderService } from '../providers/order.service';
 import { CustomerService } from '../providers/customer.service';
-import { Order, Payment } from '../models/order.model';
+import { Order, Payment, TravelPeriod } from '../models/order.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DataShareService } from '../providers/data-share.service';
 import { Customer } from '../models/customer.model';
@@ -62,13 +62,20 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     const payFull = this.orderForm.get('payFull').value;
     const personCount = this.orderForm.get('personCount').value;
     const netPrice = this.orderForm.get('netPrice').value;
-    const travelPeriod  = this.orderForm.get('travelPeriod').value;
+
+    const startDate = this.orderForm.get('startDate').value;
+    const endDate = this.orderForm.get('endDate').value;
+
     const fullPaymentDate = this.orderForm.get('fullPaymentDate').value;
     const earnestPaymentDate = this.orderForm.get('earnestPaymentDate').value;
     const paidFull = false;
     const paidEarnest = false;
 
     if (this.orderForm.valid) {
+      const travelPeriod: TravelPeriod = {
+        startDate: startDate,
+        endDate: endDate
+      }
       const paymentFull: Payment = {
         fullPaymentDate: fullPaymentDate,
         paidFull: paidFull
