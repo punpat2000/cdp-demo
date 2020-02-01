@@ -33,6 +33,12 @@ const routes: Routes = [
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
+  {
+    path: 'orders',
+    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
   { 
     path: 'customer-input',
     loadChildren: () => import('./customer-input/customer-input.module').then(m => m.CustomerInputModule),
@@ -62,8 +68,8 @@ const routes: Routes = [
   },
   { 
     path: 'customers/orders',
-    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
+    loadChildren: () => import('./order-by-sales/orders-by-sales.module').then(m => m.OrdersModule),
+    canActivate: [AngularFireAuthGuard],
     data: { 
       authGuardPipe: redirectUnauthorizedToLogin,
       allowedRoles: ['editor','admin','sales']

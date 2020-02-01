@@ -8,7 +8,9 @@ export interface Order{
     payment: Payment,
     travelPeriod: TravelPeriod,
     netPrice: number,
-    orderDate: Date
+    orderDate: Date,
+    dateCompleted: Date,
+    isCompleted: boolean
 }
 
 export interface Payment{
