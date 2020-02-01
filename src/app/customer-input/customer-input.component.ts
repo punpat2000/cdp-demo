@@ -11,6 +11,86 @@ import { CustomerService } from '../providers/customer.service';
 export class CustomerInputComponent implements OnInit {
   public customerForm: FormGroup;
   public showAlert: boolean = false;
+  public referral = ["Facebook", "Instagram", "LINE@", "Friend and family", "Other"];
+  public provinces = [
+    'กรุงเทพฯ',
+    'กระบี่',
+    'กาญจนบุรี',
+    'กาฬสินธุ์',
+    'กำแพงเพชร',
+    'ขอนแก่น',
+    'จันทบุรี',
+    'ฉะเชิงเทรา',
+    'ชลบุรี',
+    'ชัยนาท',
+    'ชัยภูมิ',
+    'ชุมพร',
+    'เชียงใหม่',
+    'เชียงราย',
+    'ตรัง',
+    'ตราด',
+    'ตาก',
+    'นครนายก',
+    'นครปฐม',
+    'นครพนม',
+    'นครราชสีมา',
+    'นครศรีธรรมราช',
+    'นครสวรรค์',
+    'นนทบุรี',
+    'นราธิวาส',
+    'น่าน',
+    'บึงกาฬ',
+    'บุรีรัมย์',
+    'ปทุมธานี',
+    'ประจวบคีรีขันธ์',
+    'ปราจีนบุรี',
+    'ปัตตานี',
+    'พระนครศรีอยุธยา',
+    'พะเยา',
+    'พังงา',
+    'พัทลุง',
+    'พิจิตร',
+    'พิษณุโลก',
+    'เพชรบุรี',
+    'เพชรบูรณ์',
+    'แพร่',
+    'ภูเก็ต',
+    'มหาสารคาม',
+    'มุกดาหาร',
+    'แม่ฮ่องสอน',
+    'ยโสธร',
+    'ยะลา',
+    'ร้อยเอ็ด',
+    'ระนอง',
+    'ระยอง',
+    'ราชบุรี',
+    'ลพบุรี',
+    'ลำปาง',
+    'ลำพูน',
+    'เลย',
+    'ศรีสะเกษ',
+    'สกลนคร',
+    'สงขลา',
+    'สตูล',
+    'สมุทรปราการ',
+    'สมุทรสงคราม',
+    'สมุทรสาคร',
+    'สระแก้ว',
+    'สระบุรี',
+    'สิงห์บุรี',
+    'สุโขทัย',
+    'สุพรรณบุรี',
+    'สุราษฎร์ธานี',
+    'สุรินทร์',
+    'หนองคาย',
+    'หนองบัวลำภู',
+    'อ่างทอง',
+    'อำนาจเจริญ',
+    'อุดรธานี',
+    'อุตรดิตถ์',
+    'อุทัยธานี',
+    'อุบลราชธานี',
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,52 +121,52 @@ export class CustomerInputComponent implements OnInit {
       && (this.customerForm.controls.firstName.dirty
         || this.customerForm.controls.firstName.touched));
   }
-  checkLastName():boolean{
+  checkLastName(): boolean {
     return (!this.customerForm.controls.lastName.valid
       && (this.customerForm.controls.lastName.dirty
         || this.customerForm.controls.lastName.touched));
   }
-  checkDay():boolean{
+  checkDay(): boolean {
     return (!this.customerForm.controls.day.valid
       && (this.customerForm.controls.day.dirty
         || this.customerForm.controls.day.touched));
   }
-  checkMonth():boolean{
+  checkMonth(): boolean {
     return (!this.customerForm.controls.month.valid
       && (this.customerForm.controls.month.dirty
         || this.customerForm.controls.month.touched));
   }
-  checkYear():boolean{
+  checkYear(): boolean {
     return (!this.customerForm.controls.year.valid
       && (this.customerForm.controls.year.dirty
         || this.customerForm.controls.year.touched));
   }
-  checkGender():boolean{
+  checkGender(): boolean {
     return (!this.customerForm.controls.gender.valid
       && (this.customerForm.controls.gender.dirty
         || this.customerForm.controls.gender.touched));
   }
-  checkPhoneNumber():boolean{
+  checkPhoneNumber(): boolean {
     return (!this.customerForm.controls.phoneNumber.valid
       && (this.customerForm.controls.phoneNumber.dirty
         || this.customerForm.controls.phoneNumber.touched));
   }
-  checkPostal():boolean{
+  checkPostal(): boolean {
     return (!this.customerForm.controls.postalCode.valid
       && (this.customerForm.controls.postalCode.dirty
         || this.customerForm.controls.postalCode.touched));
   }
-  checkAddress():boolean{
+  checkAddress(): boolean {
     return (!this.customerForm.controls.address.valid
       && (this.customerForm.controls.address.dirty
         || this.customerForm.controls.address.touched));
   }
-  checkReferral():boolean{
+  checkReferral(): boolean {
     return (!this.customerForm.controls.referral.valid
       && (this.customerForm.controls.referral.dirty
         || this.customerForm.controls.referral.touched));
   }
-  checkProvince():boolean{
+  checkProvince(): boolean {
     return (!this.customerForm.controls.province.valid
       && (this.customerForm.controls.province.dirty
         || this.customerForm.controls.province.touched));
