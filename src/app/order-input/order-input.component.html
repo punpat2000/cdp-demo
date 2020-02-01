@@ -1,1 +1,39 @@
-<p>order-input works!</p>
+<div class="body-padding">
+<div>
+  <form [formGroup]="orderForm">
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Customer ID</mat-label>
+      <input matInput disabled value="{{customerId}}">
+      <mat-hint></mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Tour ID</mat-label>
+      <input matInput formControlName="tourId">  
+      <mat-hint></mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Sales</mat-label>
+      <input matInput disabled value="{{salesName}}"> 
+      <mat-hint></mat-hint>
+    </mat-form-field>
+  </p>
+  <p>
+    <mat-form-field>
+      <mat-label>Select referral type</mat-label>
+      <mat-select disableRipple formControlName="referral">
+        <mat-option value="facebook">Facebook</mat-option>
+        <mat-option value="line">LINE@</mat-option>
+        <mat-option value="instagram">Instagram</mat-option>
+        <mat-option value="friends">Friends & Family</mat-option>
+      </mat-select>
+    </mat-form-field>    
+  </p>
+  </form>
+  <button (click)="submit()">submit</button>
+</div>
+</div>

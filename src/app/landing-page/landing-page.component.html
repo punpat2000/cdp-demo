@@ -1,0 +1,29 @@
+<div class="body-padding">
+<header *ngIf="user">
+    <h1 *ngIf="!role">
+        To complete your registration please ask the IT staff to assign your role.<br>
+    </h1>
+    <h1 *ngIf="role">
+        your role is {{this.role}}
+    </h1>
+</header>
+<div *ngIf="loadFailed">
+    <h2>
+        Loading Timeout. Please try again later.
+    </h2>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+<div *ngIf="this.user">
+    <h3 *ngIf="this.user.displayName">Your display name is {{this.user.displayName}}</h3>
+    <h3 *ngIf="!this.user.displayName">You have not set your display name. Please set it below</h3>
+    <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Display Name</mat-label>
+          <input matInput [(ngModel)]="displayName">
+          <mat-hint></mat-hint>
+        </mat-form-field>
+      </p>
+      <button (click)="updateDisplayName()">change display name</button>
+</div>
+
+</div>

@@ -1,5 +1,5 @@
-<p>customer-input works!</p>
-<div class="w3-container">
+<div class="body-padding">
+<div>
     <form [formGroup]="customerForm">
         <mat-form-field>
             <input matInput placeholder="Name" type="text" formControlName="firstName">
@@ -13,8 +13,6 @@
                 Last name <strong>required</strong>
             </mat-error>
         </mat-form-field>
-
-
 
         <br><label>Date of birth: </label>
         <select formControlName="day">

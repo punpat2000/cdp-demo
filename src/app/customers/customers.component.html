@@ -1,1 +1,66 @@
-<p>customers works!</p>
+<div class="body-padding">
+<header><h3>Your Customers</h3></header>
+<mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+<div *ngIf="loadFailed">
+    <h2>
+        Loading Timeout. Please try again later.
+    </h2>
+</div>
+<div>
+    <table *ngIf="customerArray" mat-table [dataSource]="customerArray" class="mat-elevation-z8">
+        <ng-container matColumnDef="customerId">
+            <th mat-header-cell *matHeaderCellDef> Customer ID </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.customerId}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef> First Name </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.firstName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef> Last Name </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef> Gender </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.gender}} </td>
+        </ng-container>  
+        
+        <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.phoneNumber}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="province">
+            <th mat-header-cell *matHeaderCellDef> Province </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.currentAddress.province}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.email}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="referral">
+            <th mat-header-cell *matHeaderCellDef> Referral </th>
+            <td mat-cell *matCellDef="let customer"> {{customer.referral}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let customer">
+                <button mat-button [matMenuTriggerFor]="beforeMenu">actions</button>
+                <mat-menu #beforeMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="viewOrders(customer.customerId)">view orders</button> 
+                    <button mat-menu-item (click)="addOrder(customer.customerId)">add order</button>
+                </mat-menu>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+</div>

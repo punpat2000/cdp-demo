@@ -52,7 +52,7 @@ export class CustomerService implements CustomerServiceModel {
           console.log('customer not found');
           return false;
         }
-      }))
+      }));
   }
 
   getCustomerBySales(salesId: string): Observable<Customer[]>{

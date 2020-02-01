@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -9,25 +10,10 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private router: Router
+    private router: Router,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
-  }
-  
-  goToCustomerInput(){
-    this.router.navigate(['/customer-input']);
-  }
-  goToCustomerList(){
-    this.router.navigate(['/customers']);
-  }
-  goToOrderInput(){
-    this.router.navigate(['/order-input']);
-  }
-  goToOrders(){
-    this.router.navigate(['/orders']);
-  }
-  goToTourInput(){
-    this.router.navigate(['/tour-input']);
   }
 }

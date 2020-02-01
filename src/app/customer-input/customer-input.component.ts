@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Customer } from '../models/customer.model'
 import { CustomerService } from '../providers/customer.service';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-customer-input',
@@ -94,7 +95,8 @@ export class CustomerInputComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private afAuth: AngularFireAuth
   ) {
   }
 
@@ -109,7 +111,6 @@ export class CustomerInputComponent implements OnInit {
       province: ['', Validators.required],
       email: [''],
       referral: ['', Validators.required],
-      salesId: ['', Validators.required],
       day: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
@@ -188,7 +189,7 @@ export class CustomerInputComponent implements OnInit {
     };
     const email = this.customerForm.get('email').value;
     const referral = this.customerForm.get('referral').value;
-    const salesId = this.customerForm.get('salesId').value;
+    const salesId = this.afAuth.auth.currentUser.uid;
     const recordedDate = new Date();
     const order = new Array<string>();
     if (this.customerForm.valid) {
