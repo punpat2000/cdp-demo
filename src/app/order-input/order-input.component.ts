@@ -104,7 +104,9 @@ export class OrderInputComponent implements OnInit, OnDestroy {
         payment: payment,
         personCount: personCount,
         travelPeriod: travelPeriod,
-        netPrice: netPrice
+        netPrice: netPrice,
+        dateCompleted: null,
+        isCompleted: false
       }
       this.orderService.addOrder(order);
     } else {

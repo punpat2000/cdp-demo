@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OrdersModule } from './orders/orders.module';
 
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
@@ -44,7 +43,6 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFireAuthModule,
     BrowserAnimationsModule,
-    OrdersModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
