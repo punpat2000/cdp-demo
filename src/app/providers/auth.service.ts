@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { User } from '../models/user.model'
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators'
 
 @Injectable({providedIn: 'root'})
@@ -73,4 +73,30 @@ export class AuthService {
       });
     }
 
+    isAuthorized(allowedRoles: string[]):Observable<boolean>{
+        let role:string;
+        return from(this.getUserData()
+        .pipe<User>(take(1))
+        .toPromise()
+        .then(
+            user=>{
+                user;
+                if(user.role.unspecified === true) {
+                    role = null;
+                }
+                else if(user.role.admin === true) {
+                    role = "admin";
+                }
+                else if(user.role.accountant === true) {
+                    role = "accountant";
+                }
+                else if(user.role.sales === true) {
+                    role = "sales";
+                }
+                else if(user.role.editor === true) {
+                    role = "editor";
+                }
+                return allowedRoles.includes(role);
+            }));
+    }
 }
