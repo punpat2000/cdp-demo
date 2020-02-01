@@ -77,7 +77,7 @@
 
 
     </form>
-    <button (click)="submit()">Submit</button>
+    <button mat-raised-button color="accent" (click)="submit()">Submit</button>
     <div class="w3-panel w3-red" *ngIf="!this.customerForm.valid && this.showAlert">
         <p>Customer form not valid!</p>
     </div>
