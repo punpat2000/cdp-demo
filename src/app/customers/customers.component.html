@@ -1,3 +1,4 @@
+<div class="body-padding">
 <header><h3>Your Customers</h3></header>
 <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
 <div *ngIf="loadFailed">
@@ -61,4 +62,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+</div>
 </div>

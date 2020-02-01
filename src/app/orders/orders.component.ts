@@ -5,6 +5,7 @@ import { Customer } from '../models/customer.model';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 import { OrderService } from '../providers/order.service';
 import { Order } from '../models/order.model';
+import { Router } from '@angular/router';
 
 
 
@@ -26,7 +27,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   constructor(
     private dataShare : DataShareService,
     private customerService : CustomerService,
-    private orderService : OrderService
+    private orderService : OrderService,
+    private router : Router
   ) { 
     this.loadData();
   }
@@ -38,8 +40,10 @@ export class OrdersComponent implements OnInit, OnDestroy {
       this.customerId = customerId;
       this.customerService.getCustomer(this.customerId).pipe(takeUntilNgDestroy(this))
       .subscribe(customer =>{
-        this.customer = customer;
-        console.log(this.customer);
+        if(customer){
+          this.customer = customer;
+          console.log(this.customer);
+        }else this.router.navigate(['/customers']);
       });
       this.orderService.getOrdersByCustomer(this.customerId).pipe(takeUntilNgDestroy(this))
       .subscribe(orders=>{
