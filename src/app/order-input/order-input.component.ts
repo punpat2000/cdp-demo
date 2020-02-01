@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrderService } from '../providers/order.service';
 import { CustomerService } from '../providers/customer.service';
-import { Order } from '../models/order.model';
+import { Order, Payment } from '../models/order.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { DataShareService } from '../providers/data-share.service';
 import { Customer } from '../models/customer.model';
@@ -59,14 +59,40 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     const salesId = this.salesId;
     const referral = this.orderForm.get('referral').value;
     const orderDate = new Date();
+    const payFull = this.orderForm.get('payFull').value;
+    const personCount = this.orderForm.get('personCount').value;
+    const netPrice = this.orderForm.get('netPrice').value;
+    const travelPeriod  = this.orderForm.get('travelPeriod').value;
+    const fullPaymentDate = this.orderForm.get('fullPaymentDate').value;
+    const earnestPaymentDate = this.orderForm.get('earnestPaymentDate').value;
+    const paidFull = false;
+    const paidEarnest = false;
 
     if (this.orderForm.valid) {
+      const paymentFull: Payment = {
+        fullPaymentDate: fullPaymentDate,
+        paidFull: paidFull
+      }
+      const paymentEarnest: Payment = {
+        earnestPaymentDate: earnestPaymentDate,
+        fullPaymentDate: fullPaymentDate,
+        paidEarnest: paidEarnest,
+        paidFull: paidFull
+      }
+      let payment:Payment;
+      if(payFull) payment = paymentFull;
+      else payment = paymentEarnest;
+
       const order: Order = {
         customerId: customerId,
         tourId: tourId,
         salesId: salesId,
         referral: referral,
         orderDate: orderDate,
+        payment: payment,
+        personCount: personCount,
+        travelPeriod: travelPeriod,
+        netPrice: netPrice
       }
       this.orderService.addOrder(order);
     } else {
