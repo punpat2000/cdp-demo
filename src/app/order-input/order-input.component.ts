@@ -59,33 +59,38 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     const salesId = this.salesId;
     const referral = this.orderForm.get('referral').value;
     const orderDate = new Date();
-    const payFull = this.orderForm.get('payFull').value;
+    
     const personCount = this.orderForm.get('personCount').value;
     const netPrice = this.orderForm.get('netPrice').value;
 
     const startDate = this.orderForm.get('startDate').value;
     const endDate = this.orderForm.get('endDate').value;
 
+    const payFull = this.orderForm.get('payFull').value;
     const fullPaymentDate = this.orderForm.get('fullPaymentDate').value;
     const earnestPaymentDate = this.orderForm.get('earnestPaymentDate').value;
     const paidFull = false;
     const paidEarnest = false;
 
     if (this.orderForm.valid) {
+
       const travelPeriod: TravelPeriod = {
         startDate: startDate,
         endDate: endDate
       }
+
       const paymentFull: Payment = {
         fullPaymentDate: fullPaymentDate,
         paidFull: paidFull
       }
+
       const paymentEarnest: Payment = {
         earnestPaymentDate: earnestPaymentDate,
         fullPaymentDate: fullPaymentDate,
         paidEarnest: paidEarnest,
         paidFull: paidFull
       }
+
       let payment:Payment;
       if(payFull) payment = paymentFull;
       else payment = paymentEarnest;
