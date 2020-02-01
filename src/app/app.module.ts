@@ -12,6 +12,13 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -26,6 +33,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
 
 @NgModule({
   declarations: [
+    MainNavComponent,
     AppComponent,
   ],
   imports: [
@@ -36,7 +44,13 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFireAuthModule,
     BrowserAnimationsModule,
-    OrdersModule
+    OrdersModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
   ],
   providers: [
     AngularFireAuthGuard,
