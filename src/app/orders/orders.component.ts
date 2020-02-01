@@ -20,7 +20,7 @@ export class OrdersComponent implements OnInit {
   public loadFailed:boolean = false;
   public orderArray: Array<Order>;
 
-  displayedColumns: string[] = ['orderId','tourId','salesId','referral'];
+  displayedColumns: string[] = ['orderId','tourId','salesId','referral','status'];
 
   constructor(
     private orderService : OrderService,
@@ -30,12 +30,14 @@ export class OrdersComponent implements OnInit {
   }
 
   loadData(){
+    this.showSpinner = true;
     this.orderService.loadAllOrders()
     .pipe(takeUntilNgDestroy(this))
     .subscribe(orders=>{
       if(orders){
         this.orderArray = orders;
       }else console.log('no data');
+      this.showSpinner = false;
     });
   }
 
