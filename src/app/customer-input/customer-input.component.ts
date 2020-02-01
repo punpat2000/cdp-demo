@@ -12,7 +12,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class CustomerInputComponent implements OnInit {
   public customerForm: FormGroup;
   public showAlert: boolean = false;
-  public referral = ["Facebook", "Instagram", "LINE@", "Friend and family", "Other"];
+  public referral = ["Facebook", "Instagram", "LINE@", "Friends and family", "Other"];
   public provinces = [
     'กรุงเทพฯ',
     'กระบี่',
@@ -111,9 +111,10 @@ export class CustomerInputComponent implements OnInit {
       province: ['', Validators.required],
       email: [''],
       referral: ['', Validators.required],
-      day: ['', Validators.required],
-      month: ['', Validators.required],
-      year: ['', Validators.required],
+      //day: ['', Validators.required],
+      //month: ['', Validators.required],
+     //year: ['', Validators.required],
+      date: ['', Validators.required],
     });
   }
 
@@ -177,10 +178,10 @@ export class CustomerInputComponent implements OnInit {
     const firstName = this.customerForm.get('firstName').value;
     const lastName = this.customerForm.get('lastName').value;
     const gender = this.customerForm.get('gender').value;
-    const day = this.customerForm.get('day').value;
-    const month = this.customerForm.get('month').value;
-    const year = this.customerForm.get('year').value;
-    const birthDate = new Date(year + "-" + month + "-" + day);
+    //const day = this.customerForm.get('day').value;
+    //const month = this.customerForm.get('month').value;
+    //const year = this.customerForm.get('year').value;
+    const birthDate = this.customerForm.get('date').value; //new Date(year + "-" + month + "-" + day);
     const phoneNumber = this.customerForm.get('phoneNumber').value;
     const currentAddress = {
       address: this.customerForm.get('address').value,

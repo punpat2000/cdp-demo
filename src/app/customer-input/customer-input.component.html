@@ -1,6 +1,6 @@
 <div class="body-padding">
-<div>
-    <form [formGroup]="customerForm">
+    <form [formGroup]="customerForm" class="example-form">
+
         <mat-form-field>
             <input matInput placeholder="Name" type="text" formControlName="firstName">
             <mat-error *ngIf="checkFirstName()">
@@ -14,37 +14,14 @@
             </mat-error>
         </mat-form-field>
 
-        <br><label>Date of birth: </label>
-        <select formControlName="day">
-            <option value="" disabled selected hidden>Date</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-        </select>
-        <div *ngIf="checkDay()">
-            <p style="color: #f04141;">Please enter a valid day.</p>
-        </div>
-        <select formControlName="month">
-            <option value="" disabled selected hidden>Month</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
-        </select>
-        <div *ngIf="checkMonth()">
-            <p style="color: #f04141;">Please enter a valid month.</p>
-        </div>
-        <select formControlName="year">
-            <option value="" disabled selected hidden>Year</option>
-            <option value="1990">1990</option>
-            <option value="1991">1991</option>
-            <option value="1992">1992</option>
-            <option value="1993">1993</option>
-        </select><br>
-        <div *ngIf="checkYear()">
-            <p style="color: #f04141;">Please enter a valid year.</p>
-        </div>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Choose a date of birth" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+
 
         <mat-form-field>
             <mat-select placeholder="Gender" formControlName="gender">
@@ -57,19 +34,18 @@
             </mat-error>
         </mat-form-field>
 
-        <label>Phone Number: </label>
-        <input type="number" formControlName="phoneNumber">
-        <div *ngIf="checkPhoneNumber()">
-            <p style="color: #f04141;">Please enter a valid phone number.</p>
-        </div><br>
-
+        <mat-form-field>
+            <input matInput placeholder="Phone Number" type="number" formControlName="phoneNumber">
+            <mat-error *ngIf="checkPhoneNumber()">
+                Phone number <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="Address" type="text" formControlName="address">
             <mat-error *ngIf="checkAddress()">
                 Address <strong>required</strong>
             </mat-error>
         </mat-form-field>
-
         <mat-form-field>
             <mat-select placeholder="Province" formControlName="province">
                 <mat-option *ngFor="let province of provinces" value={{province}}>{{province}}</mat-option>
@@ -99,10 +75,10 @@
             </mat-error>
         </mat-form-field>
 
-        
+
     </form>
     <button (click)="submit()">Submit</button>
-</div>
-<div class="w3-panel w3-red" *ngIf="!this.customerForm.valid && this.showAlert">
-    <p>Customer form not valid!</p>
+    <div class="w3-panel w3-red" *ngIf="!this.customerForm.valid && this.showAlert">
+        <p>Customer form not valid!</p>
+    </div>
 </div>

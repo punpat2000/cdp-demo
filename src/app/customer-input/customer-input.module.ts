@@ -9,6 +9,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 
 
 
@@ -20,6 +21,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatSelectModule,
     MatDatepickerModule,
     FormsModule,
+    MatNativeDateModule,
     ReactiveFormsModule,
     CommonModule,
     RouterModule.forChild([
