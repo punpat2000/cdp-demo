@@ -1,6 +1,9 @@
+import { Customer } from './customer.model';
+
 export interface Order{
     orderId?: string,
     customerId: string,
+    customer: Customer,
     tourId: string,
     salesId: string,
     referral: string,
@@ -10,14 +13,17 @@ export interface Order{
     netPrice: number,
     orderDate: Date,
     dateCompleted: Date,
-    isCompleted: boolean
+    orderStatus: 'waitingForInvoice' | 'waitingForEarnestPayment' | 'waitingForFullPayment' | 'waitingForReceipt' | 'orderCompleted'
 }
 
 export interface Payment{
-    earnestPaymentDate?: Date,
+    payEarnest:boolean,
+    earnestPaymentDate: Date,
     fullPaymentDate: Date,
-    paidEarnest?:boolean,
+    paidEarnest:boolean,
     paidFull:boolean,
+    bankTransferReceiptFull:string,
+    bankTransferReceiptEarnest:string,
     invoice:string,
     receipt:string,
 }

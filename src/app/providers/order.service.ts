@@ -51,7 +51,10 @@ export class OrderService {
           });
     }
 
-    queryOrder(){}
+    queryOrderAccountant(orderStatus:string): Observable<Order[]>{
+      const ordersCollection = this.afs.collection<Order>('orders',ref=> ref.where('orderStatus','==', orderStatus));
+      return ordersCollection.valueChanges();
+    }
 
     loadAllOrders(): Observable<Order[]>{
       return this.afs.collection<Order>(`orders`).valueChanges();

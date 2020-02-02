@@ -36,8 +36,20 @@ const routes: Routes = [
   {
     path: 'orders',
     loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
+    data: { 
+      authGuardPipe: redirectUnauthorizedToLogin,
+      allowedRoles: ['editor','admin']
+     }
+  },
+  {
+    path: 'accountant/orders',
+    loadChildren: () => import('./accountant/order-by-accountant/order-by-accountant.module').then(m => m.OrderByAccountantModule),
+    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
+    data: { 
+      authGuardPipe: redirectUnauthorizedToLogin,
+      allowedRoles: ['editor','admin','accountant']
+     }
   },
   { 
     path: 'customer-input',
@@ -60,8 +72,11 @@ const routes: Routes = [
   { 
     path: 'customers/customer-info',
     loadChildren: () => import('./customer-info/customer-info.module').then(m => m.CustomerInfoModule),
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
+    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
+    data: { 
+      authGuardPipe: redirectUnauthorizedToLogin,
+      allowedRoles: ['editor','admin','sales']
+     }
   },
   { 
     path: 'customers/order-input', 
@@ -75,7 +90,7 @@ const routes: Routes = [
   { 
     path: 'customers/orders',
     loadChildren: () => import('./order-by-sales/orders-by-sales.module').then(m => m.OrdersModule),
-    canActivate: [AngularFireAuthGuard],
+    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
     data: { 
       authGuardPipe: redirectUnauthorizedToLogin,
       allowedRoles: ['editor','admin','sales']

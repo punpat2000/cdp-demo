@@ -26,7 +26,9 @@ export class CustomersComponent implements OnInit, OnDestroy {
     private dataShare : DataShareService,
     private router : Router,
     private afAuth : AngularFireAuth
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.loadData();
   }
 
@@ -59,11 +61,13 @@ export class CustomersComponent implements OnInit, OnDestroy {
     this.router.navigate(['customers/order-input']);
   }
 
-  ngOnInit() {
+  goToCustomer(customerId:string){
+    this.dataShare.changeCustomerId(customerId);
+    this.router.navigate(['customers/customer-info']);
   }
 
-  ngOnDestroy(){
 
+  ngOnDestroy(){
   }
 
 

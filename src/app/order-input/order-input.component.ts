@@ -79,19 +79,27 @@ export class OrderInputComponent implements OnInit, OnDestroy {
       }
 
       const paymentFull: Payment = {
+        payEarnest: false,
+        earnestPaymentDate: null,
         fullPaymentDate: fullPaymentDate,
+        paidEarnest: null,
         paidFull: paidFull,
         invoice: null,
-        receipt:null
+        receipt:null,
+        bankTransferReceiptFull:null,
+        bankTransferReceiptEarnest:null,
       }
 
       const paymentEarnest: Payment = {
+        payEarnest: true,
         earnestPaymentDate: earnestPaymentDate,
         fullPaymentDate: fullPaymentDate,
         paidEarnest: paidEarnest,
         paidFull: paidFull,
         invoice: null,
-        receipt:null
+        receipt:null,
+        bankTransferReceiptFull:null,
+        bankTransferReceiptEarnest:null,
       }
 
       let payment:Payment;
@@ -100,6 +108,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
 
       const order: Order = {
         customerId: customerId,
+        customer: this.customer,
         tourId: tourId,
         salesId: salesId,
         referral: referral,
@@ -109,7 +118,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
         travelPeriod: travelPeriod,
         netPrice: netPrice,
         dateCompleted: null,
-        isCompleted: false
+        orderStatus: 'waitingForInvoice'
       }
       this.orderService.addOrder(order);
     } else {

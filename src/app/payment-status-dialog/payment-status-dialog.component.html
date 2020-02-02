@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>Payment Status</h2>
+<div mat-dialog-content>
+  <div *ngIf="order.payment">
+    <button mat-raised-button (click)="isEditable = !isEditable">
+      {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+    </button>
+    <mat-horizontal-stepper linear #stepper [selectedIndex]="orderState">
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(0)">
+        <ng-template matStepLabel>
+          {{paymentProgress(0)}}
+        </ng-template>
+        <span *ngIf="order.payment.invoice">
+          Invoice uploaded: {{order.payment.invoice}}
+        </span>
+        <span *ngIf="!order.payment.invoice">
+          Waiting for invoice from accountant
+        </span>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(1)">
+        <ng-template matStepLabel>
+          {{paymentProgress(1)}}
+        </ng-template>
+        <span *ngIf="order.payment.bankTransferReceipt">
+          Bank transfer receipt uploaded: {{order.payment.bankTransferReceipt}}
+          <button mat-raised-button (click)="uploadBankTransferReceipt()">
+            re-upload
+          </button>
+        </span>
+        <span *ngIf="!order.payment.bankTransferReceipt">
+          upload bank transfer receipt here.<br>
+          <button mat-raised-button (click)="uploadBankTransferReceipt()">
+            upload
+          </button>
+        </span>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(2)">
+        <ng-template matStepLabel>{{paymentProgress(2)}}</ng-template>
+        <span *ngIf="order.payment.receipt">
+          Receipt uploaded: {{order.payment.receipt}}
+        </span>
+        <span *ngIf="!order.payment.receipt">
+          Waiting for receipt from accountant.
+        </span>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(3)">
+        <ng-template matStepLabel>{{paymentProgress(3)}}</ng-template>
+        The order is completed.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <div *ngIf="!order.payment">
+    display payment form
+  </div>
+</div>
