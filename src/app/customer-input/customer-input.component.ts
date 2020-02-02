@@ -182,7 +182,7 @@ export class CustomerInputComponent implements OnInit {
     //const month = this.customerForm.get('month').value;
     //const year = this.customerForm.get('year').value;
     const birthDate = this.customerForm.get('date').value; //new Date(year + "-" + month + "-" + day);
-    const phoneNumber = this.customerForm.get('phoneNumber').value;
+    const phoneNumber = "0"+this.customerForm.get('phoneNumber').toString();
     const currentAddress = {
       address: this.customerForm.get('address').value,
       province: this.customerForm.get('province').value,

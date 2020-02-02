@@ -56,14 +56,15 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Postal Code" type="text" formControlName="postalCode">
+            <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="postalCode">
+            <mat-hint align="end">{{this.customerForm.get('postalCode').value.length}} / 5</mat-hint>
             <mat-error *ngIf="checkPostal()">
                 Postal code <strong>required</strong>
             </mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="E-mail" type="email" formControlName="email">
+            <input matInput placeholder="E-mail" type="email" formControlName="email" [email]="true">
         </mat-form-field>
 
         <mat-form-field>
