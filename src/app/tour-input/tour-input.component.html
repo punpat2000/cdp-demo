@@ -1,3 +1,30 @@
 <div class="body-padding">
-    <p>tour-input works!</p>
+    <form [formGroup]="tourForm">
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Tour ID" type="text" formControlName="tourId">
+                <mat-error *ngIf="checkTourId()">
+                    Tour ID <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Tour Name" type="text" formControlName="tourName">
+                <mat-error *ngIf="checkTourName()">
+                    Tour name <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <span matPrefix>฿ &nbsp;</span>
+                <input matInput placeholder="Price" type="number" formControlName="price">
+                <mat-error *ngIf="checkPrice()">
+                    Price <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
+    </form>
+    <button mat-flat-button color="primary" (click)="submit()">Submit</button>
 </div>
