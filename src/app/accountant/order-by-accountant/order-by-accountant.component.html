@@ -1,0 +1,85 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab label="Invoice">
+        <div class="body-padding">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let order of ordersWaitingInvoice">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{order.orderId}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{order.customer.firstName}} {{order.customer.lastName}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>
+                        program name <br>
+                        travel period <br>
+                        person count <br>
+                        net price <br>
+                        Earnest payment date <br>
+                        Full payment date <br>
+                    </p>
+                    <h4>upload invoice</h4><br>
+                    <uploader [path]="path + order.orderId + '/invoice'"></uploader>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-tab>
+    <mat-tab label="Earnest Bank Transfer Confirmation">
+        <div class="body-padding">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let order of ordersWaitingEarnestBankTransferConfirmation">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{order.orderId}}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{order.customer.firstName}} {{order.customer.lastName}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <h4>Confirm bank transfer</h4><br>
+                    <span>{{order.payment.bankTransferReceiptEarnest}}</span>
+                    <button>confirm transaction</button>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-tab>
+    <mat-tab label="Full Bank Transfer Confirmation">
+        <div class="body-padding">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let order of ordersWaitingFullBankTransferConfirmation">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            ordersWaitingEarnestBankTransferConfirmation
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Type your name and age
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <h4>Confirm bank transfer</h4><br>
+                    <span>{{order.payment.bankTransferReceiptFull}}</span>
+                    <button>confirm transaction</button>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-tab>
+    <mat-tab label="Receipt">
+        <div class="body-padding">
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let order of ordersWaitingReceipt">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            ordersWaitingReceipt
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Type your name and age
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <uploader [path]="path + order.orderId + '/receipt'"></uploader>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+

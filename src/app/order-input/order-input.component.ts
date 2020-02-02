@@ -49,7 +49,6 @@ export class OrderInputComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
   ngOnDestroy() {
-
   }
 
   submit(): void {
@@ -80,15 +79,27 @@ export class OrderInputComponent implements OnInit, OnDestroy {
       }
 
       const paymentFull: Payment = {
+        payEarnest: false,
+        earnestPaymentDate: null,
         fullPaymentDate: fullPaymentDate,
-        paidFull: paidFull
+        paidEarnest: null,
+        paidFull: paidFull,
+        invoice: null,
+        receipt:null,
+        bankTransferReceiptFull:null,
+        bankTransferReceiptEarnest:null,
       }
 
       const paymentEarnest: Payment = {
+        payEarnest: true,
         earnestPaymentDate: earnestPaymentDate,
         fullPaymentDate: fullPaymentDate,
         paidEarnest: paidEarnest,
-        paidFull: paidFull
+        paidFull: paidFull,
+        invoice: null,
+        receipt:null,
+        bankTransferReceiptFull:null,
+        bankTransferReceiptEarnest:null,
       }
 
       let payment:Payment;
@@ -97,6 +108,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
 
       const order: Order = {
         customerId: customerId,
+        customer: this.customer,
         tourId: tourId,
         salesId: salesId,
         referral: referral,
@@ -104,7 +116,9 @@ export class OrderInputComponent implements OnInit, OnDestroy {
         payment: payment,
         personCount: personCount,
         travelPeriod: travelPeriod,
-        netPrice: netPrice
+        netPrice: netPrice,
+        dateCompleted: null,
+        orderStatus: 'waitingForInvoice'
       }
       this.orderService.addOrder(order);
     } else {

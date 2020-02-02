@@ -5,20 +5,19 @@ import { CustomerInputComponent } from './customer-input.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import {MatButtonModule} from '@angular/material/button'; 
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
 @NgModule({
   declarations: [CustomerInputComponent],
   imports: [
-    MatProgressSpinnerModule,
+    //MatProgressSpinnerModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,

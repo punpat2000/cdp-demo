@@ -9,10 +9,12 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list *ngIf="isloggedIn">
       <a mat-list-item (click)="goTo('/home')">Home</a>
+      <a mat-list-item (click)="goTo('/orders')">Order List</a>
       <a mat-list-item (click)="goTo('/customers')">Customer List</a>
       <a mat-list-item (click)="goTo('/customer-input')">Customer Input</a>
       <a mat-list-item (click)="goTo('/tour-input')">Tour Input</a>
       <a mat-list-item (click)="goTo('/landing-page')">Edit Profile</a>
+      <a mat-list-item (click)="goTo('/accountant/orders')">Accountant orders</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

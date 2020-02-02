@@ -5,20 +5,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { OrdersModule } from './orders/orders.module';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FirebaseUIModule, firebase, firebaseui } from 'firebaseui-angular';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
+import { PaymentStatusDialogComponent } from './payment-status-dialog/payment-status-dialog.component';
+import { MatInputModule } from '@angular/material';
+
 
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
@@ -35,26 +43,33 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
   declarations: [
     MainNavComponent,
     AppComponent,
+    PaymentStatusDialogComponent,
   ],
+  entryComponents: [PaymentStatusDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFireAuthModule,
     BrowserAnimationsModule,
-    OrdersModule,
     LayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatStepperModule,
   ],
   providers: [
     AngularFireAuthGuard,
-    {provide: FirestoreSettingsToken, useValue: {}}
+    { provide: FirestoreSettingsToken, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

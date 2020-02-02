@@ -1,26 +1,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { OrdersComponent } from './orders.component';
+import { OrdersBySalesComponent } from './orders-by-sales.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatPaginatorModule} from '@angular/material/paginator'; 
-
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
 @NgModule({
-  declarations: [OrdersComponent],
+  declarations: [OrdersBySalesComponent],
   imports: [
-    MatProgressBarModule,
-    MatTableModule,
-    MatPaginatorModule,
     CommonModule,
+    MatTableModule,
+    MatProgressBarModule,
+    MatMenuModule,
     RouterModule.forChild([
       {
         path: '',
-        component: OrdersComponent
+        component: OrdersBySalesComponent
       }
     ])
   ]
