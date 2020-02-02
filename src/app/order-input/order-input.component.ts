@@ -49,7 +49,6 @@ export class OrderInputComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
   ngOnDestroy() {
-
   }
 
   submit(): void {
