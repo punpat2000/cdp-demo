@@ -22,7 +22,7 @@ export class OrdersBySalesComponent implements OnInit, OnDestroy {
   public loadFailed:boolean = false;
   public orderArray: Array<Order>;
 
-  displayedColumns: string[] = ['orderId','tourId','salesId','referral'];
+  public displayedColumns: string[] = ['orderId','tourId','salesId','referral','status','actions'];
 
   constructor(
     private dataShare : DataShareService,

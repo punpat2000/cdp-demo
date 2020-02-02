@@ -81,14 +81,18 @@ export class OrderInputComponent implements OnInit, OnDestroy {
 
       const paymentFull: Payment = {
         fullPaymentDate: fullPaymentDate,
-        paidFull: paidFull
+        paidFull: paidFull,
+        invoice: null,
+        receipt:null
       }
 
       const paymentEarnest: Payment = {
         earnestPaymentDate: earnestPaymentDate,
         fullPaymentDate: fullPaymentDate,
         paidEarnest: paidEarnest,
-        paidFull: paidFull
+        paidFull: paidFull,
+        invoice: null,
+        receipt:null
       }
 
       let payment:Payment;

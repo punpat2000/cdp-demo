@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Customer } from '../models/customer.model';
 import { Order } from '../models/order.model';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-orders',
@@ -20,7 +21,16 @@ export class OrdersComponent implements OnInit {
   public loadFailed:boolean = false;
   public orderArray: Array<Order>;
 
-  displayedColumns: string[] = ['orderId','tourId','salesId','referral','status'];
+  public displayedColumns: string[] = ['orderId','tourId','salesId','referral','status'];
+
+  //MatPaginator---
+  length:number;
+  pageSize = 10;
+  pageSizeOptions: number[] = [10, 20, 50];
+  //MatPaginator---
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
   constructor(
     private orderService : OrderService,
@@ -36,15 +46,17 @@ export class OrdersComponent implements OnInit {
     .subscribe(orders=>{
       if(orders){
         this.orderArray = orders;
-      }else console.log('no data');
+        this.length = this.orderArray.length;
+      }else {
+        this.length = 0
+        console.log('no data');
+      }
       this.showSpinner = false;
     });
   }
-
-  ngOnInit() {
-  }
-
   ngOnDestroy(){}
+
+  ngOnInit(){}
 
 
 

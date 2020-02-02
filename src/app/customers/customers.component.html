@@ -53,8 +53,10 @@
             <td mat-cell *matCellDef="let customer">
                 <button mat-button [matMenuTriggerFor]="beforeMenu">actions</button>
                 <mat-menu #beforeMenu="matMenu" xPosition="before">
+                    <button mat-menu-item (click)="viewOrders(customer.customerId)">edit info</button>
                     <button mat-menu-item (click)="viewOrders(customer.customerId)">view orders</button> 
                     <button mat-menu-item (click)="addOrder(customer.customerId)">add order</button>
+                    <button mat-menu-item (click)="viewOrders(customer.customerId)">upload docs</button>
                 </mat-menu>
             </td>
         </ng-container>

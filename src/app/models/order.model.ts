@@ -17,7 +17,9 @@ export interface Payment{
     earnestPaymentDate?: Date,
     fullPaymentDate: Date,
     paidEarnest?:boolean,
-    paidFull:boolean
+    paidFull:boolean,
+    invoice:string,
+    receipt:string,
 }
 
 export interface TravelPeriod{

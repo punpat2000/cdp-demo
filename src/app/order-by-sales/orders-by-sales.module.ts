@@ -5,6 +5,7 @@ import { OrdersBySalesComponent } from './orders-by-sales.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 
@@ -14,6 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     CommonModule,
     MatTableModule,
     MatProgressBarModule,
+    MatMenuModule,
     RouterModule.forChild([
       {
         path: '',

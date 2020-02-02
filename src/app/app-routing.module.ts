@@ -48,6 +48,12 @@ const routes: Routes = [
     data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   { 
+    path: 'customers/customer-info',
+    loadChildren: () => import('./customer-info/customer-info.module').then(m => m.CustomerInfoModule),
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin }
+  },
+  { 
     path: 'customers/order-input', 
     loadChildren: () => import('./order-input/order-input.module').then(m => m.OrderInputModule),
     canActivate: [AngularFireAuthGuard],
