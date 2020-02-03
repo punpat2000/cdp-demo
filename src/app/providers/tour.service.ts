@@ -13,6 +13,31 @@ export class TourService {
   ) { }
 
   addTour(t: Tour): void {
-    return;
+    this.afs.collection(`tours`).doc(t.tourId)
+      .set(t)
+      .then(()=>{
+        console.log('tour added!');
+      }).catch(err => {
+        console.log('error', err);
+      });
+  }
+  getTour(id: string): Observable<Tour> {
+    if (this.checkTour(id)) {
+      return this.afs.doc<Tour>(`tours/${id}`).valueChanges();
+    } else {
+      return of(null);
+    }
+  }
+
+  checkTour(id: string): Observable<boolean> {
+    return from(this.afs.doc(`tours/${id}`).ref.get()
+      .then(data => {
+        if (data.exists) {
+          return true;
+        } else {
+          console.log('tour not found');
+          return false;
+        }
+      }));
   }
 }
