@@ -11,7 +11,7 @@ import { AuthService } from '../providers/auth.service';
 import { take } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { Tour } from '../models/tour.model';
-import {TourService} from '../providers/tour.service'
+import { TourService } from '../providers/tour.service'
 import { Router } from '@angular/router';
 
 
@@ -22,7 +22,6 @@ import { Router } from '@angular/router';
 })
 export class OrderInputComponent implements OnInit, OnDestroy {
 
-  public tourValid: boolean = false;
 
   public orderForm: FormGroup;
 
@@ -41,8 +40,8 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     private customerService: CustomerService,
     private authService: AuthService,
     private tourService: TourService,
-    private router : Router
-  ) {} 
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.authService.getUserData().pipe(take(1)).subscribe(data => {
@@ -51,7 +50,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     this.salesId = this.afAuth.auth.currentUser.uid;
     this.salesName = this.afAuth.auth.currentUser.displayName;
     this.dataShare.currentCustomerId.subscribe(customerId => {
-      if((customerId === "no data")){
+      if ((customerId === "no data")) {
         this.router.navigate(['customers']);
       }
       this.customerId = customerId;
@@ -67,25 +66,25 @@ export class OrderInputComponent implements OnInit, OnDestroy {
       referral: ['', Validators.required],
       personCount: ['', Validators.required],
       startDate: ['', Validators.required],
-      endDate: ['',Validators.required],
-      payEarnest :['',Validators.required],
-      fullPaymentDate :['',Validators.required],
-      earnestPaymentDate : ['',], 
-      netPrice:['',Validators.required]
+      endDate: ['', Validators.required],
+      payEarnest: ['', Validators.required],
+      fullPaymentDate: ['', Validators.required],
+      earnestPaymentDate: ['',],
+      netPrice: ['', Validators.required]
     })
   }
   ngOnDestroy() {
   }
 
-  checkTour():boolean{
+  checkTour(): boolean {
     return (!this.orderForm.controls.tourId.valid
       && (this.orderForm.controls.tourId.dirty
         || this.orderForm.controls.tourId.touched));
   }
 
-  setTour(id:string){
+  setTour(id: string) {
     this.tourService.getTour(id).pipe(take(1)).subscribe(data => {
-      if(data){
+      if (data) {
         this.tour = data;
       } else {
         console.log(`error`);
@@ -94,8 +93,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-
-    this.checkTourValid();
+    if (!this.orderForm.valid) return;
     const customerId = this.customerId;
     const tourId = this.orderForm.get('tourId').value;
     const salesId = this.salesId;
@@ -103,88 +101,76 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     const orderDate = new Date();
     const personCount = this.orderForm.get('personCount').value;
     const netPrice = this.orderForm.get('netPrice').value;
-
     const startDate = this.orderForm.get('startDate').value;
     const endDate = this.orderForm.get('endDate').value;
-
     const payEarnest = this.orderForm.get('payEarnest').value;
     const fullPaymentDate = this.orderForm.get('fullPaymentDate').value;
-    const earnestPaymentDate = payEarnest?this.orderForm.get('earnestPaymentDate').value:null;
+    const earnestPaymentDate = payEarnest ? this.orderForm.get('earnestPaymentDate').value : null;
     //console.log({tourId,salesId,referral,orderDate,personCount,netPrice,startDate,endDate,payEarnest,fullPaymentDate,earnestPaymentDate});
     //console.log(this.orderForm.valid);
 
-
-    if (this.orderForm.valid && this.tourValid) {
-      const travelPeriod: TravelPeriod = {
-        startDate: startDate,
-        endDate: endDate
-      }
-      const paymentFull: Payment = {
-        payEarnest: false,
-        earnestPaymentDate: null,
-        fullPaymentDate: fullPaymentDate,
-        paidEarnest: null,
-        paidFull: false,
-        invoice: null,
-        receipt: null,
-        bankTransferReceiptFull: null,
-        bankTransferReceiptEarnest: null,
-      }
-
-      const paymentEarnest: Payment = {
-        payEarnest: true,
-        earnestPaymentDate: earnestPaymentDate,
-        fullPaymentDate: fullPaymentDate,
-        paidEarnest: false,
-        paidFull: false,
-        invoice: null,
-        receipt: null,
-        bankTransferReceiptFull: null,
-        bankTransferReceiptEarnest: null,
-      }
-
-      let payment: Payment;
-      if (payEarnest) payment = paymentEarnest;
-      else payment = paymentFull;
-
-      const order: Order = {
-        customerId: customerId,
-        customer: this.customer,
-        tourId: tourId,
-        tour: this.tour,
-        salesId: salesId,
-        sales: this.sales,
-        referral: referral,
-        orderDate: orderDate,
-        payment: payment,
-        personCount: personCount,
-        travelPeriod: travelPeriod,
-        netPrice: netPrice,
-        dateCompleted: null,
-        orderStatus: 'waitingForInvoice'
-      }
-      this.orderService.addOrder(order);
+    let tourIdInput: string;
+    if (this.orderForm.get('tourId').value === "") {
+      tourIdInput = "noTourId";
     } else {
-      console.log(`invalid`)
+      tourIdInput = this.orderForm.get('tourId').value;
     }
-  }
-
-  checkTourValid(){
-    let tourIdInput:string;
-    if(this.orderForm.get('tourId').value === "") tourIdInput = "noTourId";
-    else tourIdInput = this.orderForm.get('tourId').value;
     console.log(tourIdInput);
-    this.tourService.checkTour(tourIdInput).toPromise().then(data=>{
-      if(data){
+    this.tourService.checkTour(tourIdInput).toPromise().then(data => {
+      if (data) {
         console.log(`true`);
-        this.tourValid = true;
-      } else {
-        console.log(`false : invalid tour`);
-        this.tourValid = false;
+        if (this.orderForm.valid) {
+          const travelPeriod: TravelPeriod = {
+            startDate: startDate,
+            endDate: endDate
+          }
+          const paymentFull: Payment = {
+            payEarnest: false,
+            earnestPaymentDate: null,
+            fullPaymentDate: fullPaymentDate,
+            paidEarnest: null,
+            paidFull: false,
+            invoice: null,
+            receipt: null,
+            bankTransferReceiptFull: null,
+            bankTransferReceiptEarnest: null,
+          }
+          const paymentEarnest: Payment = {
+            payEarnest: true,
+            earnestPaymentDate: earnestPaymentDate,
+            fullPaymentDate: fullPaymentDate,
+            paidEarnest: false,
+            paidFull: false,
+            invoice: null,
+            receipt: null,
+            bankTransferReceiptFull: null,
+            bankTransferReceiptEarnest: null,
+          }
+          let payment: Payment;
+          payment = payEarnest ? paymentEarnest : paymentFull;
+          const order: Order = {
+            customerId: customerId,
+            customer: this.customer,
+            tourId: tourId,
+            tour: this.tour,
+            salesId: salesId,
+            sales: this.sales,
+            referral: referral,
+            orderDate: orderDate,
+            payment: payment,
+            personCount: personCount,
+            travelPeriod: travelPeriod,
+            netPrice: netPrice,
+            dateCompleted: null,
+            orderStatus: 'waitingForInvoice'
+          }
+          this.orderService.addOrder(order);
+        } else {
+          console.log(`false : invalid tour`);
+        }
       }
     });
   }
-
 }
 
 

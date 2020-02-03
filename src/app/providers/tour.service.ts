@@ -33,6 +33,7 @@ export class TourService {
     return from(this.afs.doc(`tours/${id}`).ref.get()
       .then(data => {
         if (data.exists) {
+          console.log('tour found');
           return true;
         } else {
           console.log('tour not found');
