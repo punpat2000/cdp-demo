@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { OrderService } from '../providers/order.service';
 import { CustomerService } from '../providers/customer.service';
 import { Order, Payment, TravelPeriod } from '../models/order.model';
@@ -22,9 +22,7 @@ import { Router } from '@angular/router';
 })
 export class OrderInputComponent implements OnInit, OnDestroy {
 
-
   public orderForm: FormGroup;
-
   public salesId: string;
   public salesName: string;
   public customerId: string;
