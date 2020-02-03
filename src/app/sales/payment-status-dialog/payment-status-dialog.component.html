@@ -1,0 +1,172 @@
+<h2 mat-dialog-title>Payment Status</h2>
+<div mat-dialog-content>
+  <div *ngIf="order">
+    <button mat-raised-button (click)="isEditable = !isEditable">
+      {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+    </button>
+    <mat-horizontal-stepper linear #stepper [selectedIndex]="orderState">
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(0)">
+        <ng-template matStepLabel>
+          {{paymentProgress(0)}}
+        </ng-template>
+        <span *ngIf="order.payment.invoice">
+          Invoice uploaded<br>
+          <a href="{{order.payment.invoice.downloadURL}}" target="_blank">download</a><br><br>
+          <span *ngIf="!order.payment.invoiceConfirmed">
+            <button mat-raised-button (click)="confirmInvoice(order.orderId)">Confirm Invoice</button>
+          </span>
+        </span>
+        <span *ngIf="!order.payment.invoice">
+          Waiting for invoice from accountant
+        </span>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(1)">
+        <ng-template matStepLabel>
+          {{paymentProgress(1)}}
+        </ng-template>
+
+
+        <div *ngIf="order.payment.payEarnest">
+          <!-- Pay earnest dialog starts here -->
+          <span *ngIf="order.payment.bankTransferReceiptEarnest">
+            Earnest bank transfer receipt uploaded: <a href="{{order.payment.bankTransferReceiptEarnest.downloadURL}}"
+              target="_blank">download</a> <br>
+            <button mat-raised-button color="primary" (click)="fileInput1.click()">re-upload</button>
+          </span>
+
+          <span *ngIf="!order.payment.bankTransferReceiptEarnest">
+            Upload earnest bank transer receipt here. <br>
+            <button mat-raised-button color="primary" (click)="fileInput1.click()">upload</button>
+          </span>
+
+          <span>
+            <!-- UPLOAD -->
+            <input #fileInput1 type="file"
+              (change)="detectFiles($event,'earnestBankReceipt','orders/'+ order.orderId + '/earnestBankReceipt', order.orderId)"
+              style="display: none;">
+            <div *ngIf="uploadTaskService.file">
+              <p>Uploads</p>
+              <div *ngIf="uploadTaskService.percentage | async as pct">
+                <progress [value]="pct" max="100"></progress>
+                {{ pct | number }}%
+              </div>
+
+
+
+              <div *ngIf="uploadTaskService.snapshot | async as snap">
+
+                {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
+
+                <div *ngIf="uploadTaskService.downloadURL as url">
+                  <!-- <h3>Results!</h3>
+                <img [src]="url"><br> -->
+                  <a [href]="url" target="_blank" rel="noopener" target="_blank">Download Result!</a>
+                </div>
+
+                <button (click)="uploadTaskService.task.pause()"
+                  [disabled]="!uploadTaskService.isActive(snap)">Pause</button>
+                <button (click)="uploadTaskService.task.cancel()"
+                  [disabled]="!uploadTaskService.isActive(snap)">Cancel</button>
+                <button (click)="uploadTaskService.task.resume()"
+                  [disabled]="!(snap?.state === 'paused')">Resume</button>
+              </div>
+            </div>
+            <!-- UPLOAD -->
+          </span>
+        </div> <!-- Pay earnest dialog ends here -->
+
+
+
+        <div *ngIf="(!order.payment.payEarnest) || order.payment.paidEarnest">
+          <!-- Pay full dialog starts here -->
+          <span *ngIf="order.payment.bankTransferReceiptFull">
+            Full bank transfer receipt uploaded: <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}"
+              target="_blank">download</a> <br>
+            <button mat-raised-button color="primary" (click)="fileInput1.click()">re-upload</button>
+          </span>
+
+          <span *ngIf="!order.payment.bankTransferReceiptFull">
+            Upload full bank transer receipt here. <br>
+            <button mat-raised-button color="primary" (click)="fileInput2.click()">upload</button>
+          </span>
+
+          <span>
+            Upload full bank transfer receipt here.<br>
+            <!-- UPLOAD -->
+            <input #fileInput2 class="file-input" type="file"
+              (change)="detectFiles($event,'fullBankReceipt','orders/'+ order.orderId + '/fullBankReceipt', order.orderId)"
+              style="display: none;">
+            <div *ngIf="uploadTaskService.file">
+              <p>Uploads</p>
+              <div *ngIf="uploadTaskService.percentage | async as pct">
+                <progress [value]="pct" max="100"></progress>
+                {{ pct | number }}%
+              </div>
+
+
+
+              <div *ngIf="uploadTaskService.snapshot | async as snap">
+
+                {{ snap.bytesTransferred }} of {{ snap.totalBytes }}
+
+                <div *ngIf="uploadTaskService.downloadURL as url">
+                  <!-- <h3>Results!</h3>
+                <img [src]="url"><br> -->
+                  <a [href]="url" target="_blank" rel="noopener" target="_blank">Download Result!</a>
+                </div>
+
+                <button (click)="uploadTaskService.task.pause()"
+                  [disabled]="!uploadTaskService.isActive(snap)">Pause</button>
+                <button (click)="uploadTaskService.task.cancel()"
+                  [disabled]="!uploadTaskService.isActive(snap)">Cancel</button>
+                <button (click)="uploadTaskService.task.resume()"
+                  [disabled]="!(snap?.state === 'paused')">Resume</button>
+              </div>
+            </div>
+            <!-- UPLOAD -->
+          </span>
+        </div> <!-- Pay full dialog ends here -->
+
+
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(2)">
+        <ng-template matStepLabel>{{paymentProgress(2)}}</ng-template>
+        <span *ngIf="order.payment.receipt">
+          Invoice uploaded<br>
+          <a href="{{order.payment.receipt.downloadURL}}" target="_blank">download</a><br><br>
+          <span *ngIf="!order.payment.receiptConfirmed">
+            <button mat-raised-button (click)="confirmReceipt(order.orderId)">Confirm Receipt</button>
+          </span>
+        </span>
+        <span *ngIf="!order.payment.receipt">
+          Waiting for receipt from accountant
+        </span>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step [editable]="isEditable" [completed]="stepIsComplete(3)">
+        <ng-template matStepLabel>{{paymentProgress(3)}}</ng-template>
+        The order is completed.
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+  <div *ngIf="order">
+    <div *ngIf="!order.payment">
+      display payment form
+    </div>
+  </div>
+</div>
+<template #container></template>

@@ -24,7 +24,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatStepperModule } from '@angular/material/stepper';
-import { PaymentStatusDialogComponent } from './payment-status-dialog/payment-status-dialog.component';
+import { PaymentStatusDialogComponent } from './sales/payment-status-dialog/payment-status-dialog.component';
 import { MatInputModule } from '@angular/material';
 
 
