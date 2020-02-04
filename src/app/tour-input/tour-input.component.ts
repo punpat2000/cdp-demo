@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {Tour} from '../models/tour.model';
 import {TourService} from '../providers/tour.service';
+import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 
 @Component({
   selector: 'app-tour-input',
   templateUrl: './tour-input.component.html',
   styleUrls: ['./tour-input.component.scss']
 })
-export class TourInputComponent implements OnInit {
+export class TourInputComponent implements OnInit, OnDestroy {
 
 
   public tourForm: FormGroup;
+  public tourExists: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     private tourService: TourService,
@@ -23,8 +25,14 @@ export class TourInputComponent implements OnInit {
       tourName: ['', Validators.required],
       price: ['', Validators.required],
     });
+    this.tourService.getAddTourEvent().pipe(takeUntilNgDestroy(this))
+    .subscribe(event=>{
+      if(event === "tourExists"){
+        this.tourExists = true;
+      }
+    });
   }
-  
+  ngOnDestroy(){}
   checkTourId():boolean{
     return (!this.tourForm.controls.tourId.valid
       && (this.tourForm.controls.tourId.dirty

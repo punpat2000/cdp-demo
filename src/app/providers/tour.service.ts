@@ -8,13 +8,13 @@ import { Observable, from, of, Subject } from 'rxjs';
 })
 export class TourService {
 
-  private addTourEvent: Subject<string> = new Subject<any>();
+  private addTourEvent: Subject<string> = new Subject<string>();
 
   constructor(
     private afs: AngularFirestore
   ) { }
 
-  getAddTourEvent(): Observable<any>{
+  getAddTourEvent(): Observable<string>{
     return this.addTourEvent.asObservable();
   }
 

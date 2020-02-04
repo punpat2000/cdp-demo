@@ -26,5 +26,10 @@
             </mat-form-field>
         </p>
     </form>
+    <span *ngIf="tourExists" style="color:rgb(231, 22, 22);">
+        <h5>
+            Error, tour already exists.
+        </h5>
+    </span>
     <button mat-flat-button color="primary" (click)="submit()">Submit</button>
 </div>
