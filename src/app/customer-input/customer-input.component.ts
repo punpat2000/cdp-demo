@@ -227,7 +227,6 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
         email: email,
         referral: referral,
         salesId: salesId,
-        order: order,
         recordedDate: recordedDate,
       }
       this.customerService.addCustomer(customer);
