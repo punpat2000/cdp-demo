@@ -1,5 +1,5 @@
 export const environment = {
-  firebaseConfig : {
+  firebase : {
     apiKey: "AIzaSyCM48zGIr83Ninj0HkFCIhe5cMabeP8wl4",
     authDomain: "kw-cdp-prototype.firebaseapp.com",
     databaseURL: "https://kw-cdp-prototype.firebaseio.com",
