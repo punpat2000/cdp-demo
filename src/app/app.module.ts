@@ -29,6 +29,9 @@ import { MatInputModule } from '@angular/material';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -68,6 +71,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatIconModule,
     MatListModule,
     MatStepperModule,
+    MatSnackBarModule,
   ],
   providers: [
     AngularFireAuthGuard,

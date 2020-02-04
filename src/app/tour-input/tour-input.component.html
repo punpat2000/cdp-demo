@@ -1,18 +1,6 @@
 <div class="body-padding">
-    <div>
-        <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
-        <div *ngIf="loadFailed">
-            <h2>
-                Loading Timeout. Please try again later.
-            </h2>
-        </div>
-        <div *ngIf="addTourFailed">
-            <h2 style="color: red;">
-                Add tour failed.
-            </h2>
-        </div>
-    </div>
-    <form [formGroup]="tourForm">
+    <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+    <form [formGroup]="tourForm" (submit)="submit()">
         <p>
             <mat-form-field>
                 <input matInput placeholder="Tour ID" type="text" formControlName="tourId">
@@ -38,11 +26,6 @@
                 </mat-error>
             </mat-form-field>
         </p>
+        <button mat-flat-button color="primary" type="submit">Submit</button>
     </form>
-    <span *ngIf="tourExists" style="color:rgb(231, 22, 22);">
-        <h5>
-            Error, tour already exists.
-        </h5>
-    </span>
-    <button mat-flat-button color="primary" (click)="submit()">Submit</button>
 </div>
