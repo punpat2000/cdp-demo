@@ -1,22 +1,18 @@
-import { Component, OnInit, Input, ChangeDetectorRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
-import { file } from 'src/app/models/order.model';
-import { PaymentService } from 'src/app/providers/payment.service';
+import { file } from '../models/order.model';
+import { PaymentService } from './payment.service';
 
-@Component({
-  selector: 'upload-task',
-  templateUrl: './upload-task.component.html',
-  styleUrls: ['./upload-task.component.scss']
-})
-export class UploadTaskComponent implements OnInit {
+@Injectable({providedIn:'root'})
+export class UploadTaskService {
 
-  @Input() file: File;
-  @Input() path: string;
-  @Input() documentName: string;
-  @Input() orderId: string;
+  public file: File;
+  public path: string;
+  public documentName: string;
+  public orderId: string;
 
   task: AngularFireUploadTask;
 
@@ -30,11 +26,8 @@ export class UploadTaskComponent implements OnInit {
     private paymentService: PaymentService
   ) { }
 
-  ngOnInit() {
-    this.startUpload(this.documentName);
-  }
 
-  startUpload(documentName: string) {
+  startUpload() {
 
     // The storage path
     const path = `${this.path}/${Date.now()}_${this.file.name}`;
@@ -62,7 +55,6 @@ export class UploadTaskComponent implements OnInit {
           this.paymentService.uploadInvoice(this.orderId, uploadedFile);
           console.log('invoice updated');
         }else if( this.documentName === "earnestBankReceipt"){
-          
           this.paymentService.uploadEarnestBankReceipt(this.orderId, uploadedFile);
           console.log('earnestBankReceipt updated');
         }else if(this.documentName === "fullBankReceipt"){

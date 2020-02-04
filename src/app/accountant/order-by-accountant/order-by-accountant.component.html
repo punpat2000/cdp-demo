@@ -19,8 +19,17 @@
                         Earnest payment date <br>
                         Full payment date <br>
                     </p>
-                    <h4>upload invoice</h4><br>
-                    <uploader [path]="path + order.orderId + '/invoice'"></uploader>
+                    <span *ngIf="order.payment.invoice">
+                        <p>
+                            current invoice file : <a href="{{order.payment.invoice.downloadURL}}" target="_blank">download</a>
+                        </p>
+                        <h4>Reupload invoice</h4><br>
+                    </span>
+                    <span *ngIf="!order.payment.invoice">
+                        <h4>Upload Invoice</h4>
+                    </span>
+                    <uploader [orderId]="order.orderId" [documentName]="'invoice'"
+                        [path]="path + order.orderId + '/invoice'"></uploader>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
@@ -37,9 +46,17 @@
                             {{order.customer.firstName}} {{order.customer.lastName}}
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <h4>Confirm bank transfer</h4><br>
-                    <span>{{order.payment.bankTransferReceiptEarnest}}</span>
-                    <button>confirm transaction</button>
+                    <p>
+                        program name <br>
+                        travel period <br>
+                        person count <br>
+                        net price <br>
+                        Earnest payment date <br>
+                        Full payment date <br>
+                    </p>
+                    <h4>Confirm bank transfer</h4>
+                    <span>Earnest bank transfer file : <a href="{{order.payment.bankTransferReceiptEarnest.downloadURL}}" target="_blank">download</a></span><br><br>
+                    <button mat-raised-button color="accent" (click)=(confirmEarnestReceipt(order.orderId))>confirm transaction</button>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
@@ -50,15 +67,15 @@
                 <mat-expansion-panel *ngFor="let order of ordersWaitingFullBankTransferConfirmation">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            ordersWaitingEarnestBankTransferConfirmation
+                            {{order.orderId}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            Type your name and age
+                            {{order.customer.firstName}} {{order.customer.lastName}}
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <h4>Confirm bank transfer</h4><br>
-                    <span>{{order.payment.bankTransferReceiptFull}}</span>
-                    <button>confirm transaction</button>
+                    <span>Full bank transfer file : <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}" target="_blank">download</a></span><br><br>
+                    <button mat-raised-button color="accent" (click)=(confirmFullReceipt(order.orderId))>confirm transaction</button>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
@@ -69,17 +86,33 @@
                 <mat-expansion-panel *ngFor="let order of ordersWaitingReceipt">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
-                            ordersWaitingReceipt
+                            {{order.orderId}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            Type your name and age
+                            {{order.customer.firstName}} {{order.customer.lastName}}
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <uploader [path]="path + order.orderId + '/receipt'"></uploader>
+                    <p>
+                        program name <br>
+                        travel period <br>
+                        person count <br>
+                        net price <br>
+                        Earnest payment date <br>
+                        Full payment date <br>
+                    </p>
+                    <span *ngIf="order.payment.receipt">
+                        <p>
+                            current receipt file : <a href="{{order.payment.receipt.downloadURL}}" target="_blank">download</a>
+                        </p>
+                        <h4>Reupload receipt</h4><br>
+                    </span>
+                    <span *ngIf="!order.payment.receipt">
+                        <h4>Upload Receipt</h4>
+                    </span>
+                    <uploader [orderId]="order.orderId" [documentName]="'receipt'"
+                        [path]="path + order.orderId + '/receipt'"></uploader>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-tab>
 </mat-tab-group>
-
-

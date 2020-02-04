@@ -1,5 +1,18 @@
 <div class="body-padding">
-    <form [formGroup]="tourForm" (submit)="submit()">
+    <div>
+        <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+        <div *ngIf="loadFailed">
+            <h2>
+                Loading Timeout. Please try again later.
+            </h2>
+        </div>
+        <div *ngIf="addTourFailed">
+            <h2 style="color: red;">
+                Add tour failed.
+            </h2>
+        </div>
+    </div>
+    <form [formGroup]="tourForm" (submit)="submit()"></form>
         <p>
             <mat-form-field>
                 <input matInput placeholder="Tour ID" type="text" formControlName="tourId">

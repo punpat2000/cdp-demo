@@ -1,14 +1,17 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Order } from '../models/order.model';
+import { Order } from '../../models/order.model';
 import { MatStepper } from '@angular/material';
+import { OrderService } from '../../providers/order.service';
+import { takeUntilNgDestroy } from 'take-until-ng-destroy';
+import { UploadTaskService } from '../../providers/upload-task.service';
 
 @Component({
   selector: 'app-payment-status-dialog',
   templateUrl: './payment-status-dialog.component.html',
   styleUrls: ['./payment-status-dialog.component.scss']
 })
-export class PaymentStatusDialogComponent implements OnInit {
+export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
 
   public hasPaymentData: boolean;
   public hasInvoice: boolean;
@@ -18,22 +21,32 @@ export class PaymentStatusDialogComponent implements OnInit {
   public order: Order;
   public orderState: number;
   public isEditable = false;
+  public targetFiles : FileList;
 
+  public enableEarnestUploadProgress: boolean = false;
 
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public orderData: any
+    @Inject(MAT_DIALOG_DATA) public orderData: any,
+    private orderService : OrderService,
+    public uploadTaskService : UploadTaskService
   ) { }
 
   ngOnInit() {
-    this.order = this.orderData.order;
-    this.setOrderState();
-    this.paymentDataCheck();
+    this.initializeOrder();
+  }
+
+  switchUploader(uploader:string){
+    if(uploader === "earnest"){
+      this.enableEarnestUploadProgress = true;
+    }else if (uploader === "full"){
+      this.enableEarnestUploadProgress = false;
+    }
   }
 
   paymentDataCheck() {
-    if(this.order.payment.invoice.length){
+    if(this.order.payment.invoice){
       this.hasInvoice = true;
     }
     if(this.order.payment.payEarnest){
@@ -42,8 +55,21 @@ export class PaymentStatusDialogComponent implements OnInit {
         if(this.order.payment.bankTransferReceiptFull) this.hasBankTransferReceipt = true;
       }
     }
-    if(this.order.payment.receipt.length){
+    if(this.order.payment.receipt){
       this.hasReceipt = true;
+    }
+  }
+
+  detectFiles(event,documentName:string,path:string,orderId:string){
+    this.targetFiles = event.target.files;
+    console.log('file chosen');
+    console.log(orderId);
+    if(this.targetFiles.item(0)){
+      this.uploadTaskService.orderId = orderId;
+      this.uploadTaskService.documentName = documentName;
+      this.uploadTaskService.path = path;
+      this.uploadTaskService.file = this.targetFiles.item(0);
+      this.uploadTaskService.startUpload();
     }
   }
 
@@ -65,7 +91,15 @@ export class PaymentStatusDialogComponent implements OnInit {
       this.orderState = -1;
     }
   }
-
+  initializeOrder(){
+    this.orderService.getOrder(this.orderData.order.orderId)
+    .pipe(takeUntilNgDestroy(this))
+    .subscribe(order=>{
+      this.order = order;
+      this.setOrderState();
+      this.paymentDataCheck();
+    });
+  }
   paymentProgress(numberToCheck: number): string {
     if (numberToCheck === 0) {
       if (this.orderState > numberToCheck) return 'Invoice';
@@ -108,5 +142,13 @@ export class PaymentStatusDialogComponent implements OnInit {
     console.log('move');
   }
 
+  confirmInvoice(orderId:string){
+    this.orderService.confirmInvoice(orderId);
+  }
+  confirmReceipt(orderId:string){
+    this.orderService.confirmReceipt(orderId);
+  }
+
+  ngOnDestroy(){}
 
 }

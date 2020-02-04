@@ -105,6 +105,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     const endDate = this.orderForm.get('endDate').value;
     const payEarnest = this.orderForm.get('payEarnest').value;
     const fullPaymentDate = this.orderForm.get('fullPaymentDate').value;
+
     const earnestPaymentDate = payEarnest ? this.orderForm.get('earnestPaymentDate').value : null;
     //console.log({tourId,salesId,referral,orderDate,personCount,netPrice,startDate,endDate,payEarnest,fullPaymentDate,earnestPaymentDate});
     //console.log(this.orderForm.valid);
@@ -138,9 +139,13 @@ export class OrderInputComponent implements OnInit, OnDestroy {
                 paidEarnest: null,
                 paidFull: false,
                 invoice: null,
+                invoiceConfirmed:false,
                 receipt: null,
+                receiptConfirmed:false,
                 bankTransferReceiptFull: null,
+                bankTransferReceiptEarnestConfirmed:false,
                 bankTransferReceiptEarnest: null,
+                bankTransferReceiptFullConfirmed:false,
               }
               const paymentEarnest: Payment = {
                 payEarnest: true,
@@ -149,9 +154,13 @@ export class OrderInputComponent implements OnInit, OnDestroy {
                 paidEarnest: false,
                 paidFull: false,
                 invoice: null,
+                invoiceConfirmed:false,
                 receipt: null,
+                receiptConfirmed:false,
                 bankTransferReceiptFull: null,
+                bankTransferReceiptEarnestConfirmed:false,
                 bankTransferReceiptEarnest: null,
+                bankTransferReceiptFullConfirmed:false,
               }
               let payment: Payment;
               payment = payEarnest ? paymentEarnest : paymentFull;
@@ -188,6 +197,5 @@ export class OrderInputComponent implements OnInit, OnDestroy {
       }this.showSpinner = false;
     });
   }
+
 }
-
-

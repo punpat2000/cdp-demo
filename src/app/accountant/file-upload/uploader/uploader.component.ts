@@ -8,6 +8,8 @@ import { Component, Input } from '@angular/core';
 export class UploaderComponent {
 
   @Input() path:string;
+  @Input() documentName:string;
+  @Input() orderId:string;
 
   isHovering: boolean;
 
