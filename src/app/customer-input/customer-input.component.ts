@@ -205,7 +205,7 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
     const lastName = this.customerForm.get('lastName').value;
     const gender = this.customerForm.get('gender').value;
     const birthDate = this.customerForm.get('date').value; //new Date(year + "-" + month + "-" + day);
-    const phoneNumber = "0"+this.customerForm.get('phoneNumber').toString();
+    const phoneNumber = `0${this.customerForm.get('phoneNumber').value}`;
     const currentAddress = {
       address: this.customerForm.get('address').value,
       province: this.customerForm.get('province').value,
