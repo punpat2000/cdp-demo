@@ -173,13 +173,13 @@ export class OrderInputComponent implements OnInit, OnDestroy {
               paidEarnest: null,
               paidFull: false,
               invoice: null,
-              invoiceConfirmed:false,
+              invoiceConfirmed: false,
               receipt: null,
               receiptConfirmed: false,
               bankTransferReceiptFull: null,
-              bankTransferReceiptFullConfirmed:false,
+              bankTransferReceiptFullConfirmed: false,
               bankTransferReceiptEarnest: null,
-              bankTransferReceiptEarnestConfirmed:false,
+              bankTransferReceiptEarnestConfirmed: false,
             }
             const paymentEarnest: Payment = {
               payEarnest: true,
@@ -192,9 +192,9 @@ export class OrderInputComponent implements OnInit, OnDestroy {
               receipt: null,
               receiptConfirmed: false,
               bankTransferReceiptFull: null,
-              bankTransferReceiptFullConfirmed:false,
+              bankTransferReceiptFullConfirmed: false,
               bankTransferReceiptEarnest: null,
-              bankTransferReceiptEarnestConfirmed:false,
+              bankTransferReceiptEarnestConfirmed: false,
             }
             let payment: Payment;
             payment = payEarnest ? paymentEarnest : paymentFull;
