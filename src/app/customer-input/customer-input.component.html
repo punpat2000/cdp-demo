@@ -1,82 +1,81 @@
 <div class="body-padding">
-    <form [formGroup]="customerForm" class="example-form">
+    <form [formGroup]="customerForm">
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Name" type="text" formControlName="firstName">
+                <mat-error *ngIf="checkFirstName()">
+                    First name <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput placeholder="Last Name" type="text" formControlName="lastName">
+                <mat-error *ngIf="checkLastName()">
+                    Last name <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date of birth" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput placeholder="Name" type="text" formControlName="firstName">
-            <mat-error *ngIf="checkFirstName()">
-                First name <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Last Name" type="text" formControlName="lastName">
-            <mat-error *ngIf="checkLastName()">
-                Last name <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Gender" formControlName="gender">
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                    <mat-option value="other">Other</mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkGender()">
+                    Gender <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
+            <mat-form-field>
+                <input matInput placeholder="Phone Number" type="number" formControlName="phoneNumber">
+                <mat-error *ngIf="checkPhoneNumber()">
+                    Phone number <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field>
+                <input matInput placeholder="Address" type="text" formControlName="address">
+                <mat-error *ngIf="checkAddress()">
+                    Address <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select placeholder="Province" formControlName="province">
+                    <mat-option *ngFor="let province of provinces" value={{province}}>{{province}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkProvince()">
+                    Province <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
-        <mat-form-field>
-            <input matInput [matDatepicker]="picker" placeholder="Choose a date of birth" formControlName="date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+            <mat-form-field>
+                <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="postalCode">
+                <mat-hint align="end">{{this.customerForm.get('postalCode').value.length}} / 5</mat-hint>
+                <mat-error *ngIf="checkPostal()">
+                    Postal code <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
 
+            <mat-form-field>
+                <input matInput placeholder="E-mail" type="email" formControlName="email" [email]="true">
+            </mat-form-field>
 
-
-        <mat-form-field>
-            <mat-select placeholder="Gender" formControlName="gender">
-                <mat-option value="male">Male</mat-option>
-                <mat-option value="female">Female</mat-option>
-                <mat-option value="other">Other</mat-option>
-            </mat-select>
-            <mat-error *ngIf="checkGender()">
-                Gender <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput placeholder="Phone Number" type="number" formControlName="phoneNumber">
-            <mat-error *ngIf="checkPhoneNumber()">
-                Phone number <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <input matInput placeholder="Address" type="text" formControlName="address">
-            <mat-error *ngIf="checkAddress()">
-                Address <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-select placeholder="Province" formControlName="province">
-                <mat-option *ngFor="let province of provinces" value={{province}}>{{province}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="checkProvince()">
-                Province <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="postalCode">
-            <mat-hint align="end">{{this.customerForm.get('postalCode').value.length}} / 5</mat-hint>
-            <mat-error *ngIf="checkPostal()">
-                Postal code <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-
-        <mat-form-field>
-            <input matInput placeholder="E-mail" type="email" formControlName="email" [email]="true">
-        </mat-form-field>
-
-        <mat-form-field>
-            <mat-select placeholder="Referral" formControlName="referral">
-                <mat-option *ngFor="let re of referral" value={{re}}>{{re}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="checkReferral()">
-                Referral <strong>required</strong>
-            </mat-error>
-        </mat-form-field>
-
-
+            <mat-form-field>
+                <mat-select placeholder="Referral" formControlName="referral">
+                    <mat-option *ngFor="let re of referral" value={{re}}>{{re}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="checkReferral()">
+                    Referral <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </p>
     </form>
     <button mat-raised-button color="accent" (click)="submit()">Submit</button>
     <div class="w3-panel w3-red" *ngIf="!this.customerForm.valid && this.showAlert">
