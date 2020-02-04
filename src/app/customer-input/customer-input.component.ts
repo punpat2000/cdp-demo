@@ -20,7 +20,7 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
 
   public customerForm: FormGroup;
   public showAlert: boolean = false;
-  public referral = ["Facebook", "Instagram", "LINE@", "Friends and family", "Other"];
+  public referral = ["Facebook", "Instagram", "LINE@", "Friends and family", "อื่น ๆ"];
   public provinces = [
     'กรุงเทพฯ',
     'กระบี่',
