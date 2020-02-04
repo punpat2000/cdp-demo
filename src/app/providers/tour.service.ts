@@ -48,9 +48,11 @@ export class TourService {
     return from(this.afs.doc(`tours/${id}`).ref.get()
       .then(data => {
         if (data.exists) {
+          this.tourServiceEventEmitter.next('tourFound');
           console.log('tour found');
           return true;
         } else {
+          this.tourServiceEventEmitter.next('tourNotFound');
           console.log('tour not found');
           return false;
         }
