@@ -67,9 +67,8 @@ export class UploadTaskService {
           console.log('receipt updated');
         }
         this.afs.collection('files').add(uploadedFile).then(()=> {
-          console.log('here');
           this.file = null;
-          console.log('file nulled');
+          console.log('file nulled after upload');
         });
       }),
     );
