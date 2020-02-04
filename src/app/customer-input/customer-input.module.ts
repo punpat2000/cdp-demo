@@ -17,7 +17,6 @@ import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [CustomerInputComponent],
   imports: [
-    //MatProgressSpinnerModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,

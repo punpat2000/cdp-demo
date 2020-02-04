@@ -1,6 +1,6 @@
 <div class="body-padding">
-  <div>
-    <form [formGroup]="orderForm">
+  <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+    <form [formGroup]="orderForm" (submit)="submit()">
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Customer ID</mat-label>
@@ -34,7 +34,7 @@
         <mat-form-field>
           <span matPrefix>฿ &nbsp;</span>
           <input matInput placeholder="Net price" type="number" formControlName="netPrice">
-      </mat-form-field>
+        </mat-form-field>
         <mat-form-field>
           <mat-label>Select referral type</mat-label>
           <mat-select disableRipple formControlName="referral">
@@ -81,8 +81,7 @@
           <mat-datepicker #picker3></mat-datepicker>
         </mat-form-field>
       </p>
-
+      <button type="submit">submit</button>
     </form>
-    <button (click)="submit()">submit</button>
   </div>
 </div>

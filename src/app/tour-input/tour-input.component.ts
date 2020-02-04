@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {Tour} from '../models/tour.model';
-import {TourService} from '../providers/tour.service';
+import { Tour } from '../models/tour.model';
+import { TourService } from '../providers/tour.service';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
+import { SnackBarService } from '../providers/snack-bar.service';
 
 @Component({
   selector: 'app-tour-input',
@@ -11,53 +12,71 @@ import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 })
 export class TourInputComponent implements OnInit, OnDestroy {
 
-
   public tourForm: FormGroup;
   public tourExists: boolean = false;
+  public showSpinner: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private tourService: TourService,
+    private sbs: SnackBarService,
   ) { }
 
   ngOnInit() {
+    this.listenForEvents();
     this.tourForm = this.formBuilder.group({
       tourId: ['', Validators.required],
       tourName: ['', Validators.required],
       price: ['', Validators.required],
     });
-    this.tourService.getAddTourEvent().pipe(takeUntilNgDestroy(this))
-    .subscribe(event=>{
-      if(event === "tourExists"){
-        this.tourExists = true;
-      }
-    });
   }
-  ngOnDestroy(){}
-  checkTourId():boolean{
+  ngOnDestroy() {
+    this.sbs.closeSnackBar();
+  }
+
+  listenForEvents() {
+    this.tourService.getAddTourEvent()
+      .pipe(takeUntilNgDestroy(this))
+      .subscribe(event => {
+        if (event === "tourExists") {
+          this.sbs.openFailSnackBar('Tour already exists!')
+        } else if (event === "addTourSuccess") {
+          this.sbs.openSuccessSnackBar(`Add tour succesfully!`)
+        } else if (event === "addTourFailed") {
+          this.sbs.openFailSnackBar('Failed to add tour.');
+        }
+        this.showSpinner = false;
+      });
+  }
+
+  checkTourId(): boolean {
     return (!this.tourForm.controls.tourId.valid
       && (this.tourForm.controls.tourId.dirty
         || this.tourForm.controls.tourId.touched));
   }
-  checkTourName():boolean{
+  checkTourName(): boolean {
     return (!this.tourForm.controls.tourName.valid
       && (this.tourForm.controls.tourName.dirty
         || this.tourForm.controls.tourName.touched));
   }
-  checkPrice():boolean{
+  checkPrice(): boolean {
     return (!this.tourForm.controls.price.valid
       && (this.tourForm.controls.price.dirty
         || this.tourForm.controls.price.touched));
   }
-  submit():void{
+  submit(): void {
+    if (!this.tourForm.valid) {
+      this.sbs.openFailSnackBar(`Invalid form. Please try again.`);
+      return;
+    }
+    this.showSpinner = true;
     if (this.tourForm.valid) {
-      const tour : Tour ={
-        tourId : this.tourForm.get('tourId').value,
-        tourName : this.tourForm.get('tourName').value,
-        price : this.tourForm.get('price').value,
+      const tour: Tour = {
+        tourId: this.tourForm.get('tourId').value,
+        tourName: this.tourForm.get('tourName').value,
+        price: this.tourForm.get('price').value,
       }
       this.tourService.addTour(tour);
-    } else {
-      console.log(`invalid tour!`);
     }
   }
 

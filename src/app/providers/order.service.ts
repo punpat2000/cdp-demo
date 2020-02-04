@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Customer } from '../models/customer.model';
-import { CustomerServiceModel } from '../models/customer-service.model';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable, from, of } from 'rxjs';
+import { Observable, from, of, Subject } from 'rxjs';
 import { Order } from '../models/order.model';
 import { take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class OrderService {
 
+  private orderServiceEventEmitter: Subject<string> = new Subject<string>();
+
   constructor(
     private afs: AngularFirestore,
   ) { }
+
+  getOrderServiceEventEmitter():Observable<string>{
+    return this.orderServiceEventEmitter.asObservable();
+  }
 
   getOrder(orderId: string): Observable<Order> {
     if (this.checkOrder(orderId)) {
@@ -26,8 +30,10 @@ export class OrderService {
     return from(this.afs.doc(`orders/${orderId}`).ref.get()
       .then(data => {
         if (data.exists) {
+          this.orderServiceEventEmitter.next('orderExists');
           return true;
         } else {
+          this.orderServiceEventEmitter.next('orderNotFound');
           console.log('order not found');
           return false;
         }
@@ -45,9 +51,11 @@ export class OrderService {
       .then(data => {
         this.afs.doc(`orders/${data.id}`).update({ orderId: data.id }).then(() => {
           console.log(`id added to order`);
-        })
+        });
+        this.orderServiceEventEmitter.next('addOrderSuccess');
         console.log('order added!');
       }).catch(err => {
+        this.orderServiceEventEmitter.next('addOrderFailed');
         console.log('error', err);
       });
   }
@@ -90,8 +98,10 @@ export class OrderService {
 
   updateOrder(orderId: string, field: any) {
     this.afs.collection('orders').doc(orderId).update(field).then(() => {
+      this.orderServiceEventEmitter.next('updateOrderSuccess');
       console.log('order updated');
     }, err => {
+      this.orderServiceEventEmitter.next('updateOrderFailed');
       console.log('error', err);
     });
   }
@@ -110,8 +120,10 @@ export class OrderService {
         this.afs.collection('orders').doc(orderId).update(
           updateField
         ).then(() => {
+          this.orderServiceEventEmitter.next('invoiceConfirmed');
           console.log("invoice confirmed");
         }, err => {
+          this.orderServiceEventEmitter.next('invoiceConfirmFailed');
           console.log("error", err);
         });
       }
@@ -125,8 +137,10 @@ export class OrderService {
       'orderStatus': 'waitingForFullPayment',
     }
     this.afs.collection('orders').doc(orderId).update(updateField).then(() => {
+      this.orderServiceEventEmitter.next('earnestConfirmed');
       console.log("Earnest receipt confirmed");
     }, err => {
+      this.orderServiceEventEmitter.next('earnestConfirmFailed');
       console.log("error", err);
     });
   }
@@ -137,8 +151,10 @@ export class OrderService {
       'orderStatus': 'orderCompleted'
     }
     this.afs.collection('orders').doc(orderId).update(updateField).then(() => {
-      console.log("invoice confirmed");
+      this.orderServiceEventEmitter.next('receiptConfirmed');
+      console.log("receipt confirmed");
     }, err => {
+      this.orderServiceEventEmitter.next('receiptConfirmFailed');
       console.log("error", err);
     });
   }
@@ -150,8 +166,10 @@ export class OrderService {
       'orderStatus': 'waitingForReceipt',
     }
     this.afs.collection('orders').doc(orderId).update(updateField).then(() => {
+      this.orderServiceEventEmitter.next('fullConfirmed');
       console.log("Full receipt confirmed");
     }, err => {
+      this.orderServiceEventEmitter.next('fullConfirmedFailed');
       console.log("error", err);
     });
   }
