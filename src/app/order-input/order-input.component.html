@@ -54,14 +54,14 @@
     </section>
     <p>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker" placeholder="Choose a full payment date"
+        <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a full payment date"
           formControlName="fullPaymentDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field *ngIf="this.orderForm.get('payEarnest').value">
-        <input matInput [matDatepicker]="picker1" placeholder="Choose an earnest payment date"
+        <input matInput [min]="minDate" [matDatepicker]="picker1" placeholder="Choose an earnest payment date"
           formControlName="earnestPaymentDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
@@ -70,13 +70,13 @@
     <p>
       <label class="example-margin">Travel period:</label>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker2" placeholder="Choose a start date" formControlName="startDate">
+        <input matInput [min]="minDate" [matDatepicker]="picker2" placeholder="Choose a start date" formControlName="startDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
       <label style="margin: 0 15px 0 0;">to</label>
       <mat-form-field>
-        <input matInput [matDatepicker]="picker3" placeholder="Choose an end date" formControlName="endDate">
+        <input matInput [min]="minDateEnd" [matDatepicker]="picker3" placeholder="Choose an end date" formControlName="endDate">
         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
       </mat-form-field>

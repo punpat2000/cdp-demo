@@ -16,6 +16,8 @@ import { SnackBarService } from '../providers/snack-bar.service';
 })
 export class CustomerInputComponent implements OnInit,OnDestroy {
 
+  public maxDate: Date;
+
   public customerForm: FormGroup;
   public showAlert: boolean = false;
   public referral = ["Facebook", "Instagram", "LINE@", "Friends and family", "Other"];
@@ -110,6 +112,7 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
     this.listenToEventEmitter();
+    this.maxDate = new Date();
     this.customerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -118,7 +121,7 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
       address: ['', Validators.required],
       postalCode: ['', Validators.required],
       province: ['', Validators.required],
-      email: [''],
+      email: ['',[Validators.email]],
       referral: ['', Validators.required],
       date: ['', Validators.required],
     });
