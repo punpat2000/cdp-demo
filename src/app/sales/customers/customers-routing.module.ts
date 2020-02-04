@@ -13,7 +13,7 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: () =>
-              import('../order-by-sales/orders-by-sales.module').then(m => m.OrdersModule)
+              import('../../order-by-sales/orders-by-sales.module').then(m => m.OrdersModule)
           }
         ]
       }

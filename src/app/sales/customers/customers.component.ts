@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CustomerService } from '../providers/customer.service';
-import { Customer } from '../models/customer.model';
+import { CustomerService } from '../../providers/customer.service';
+import { Customer } from '../../models/customer.model';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 import { Router } from '@angular/router';
-import { DataShareService } from '../providers/data-share.service';
+import { DataShareService } from '../../providers/data-share.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
 

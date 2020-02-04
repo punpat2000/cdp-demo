@@ -62,7 +62,7 @@ const routes: Routes = [
   },
   { 
     path: 'customers',
-    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule),
+    loadChildren: () => import('./sales/customers/customers.module').then(m => m.CustomersModule),
     canActivate: [AngularFireAuthGuard, AuthorizationGuard],
     data: { 
       authGuardPipe: redirectUnauthorizedToLogin,
