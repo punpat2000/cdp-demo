@@ -2,64 +2,64 @@
     <form [formGroup]="customerForm" (submit)="submit()"> 
         <p>
             <mat-form-field>
-                <input matInput placeholder="Name" type="text" formControlName="firstName">
+                <input matInput placeholder="ชื่อ" type="text" formControlName="firstName">
                 <mat-error *ngIf="checkFirstName()">
-                    First name <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> ชื่อ
                 </mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input matInput placeholder="Last Name" type="text" formControlName="lastName">
+                <input matInput placeholder="นามสกุล" type="text" formControlName="lastName">
                 <mat-error *ngIf="checkLastName()">
-                    Last name <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> นามสกุล
                 </mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field>
-                <input [max]="maxDate" matInput [matDatepicker]="picker" placeholder="Choose a date of birth" formControlName="date">
+                <input [max]="maxDate" matInput [matDatepicker]="picker" placeholder="วันเกิด" formControlName="date">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
 
             <mat-form-field>
-                <mat-select placeholder="Gender" formControlName="gender">
-                    <mat-option value="male">Male</mat-option>
-                    <mat-option value="female">Female</mat-option>
-                    <mat-option value="other">Other</mat-option>
+                <mat-select placeholder="เพศ" formControlName="gender">
+                    <mat-option value="male">ชาย</mat-option>
+                    <mat-option value="female">หญิง</mat-option>
+                    <mat-option value="other">อื่น ๆ</mat-option>
                 </mat-select>
                 <mat-error *ngIf="checkGender()">
-                    Gender <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> เพศ
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput placeholder="Phone Number" type="number" formControlName="phoneNumber">
+                <input matInput placeholder="หมายเลขโทรศัพท์" type="number" formControlName="phoneNumber">
                 <mat-error *ngIf="checkPhoneNumber()">
-                    Phone number <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> หมายเลขโทรศัพท์
                 </mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field>
-                <input matInput placeholder="Address" type="text" formControlName="address">
+                <input matInput placeholder="ที่อยู่" type="text" formControlName="address">
                 <mat-error *ngIf="checkAddress()">
-                    Address <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong>ที่อยู่
                 </mat-error>
             </mat-form-field>
             <mat-form-field>
-                <mat-select placeholder="Province" formControlName="province">
+                <mat-select placeholder="จังหวัด" formControlName="province">
                     <mat-option *ngFor="let province of provinces" value={{province}}>{{province}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="checkProvince()">
-                    Province <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> จังหวัด
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field>
-                <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="postalCode">
+                <input matInput #postalCode maxlength="5" placeholder="รหัสไปรษณีย์" formControlName="postalCode">
                 <mat-hint align="end">{{this.customerForm.get('postalCode').value.length}} / 5</mat-hint>
                 <mat-error *ngIf="checkPostal()">
-                    Postal code <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> เลข
                 </mat-error>
             </mat-form-field>
 
@@ -68,14 +68,14 @@
             </mat-form-field>
 
             <mat-form-field>
-                <mat-select placeholder="Referral" formControlName="referral">
+                <mat-select placeholder="ช่องทางการแนะนำ" formControlName="referral">
                     <mat-option *ngFor="let re of referral" value={{re}}>{{re}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="checkReferral()">
-                    Referral <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> ช่องทางการแนะนำ
                 </mat-error>
             </mat-form-field>
         </p>
-        <button mat-raised-button color="accent" type="submit">Submit</button>
+        <button mat-raised-button color="accent" type="submit">บันทึก</button>
     </form>
 </div>
