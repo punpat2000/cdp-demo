@@ -12,10 +12,10 @@
             {{customer.firstName}} {{customer.lastName}}
         </h3>
         <h3>
-            Upload Documents <button> upload</button>
+            <button mat-raised-button color="primary">Upload documents</button><br><br>
         </h3>
         <h3>
-            Orders
+            Orders           <button mat-raised-button color="primary" (click)="goToAddOrder(customer.customerId)">Add order</button>
         </h3>
         <div>
             <table *ngIf="orderArray" mat-table [dataSource]="orderArray" class="mat-elevation-z8">
@@ -49,10 +49,10 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let order">
-                        <button mat-button [matMenuTriggerFor]="beforeMenu">actions</button>
+                        <button mat-raised-button color="primary" [matMenuTriggerFor]="beforeMenu">actions</button>
                         <mat-menu #beforeMenu="matMenu" xPosition="before">
                             
-                            <button mat-menu-item (click)="updateStatus(order.customerId)">update status</button>
+                            <!-- <button mat-menu-item (click)="updateStatus(order.customerId)">update status</button> -->
                             <button mat-menu-item (click)="openPaymentDialog(order)">payment status</button>
                             <button mat-menu-item (click)="uploadDocs(order.customerId)">upload documents</button>
                         </mat-menu>

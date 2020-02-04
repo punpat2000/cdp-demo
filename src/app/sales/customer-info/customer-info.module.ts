@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -19,6 +20,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDividerModule,
     MatTableModule,
     MatMenuModule,
+    MatButtonModule,
     MatDialogModule,
     RouterModule.forChild([
       {

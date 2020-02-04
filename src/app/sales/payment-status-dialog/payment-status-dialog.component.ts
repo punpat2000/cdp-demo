@@ -5,6 +5,8 @@ import { MatStepper } from '@angular/material';
 import { OrderService } from '../../providers/order.service';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 import { UploadTaskService } from '../../providers/upload-task.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-payment-status-dialog',
@@ -16,12 +18,12 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
   public hasPaymentData: boolean;
   public hasInvoice: boolean;
   public hasReceipt: boolean;
-  public hasBankTransferReceipt:boolean;
+  public hasBankTransferReceipt: boolean;
 
   public order: Order;
   public orderState: number;
   public isEditable = false;
-  public targetFiles : FileList;
+  public targetFiles: FileList;
 
   public enableEarnestUploadProgress: boolean = false;
 
@@ -29,42 +31,43 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public orderData: any,
-    private orderService : OrderService,
-    public uploadTaskService : UploadTaskService
+    private orderService: OrderService,
+    public uploadTaskService: UploadTaskService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.initializeOrder();
   }
 
-  switchUploader(uploader:string){
-    if(uploader === "earnest"){
+  switchUploader(uploader: string) {
+    if (uploader === "earnest") {
       this.enableEarnestUploadProgress = true;
-    }else if (uploader === "full"){
+    } else if (uploader === "full") {
       this.enableEarnestUploadProgress = false;
     }
   }
 
   paymentDataCheck() {
-    if(this.order.payment.invoice){
+    if (this.order.payment.invoice) {
       this.hasInvoice = true;
     }
-    if(this.order.payment.payEarnest){
-      if(this.order.payment.bankTransferReceiptEarnest && this.order.payment.bankTransferReceiptFull) this.hasBankTransferReceipt = true;
+    if (this.order.payment.payEarnest) {
+      if (this.order.payment.bankTransferReceiptEarnest && this.order.payment.bankTransferReceiptFull) this.hasBankTransferReceipt = true;
       else {
-        if(this.order.payment.bankTransferReceiptFull) this.hasBankTransferReceipt = true;
+        if (this.order.payment.bankTransferReceiptFull) this.hasBankTransferReceipt = true;
       }
     }
-    if(this.order.payment.receipt){
+    if (this.order.payment.receipt) {
       this.hasReceipt = true;
     }
   }
 
-  detectFiles(event,documentName:string,path:string,orderId:string){
+  detectFiles(event, documentName: string, path: string, orderId: string) {
     this.targetFiles = event.target.files;
     console.log('file chosen');
     console.log(orderId);
-    if(this.targetFiles.item(0)){
+    if (this.targetFiles.item(0)) {
       this.uploadTaskService.orderId = orderId;
       this.uploadTaskService.documentName = documentName;
       this.uploadTaskService.path = path;
@@ -91,14 +94,14 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
       this.orderState = -1;
     }
   }
-  initializeOrder(){
+  initializeOrder() {
     this.orderService.getOrder(this.orderData.order.orderId)
-    .pipe(takeUntilNgDestroy(this))
-    .subscribe(order=>{
-      this.order = order;
-      this.setOrderState();
-      this.paymentDataCheck();
-    });
+      .pipe(takeUntilNgDestroy(this))
+      .subscribe(order => {
+        this.order = order;
+        this.setOrderState();
+        this.paymentDataCheck();
+      });
   }
   paymentProgress(numberToCheck: number): string {
     if (numberToCheck === 0) {
@@ -142,13 +145,19 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
     console.log('move');
   }
 
-  confirmInvoice(orderId:string){
-    this.orderService.confirmInvoice(orderId);
-  }
-  confirmReceipt(orderId:string){
+  confirmReceipt(orderId: string) {
     this.orderService.confirmReceipt(orderId);
   }
 
-  ngOnDestroy(){}
+  openConfirmationDialog(documentName:string) {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        documentName: documentName,
+        orderId: this.order.orderId
+      }
+    });
+  }
+
+  ngOnDestroy() { }
 
 }
