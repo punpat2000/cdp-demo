@@ -55,7 +55,7 @@
             <ng-container matColumnDef="actions">
                 <th mat-header-cell *matHeaderCellDef></th>
                 <td mat-cell *matCellDef="let customer">
-                    <button color="primary" mat-flat-button [matMenuTriggerFor]="beforeMenu">menu</button>
+                    <button color="primary" mat-flat-button [matMenuTriggerFor]="beforeMenu">เมนู</button>
                     <mat-menu #beforeMenu="matMenu" xPosition="before">
                         <button mat-menu-item (click)="goToCustomer(customer.customerId)">ดูข้อมูล</button>
                         <!-- <button mat-menu-item (click)="viewOrders(customer.customerId)">view orders</button> -->
