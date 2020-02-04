@@ -23,6 +23,8 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
   public isEditable = false;
   public targetFiles : FileList;
 
+  public enableEarnestUploadProgress: boolean = false;
+
   @ViewChild('stepper', { static: false }) stepper: MatStepper;
 
   constructor(
@@ -33,6 +35,14 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initializeOrder();
+  }
+
+  switchUploader(uploader:string){
+    if(uploader === "earnest"){
+      this.enableEarnestUploadProgress = true;
+    }else if (uploader === "full"){
+      this.enableEarnestUploadProgress = false;
+    }
   }
 
   paymentDataCheck() {

@@ -52,10 +52,37 @@ export class OrderService {
       });
   }
 
-  queryOrderAccountant(orderStatus: string): Observable<Order[]> {
-    const ordersCollection = this.afs.collection<Order>('orders', ref => ref.where('orderStatus', '==', orderStatus));
+  queryOrderInvoice(): Observable<Order[]> {
+    const ordersCollection = this.afs.collection<Order>('orders', ref => ref
+      .where('orderStatus', '==', 'waitingForInvoice')
+    );
     return ordersCollection.valueChanges();
   }
+
+  queryOrderFullBankTransfer(): Observable<Order[]> {
+    const ordersCollection = this.afs.collection<Order>('orders', ref => ref
+      .where('orderStatus', '==', 'waitingForFullPayment')
+      .where('payment.bankTransferReceiptFullConfirmed', '==', false)
+    );
+    return ordersCollection.valueChanges();
+  }
+
+  queryOrderEarnestBankTransfer(): Observable<Order[]> {
+    const ordersCollection = this.afs.collection<Order>('orders', ref => ref
+      .where('orderStatus', '==', 'waitingForEarnestPayment')
+      .where('payment.bankTransferReceiptEarnestConfirmed', '==', false)
+    );
+    return ordersCollection.valueChanges();
+  }
+
+  queryOrderReceipt(): Observable<Order[]> {
+    const ordersCollection = this.afs.collection<Order>('orders', ref => ref
+      .where('orderStatus', '==', 'waitingForReceipt')
+    );
+    return ordersCollection.valueChanges();
+  }
+
+
 
   loadAllOrders(): Observable<Order[]> {
     return this.afs.collection<Order>(`orders`).valueChanges();
@@ -91,6 +118,19 @@ export class OrderService {
     });
   }
 
+  confirmEarnestReceipt(orderId: string) {
+    const updateField = {
+      'payment.bankTransferReceiptEarnestConfirmed': true,
+      'payment.paidEarnest': true,
+      'orderStatus': 'waitingForFullPayment',
+    }
+    this.afs.collection('orders').doc(orderId).update(updateField).then(() => {
+      console.log("Earnest receipt confirmed");
+    }, err => {
+      console.log("error", err);
+    });
+  }
+
   confirmReceipt(orderId: string) {
     const updateField = {
       'payment.receiptConfirmed': true,
@@ -98,6 +138,19 @@ export class OrderService {
     }
     this.afs.collection('orders').doc(orderId).update(updateField).then(() => {
       console.log("invoice confirmed");
+    }, err => {
+      console.log("error", err);
+    });
+  }
+
+  confirmFullReceipt(orderId:string){
+    const updateField = {
+      'payment.bankTransferReceiptFullConfirmed': true,
+      'payment.paidFull': true,
+      'orderStatus': 'waitingForReceipt',
+    }
+    this.afs.collection('orders').doc(orderId).update(updateField).then(() => {
+      console.log("Full receipt confirmed");
     }, err => {
       console.log("error", err);
     });
