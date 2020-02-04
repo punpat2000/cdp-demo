@@ -13,6 +13,5 @@ export interface Customer {
     email: string,
     referral: string,
     salesId: string,
-    order: Array<string>,
     recordedDate: Date,
 }

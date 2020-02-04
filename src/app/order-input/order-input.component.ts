@@ -34,6 +34,8 @@ export class OrderInputComponent implements OnInit, OnDestroy {
   public showSpinner: boolean = false;
   public loadFailed: boolean = false;
   public tourNotFound: boolean = false;
+  public minDateEnd:Date;
+  public minDate: Date;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,7 +50,8 @@ export class OrderInputComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.listenToEventEmitter();
+    this.minDate = new Date();
+    this.minDateEnd = new Date();
     this.authService.getUserData().pipe(take(1)).subscribe(data => {
       this.sales = data;
     })
@@ -69,15 +72,17 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     this.orderForm = this.formBuilder.group({
       tourId: ['', Validators.required],
       referral: ['', Validators.required],
-      personCount: ['', Validators.required],
+      personCount: ['', Validators.required,],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       payEarnest: ['', Validators.required],
       fullPaymentDate: ['', Validators.required],
       earnestPaymentDate: ['',],
       netPrice: ['', Validators.required]
-    })
+    });
+    this.listenToEventEmitter();
   }
+
   listenToEventEmitter(){
     this.orderService.getOrderServiceEventEmitter().pipe(takeUntilNgDestroy(this))
     .subscribe(event => {
@@ -105,6 +110,12 @@ export class OrderInputComponent implements OnInit, OnDestroy {
         this.sbs.openFailSnackBar('Tour does not exist!');
       }
     });
+    this.orderForm.get('startDate').valueChanges
+    .subscribe(date => {
+      if(date){
+        this.minDateEnd = date;
+      }
+    })
   }
 
   ngOnDestroy() {
@@ -139,11 +150,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     const endDate = this.orderForm.get('endDate').value;
     const payEarnest = this.orderForm.get('payEarnest').value;
     const fullPaymentDate = this.orderForm.get('fullPaymentDate').value;
-
     const earnestPaymentDate = payEarnest ? this.orderForm.get('earnestPaymentDate').value : null;
-    //console.log({tourId,salesId,referral,orderDate,personCount,netPrice,startDate,endDate,payEarnest,fullPaymentDate,earnestPaymentDate});
-    //console.log(this.orderForm.valid);
-    
 
     let tourIdInput: string;
     if (this.orderForm.get('tourId').value === "") {
