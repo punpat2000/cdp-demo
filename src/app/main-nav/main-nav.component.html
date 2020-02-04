@@ -7,7 +7,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary">Menu</mat-toolbar>
-    <mat-nav-list *ngIf="isloggedIn">
+    <mat-nav-list *ngIf="isloggedIn && role">
       <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')">Home</a>
       <a mat-list-item *ngIf="role.editor || role.admin" (click)="goTo('/orders')">Order List</a>
       <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">Customer List</a>

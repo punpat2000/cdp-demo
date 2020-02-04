@@ -3,12 +3,12 @@
   <form [formGroup]="orderForm" (submit)="submit()">
     <p>
       <mat-form-field appearance="outline">
-        <mat-label>Customer ID</mat-label>
+        <mat-label>ID ลูกค้า</mat-label>
         <input matInput disabled value="{{customerId}}">
         <mat-hint></mat-hint>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Sales</mat-label>
+        <mat-label>เซล</mat-label>
         <input matInput disabled value="{{salesName}}">
         <mat-hint></mat-hint>
       </mat-form-field>
@@ -18,12 +18,12 @@
         <mat-label>Tour ID</mat-label>
         <input matInput formControlName="tourId">
         <mat-error *ngIf="tourValid">
-          Invalid tour ID! Please try again.
+          tour ID ไม่ถูกต้องโปรดลองใหม่อีกครั้ง
         </mat-error>
         <mat-hint></mat-hint>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Person Count</mat-label>
+        <mat-label>จำนวนคน</mat-label>
         <input matInput disabled formControlName="personCount" type="number">
         <span matSuffix>คน</span>
         <mat-hint></mat-hint>
@@ -33,55 +33,55 @@
     <p>
       <mat-form-field>
         <span matPrefix>฿ &nbsp;</span>
-        <input matInput placeholder="Net price" type="number" formControlName="netPrice">
+        <input matInput placeholder="ราคาสุทธิ" type="number" formControlName="netPrice">
       </mat-form-field>
       <mat-form-field>
-        <mat-label>Select referral type</mat-label>
+        <mat-label>ช่องทางการแนะนำ</mat-label>
         <mat-select disableRipple formControlName="referral">
           <mat-option value="facebook">Facebook</mat-option>
           <mat-option value="line">LINE@</mat-option>
           <mat-option value="instagram">Instagram</mat-option>
-          <mat-option value="friends">Friends & Family</mat-option>
+          <mat-option value="friends">คนรู้จัก</mat-option>
         </mat-select>
       </mat-form-field>
     </p>
     <section class="example-section">
-      <label class="example-margin">Payment:</label>
+      <label class="example-margin">การชำระเงิน</label>
       <mat-radio-group formControlName="payEarnest">
-        <mat-radio-button class="example-margin" [value]="false">Full Payment</mat-radio-button>
-        <mat-radio-button class="example-margin" [value]="true">Pay Earnet</mat-radio-button>
+        <mat-radio-button class="example-margin" [value]="false">ชำระแบบเต็มจำนวน</mat-radio-button>
+        <mat-radio-button class="example-margin" [value]="true">ชำระแบบมัดจำ</mat-radio-button>
       </mat-radio-group>
     </section>
     <p>
       <mat-form-field>
-        <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Choose a full payment date"
+        <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="เลือกวันชำระเต็มจำนวน"
           formControlName="fullPaymentDate">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
       <mat-form-field *ngIf="this.orderForm.get('payEarnest').value">
-        <input matInput [min]="minDate" [matDatepicker]="picker1" placeholder="Choose an earnest payment date"
+        <input matInput [min]="minDate" [matDatepicker]="picker1" placeholder="เลือกวันชำระค่ามัดจำ"
           formControlName="earnestPaymentDate">
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
       </mat-form-field>
     </p>
     <p>
-      <label class="example-margin">Travel period:</label>
+      <label class="example-margin">พีเรียดการเดินทาง</label>
       <mat-form-field>
-        <input matInput [min]="minDate" [matDatepicker]="picker2" placeholder="Choose a start date" formControlName="startDate">
+        <input matInput [min]="minDate" [matDatepicker]="picker2" placeholder="เลือกวันเริ่มเดินทาง" formControlName="startDate">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
       </mat-form-field>
-      <label style="margin: 0 15px 0 0;">to</label>
+      <label style="margin: 0 15px 0 0;">ถึง</label>
       <mat-form-field>
-        <input matInput [min]="minDateEnd" [matDatepicker]="picker3" placeholder="Choose an end date" formControlName="endDate">
+        <input matInput [min]="minDateEnd" [matDatepicker]="picker3" placeholder="เลือกวันสิ้นสุดการเดินทาง" formControlName="endDate">
         <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
         <mat-datepicker #picker3></mat-datepicker>
       </mat-form-field>
     </p>
-    <button type="submit" mat-raised-button color="accent">submit</button>
+    <button type="submit" mat-raised-button color="accent">บันทึก</button>
   </form>
 
 </div>
