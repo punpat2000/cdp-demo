@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Customer } from '../models/customer.model'
 import { CustomerService } from '../providers/customer.service';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -117,9 +117,12 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, this.numericValidator(/[a-z]/i)]],
       address: ['', Validators.required],
-      postalCode: ['', Validators.required],
+      postalCode: ['', [Validators.required,
+        this.numericValidator(/[a-z]/i),
+        Validators.minLength(5),
+        Validators.minLength(5)]],
       province: ['', Validators.required],
       email: ['',[Validators.email]],
       referral: ['', Validators.required],
@@ -129,6 +132,13 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(){
     this.sbs.closeSnackBar();
+  }
+
+  numericValidator(alpha: RegExp): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const forbidden = alpha.test(control.value);
+      return forbidden ? {'forbiddenPostalCode': {value: control.value}} : null;
+    };
   }
 
   listenToEventEmitter(){

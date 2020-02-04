@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { OrderService } from '../providers/order.service';
 import { CustomerService } from '../providers/customer.service';
 import { Order, Payment, TravelPeriod } from '../models/order.model';
@@ -117,7 +117,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
       }
     })
   }
-
+  
   ngOnDestroy() {
     this.sbs.closeSnackBar();
   }
