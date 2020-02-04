@@ -11,7 +11,7 @@
         </div>
     </div>
     <div>
-        <table *ngIf="customerArray" mat-table [dataSource]="customerArray" class="mat-elevation-z8">
+        <table mat-table [dataSource]="customerArray" class="mat-elevation-z8">
             <ng-container matColumnDef="customerId">
                 <th mat-header-cell *matHeaderCellDef> Customer ID </th>
                 <td mat-cell *matCellDef="let customer"> {{customer.customerId}} </td>

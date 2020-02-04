@@ -8,6 +8,7 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { Observable } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material';
+import * as moment from 'moment';
 
 
 @Component({
@@ -42,14 +43,15 @@ export class OrderByAccountantComponent implements OnInit, OnDestroy {
 
   constructor(
     private orderService: OrderService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
     this.loadData();
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() { 
+  }
 
   loadData() {
     this.orderService.queryOrderInvoice()
@@ -82,5 +84,9 @@ export class OrderByAccountantComponent implements OnInit, OnDestroy {
         orderId: orderId
       }
     });
+  }
+
+  getStringDate(dateObj:Date):string{
+    return moment(dateObj).format('DD/MM/YYYY');
   }
 }

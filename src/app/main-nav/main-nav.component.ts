@@ -5,6 +5,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
+import { AuthService } from '../providers/auth.service';
+import { UserRoles } from '../models/user.model';
 
 @Component({
   selector: 'app-main-nav',
@@ -14,6 +16,7 @@ import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 export class MainNavComponent implements OnDestroy {
 
   public isloggedIn:boolean = false;
+  public role:UserRoles;
   
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -25,6 +28,7 @@ export class MainNavComponent implements OnDestroy {
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     private afAuth: AngularFireAuth,
+    private authService: AuthService
     ) {
       this.afAuth.authState.pipe(takeUntilNgDestroy(this))
       .subscribe(data=>{
@@ -32,6 +36,9 @@ export class MainNavComponent implements OnDestroy {
           this.isloggedIn = true;
         }else this.isloggedIn = false;
         console.log(this.isloggedIn);
+      });
+      this.authService.getUserData().pipe(takeUntilNgDestroy(this)).subscribe(user=>{
+        this.role = user.role;
       })
     }
 
