@@ -38,7 +38,21 @@ export class OrdersComponent implements OnInit {
   ) {
     this.loadData();
   }
-
+  statusThai(s:string):string{
+    if(s==='waitingForInvoice'){
+      return 'รออินวอยซ์';
+    } else if ('waitingForEarnestPayment'){
+      return 'รอค่ามัดจำ';
+    } else if ('waitingForFullPayment'){
+      return  'รอการชำระเต็มจำนวน';
+    } else if ('waitingForReceipt'){
+      return 'รอใบเสร็จ';
+    } else if ('orderCompleted'){
+      return 'ออเดอร์สมบูรณ์';
+    } else {
+      return null;
+    }
+  }
   loadData(){
     this.showSpinner = true;
     this.orderService.loadAllOrders()
