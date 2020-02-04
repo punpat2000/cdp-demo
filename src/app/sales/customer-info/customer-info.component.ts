@@ -69,4 +69,9 @@ export class CustomerInfoComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  goToAddOrder(customerId:string){
+    this.dataShare.changeCustomerId(customerId);
+    this.router.navigate(['customers/order-input']);
+  }
 }

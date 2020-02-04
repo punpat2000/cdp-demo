@@ -6,6 +6,9 @@ import { Order } from 'src/app/models/order.model';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 import { Observable } from 'rxjs';
+import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
+import { MatDialog } from '@angular/material';
+
 
 @Component({
   selector: 'app-order-by-accountant',
@@ -38,7 +41,8 @@ export class OrderByAccountantComponent implements OnInit, OnDestroy {
   path: string = "orders/";
 
   constructor(
-    private orderService: OrderService
+    private orderService: OrderService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -71,11 +75,12 @@ export class OrderByAccountantComponent implements OnInit, OnDestroy {
       });
   }
 
-  confirmEarnestReceipt(orderId:string){
-    this.orderService.confirmEarnestReceipt(orderId);
-  }
-
-  confirmFullReceipt(orderId:string){
-    this.orderService.confirmFullReceipt(orderId);
+  openConfirmationDialog(documentName:string,orderId:string) {
+    this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        documentName: documentName,
+        orderId: orderId
+      }
+    });
   }
 }

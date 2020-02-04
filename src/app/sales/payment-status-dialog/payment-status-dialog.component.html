@@ -13,7 +13,7 @@
           Invoice uploaded<br>
           <a href="{{order.payment.invoice.downloadURL}}" target="_blank">download</a><br><br>
           <span *ngIf="!order.payment.invoiceConfirmed">
-            <button mat-raised-button (click)="confirmInvoice(order.orderId)">Confirm Invoice</button>
+            <button mat-raised-button (click)="openConfirmationDialog('invoice')">Confirm Invoice</button>
           </span>
         </span>
         <span *ngIf="!order.payment.invoice">
@@ -90,8 +90,12 @@
           <span *ngIf="order.payment.bankTransferReceiptFull">
             Full bank transfer receipt uploaded: <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}"
               target="_blank">download</a> <br>
-            <button mat-raised-button color="primary"
+            <button mat-raised-button color="primary" *ngIf="!order.payment.bankTransferReceiptFullConfirmed"
               (click)="fileInput2.click();switchUploader('full');">re-upload</button>
+            <span *ngIf="order.payment.bankTransferReceiptFullConfirmed">
+              <br>
+              <h4>FULL CONFIRMED</h4>
+            </span>
           </span>
 
           <span *ngIf="!order.payment.bankTransferReceiptFull">
@@ -148,7 +152,7 @@
           Receipt uploaded<br>
           <a href="{{order.payment.receipt.downloadURL}}" target="_blank">download</a><br><br>
           <span *ngIf="!order.payment.receiptConfirmed">
-            <button mat-raised-button (click)="confirmReceipt(order.orderId)">Confirm Receipt</button>
+            <button mat-raised-button (click)="openConfirmationDialog('receipt')">Confirm Receipt</button>
           </span>
         </span>
         <span *ngIf="!order.payment.receipt">
