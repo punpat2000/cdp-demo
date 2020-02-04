@@ -88,15 +88,6 @@ const routes: Routes = [
      }
   },
   { 
-    path: 'customers/orders',
-    loadChildren: () => import('./order-by-sales/orders-by-sales.module').then(m => m.OrdersModule),
-    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
-    data: { 
-      authGuardPipe: redirectUnauthorizedToLogin,
-      allowedRoles: ['editor','admin','sales']
-     }
-  },
-  { 
     path: 'tour-input',
     loadChildren: () => import('./tour-input/tour-input.module').then(m => m.TourInputModule),
     canActivate: [AngularFireAuthGuard, AuthorizationGuard],

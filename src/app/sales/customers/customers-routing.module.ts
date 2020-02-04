@@ -5,19 +5,7 @@ import { CustomersComponent } from './customers.component';
 const routes: Routes = [
   {
     path: 'customers',
-    component: CustomersComponent,
-    children: [
-      {
-        path: 'orders',
-        children: [
-          {
-            path: '',
-            loadChildren: () =>
-              import('../../order-by-sales/orders-by-sales.module').then(m => m.OrdersModule)
-          }
-        ]
-      }
-    ]
+    component: CustomersComponent
   },
   {
     path: '',
