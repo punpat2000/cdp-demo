@@ -1,5 +1,5 @@
 <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Invoice">
+    <mat-tab label="อัพโหลด Invoice">
         <div class="body-padding" *ngIf="ordersWaitingInvoice">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingInvoice">
@@ -8,30 +8,30 @@
                             {{order.orderId}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            <strong *ngIf="this.order.payment.payEarnest">Pay Earnest</strong>
-                            <strong *ngIf="!this.order.payment.payEarnest">Pay Full</strong>
+                            <strong *ngIf="this.order.payment.payEarnest">ชำระแบบมัดจำ</strong>
+                            <strong *ngIf="!this.order.payment.payEarnest">ชำระแบบเต็มจำนวน</strong>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>
-                        <strong>customer name:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
-                        <strong>phone number:</strong> {{order.customer.phoneNumber}}<br><br>
-                        <strong>tour name:</strong> {{order.tour.tourId}}<br><br>
+                        <strong>ชื่อลูกค้า:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
+                        <strong>เบอร์โทรศัพท์:</strong> {{order.customer.phoneNumber}}<br><br>
+                        <strong>ชื่อทัวร์:</strong> {{order.tour.tourId}}<br><br>
                         <strong>tour ID:</strong> {{order.tour.tourName}} <br><br>
-                        <strong>travel period:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
-                        <strong>person count:</strong> {{order.personCount}} <br><br>
-                        <strong>net price:</strong> ฿ {{order.netPrice}} <br><br>                        
-                        <span *ngIf="this.order.payment.payEarnest"> <strong>Earnest payment date:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
-                        <strong>Full payment date:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
+                        <strong>พีเรียดการเดินทาง:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
+                        <strong>จำนวนคน:</strong> {{order.personCount}} <br><br>
+                        <strong>ราคาสุทธิ:</strong> ฿ {{order.netPrice}} <br><br>                        
+                        <span *ngIf="this.order.payment.payEarnest"> <strong>วันชำระค่ามัดจำ:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
+                        <strong>วันชำระเต็มจำนวน:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
                     </p>
                     <span *ngIf="order.payment.invoice">
-                        <p>
-                            current invoice file : <a href="{{order.payment.invoice.downloadURL}}"
-                                target="_blank">download</a>
-                        </p>
-                        <h4>Reupload invoice</h4><br>
+                        <h5>
+                            ไฟล์ invoice ที่อัพโหลดแล้ว : <a href="{{order.payment.invoice.downloadURL}}"
+                                target="_blank"><strong>ดาวน์โหลด</strong></a>
+                        </h5><br>
+                        <h4>อัพโหลด invoice ใหม่</h4><br>
                     </span>
                     <span *ngIf="!order.payment.invoice">
-                        <h4>Upload Invoice</h4>
+                        <h4>อัพโหลด Invoice</h4>
                     </span>
                     <uploader [orderId]="order.orderId" [documentName]="'invoice'"
                         [path]="path + order.orderId + '/invoice'"></uploader>
@@ -39,7 +39,7 @@
             </mat-accordion>
         </div>
     </mat-tab>
-    <mat-tab label="Earnest Bank Transfer Confirmation">
+    <mat-tab label="ตรวจสอบการชำระมัดจำ">
         <div class="body-padding" *ngIf="ordersWaitingEarnestBankTransferConfirmation">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingEarnestBankTransferConfirmation">
@@ -48,33 +48,33 @@
                             {{order.orderId}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            <strong *ngIf="this.order.payment.payEarnest">Pay Earnest</strong>
-                            <strong *ngIf="!this.order.payment.payEarnest">Pay Full</strong>
+                            <strong *ngIf="this.order.payment.payEarnest">ชำระแบบมัดจำ</strong>
+                            <strong *ngIf="!this.order.payment.payEarnest">ชำระแบบเต็มจำนวน</strong>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>
-                        <strong>customer name:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
-                        <strong>phone number:</strong> {{order.customer.phoneNumber}}<br><br>
-                        <strong>tour name:</strong> {{order.tour.tourId}}<br><br>
+                        <strong>ชื่อลูกค้า:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
+                        <strong>เบอร์โทรศัพท์:</strong> {{order.customer.phoneNumber}}<br><br>
+                        <strong>ชื่อทัวร์:</strong> {{order.tour.tourId}}<br><br>
                         <strong>tour ID:</strong> {{order.tour.tourName}} <br><br>
-                        <strong>travel period:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
-                        <strong>person count:</strong> {{order.personCount}} <br><br>
-                        <strong>net price:</strong> ฿ {{order.netPrice}} <br><br>                        
-                        <span *ngIf="this.order.payment.payEarnest"> <strong>Earnest payment date:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
-                        <strong>Full payment date:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
+                        <strong>พีเรียดการเดินทาง:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
+                        <strong>จำนวนคน:</strong> {{order.personCount}} <br><br>
+                        <strong>ราคาสุทธิ:</strong> ฿ {{order.netPrice}} <br><br>                        
+                        <span *ngIf="this.order.payment.payEarnest"> <strong>วันชำระค่ามัดจำ:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
+                        <strong>วันชำระเต็มจำนวน:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
                     </p>
-                    <h4>Confirm bank transfer</h4>
-                    <span>Earnest bank transfer file : <a
+                    <h4>ยืนยันการชำระเงิน</h4>
+                    <span><h5>ใบเสร็จการชำระค่ามัดจำ: <a
                             href="{{order.payment.bankTransferReceiptEarnest.downloadURL}}"
-                            target="_blank">download</a></span><br><br>
+                            target="_blank">ดาวน์โหลด</a></h5></span><br><br>
                     <!-- <button mat-raised-button color="accent" (click)=(confirmEarnestReceipt(order.orderId))>confirm
                         transaction</button> -->
-                        <button mat-raised-button (click)="openConfirmationDialog('earnest payment receipt',order.orderId)">Confirm Transaction</button>
+                        <button mat-raised-button (click)="openConfirmationDialog('earnest payment receipt',order.orderId)">ยืนยันการชำระเงินค่ามัดจำ</button>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-tab>
-    <mat-tab label="Full Bank Transfer Confirmation">
+    <mat-tab label="ตรวจสอบการชำระเต็มจำนวน หรือ ส่วนที่เหลือจากการมัดจำ">
         <div class="body-padding" *ngIf="ordersWaitingFullBankTransferConfirmation">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingFullBankTransferConfirmation">
@@ -83,39 +83,39 @@
                             {{order.orderId}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            <strong *ngIf="this.order.payment.payEarnest">Pay Earnest</strong>
-                            <strong *ngIf="!this.order.payment.payEarnest">Pay Full</strong>
+                            <strong *ngIf="this.order.payment.payEarnest">ชำระแบบมัดจำ</strong>
+                            <strong *ngIf="!this.order.payment.payEarnest">ชำระแบบเต็มจำนวน</strong>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>
-                        <strong>customer name:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
-                        <strong>phone number:</strong> {{order.customer.phoneNumber}}<br><br>
-                        <strong>tour name:</strong> {{order.tour.tourId}}<br><br>
+                        <strong>ชื่อลูกค้า:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
+                        <strong>เบอร์โทรศัพท์:</strong> {{order.customer.phoneNumber}}<br><br>
+                        <strong>ชื่อทัวร์:</strong> {{order.tour.tourId}}<br><br>
                         <strong>tour ID:</strong> {{order.tour.tourName}} <br><br>
-                        <strong>travel period:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
-                        <strong>person count:</strong> {{order.personCount}} <br><br>
-                        <strong>net price:</strong> ฿ {{order.netPrice}} <br><br>                        
-                        <span *ngIf="this.order.payment.payEarnest"> <strong>Earnest payment date:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
-                        <strong>Full payment date:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
+                        <strong>พีเรียดการเดินทาง:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
+                        <strong>จำนวนคน:</strong> {{order.personCount}} <br><br>
+                        <strong>ราคาสุทธิ:</strong> ฿ {{order.netPrice}} <br><br>                        
+                        <span *ngIf="this.order.payment.payEarnest"> <strong>วันชำระค่ามัดจำ:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
+                        <strong>วันชำระเต็มจำนวน:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
                     </p>
                     <span *ngIf="order.payment.bankTransferReceiptFull">
-                        <h4>Confirm bank transfer</h4><br>
-                        <span>Full bank transfer file : <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}"
-                                target="_blank">download</a></span><br><br>
+                        <h4>ยืนยันการชำระเงิน</h4><br>
+                        <span><h5>ใบเสร็จการชำระเงินแบบเต็มจำนวน : <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}"
+                                target= "_blank">download</a></h5></span><br><br>
                         <!-- <button mat-raised-button color="accent" (click)=(confirmFullReceipt(order.orderId))>confirm
                             transaction</button> -->
-                            <button mat-raised-button (click)="openConfirmationDialog('full payment receipt',order.orderId)">Confirm Transaction</button>
+                            <button mat-raised-button (click)="openConfirmationDialog('full payment receipt',order.orderId)">ยืนยันการชำระเงินเต็มจำนวน</button>
                     </span>
                     <span *ngIf="!order.payment.bankTransferReceiptFull">
                         <h3>
-                            waiting for full transfer receipt from sales.
+                            รอใบเสร็จการชำระเงินจากเซล
                         </h3>
                     </span>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-tab>
-    <mat-tab label="Receipt">
+    <mat-tab label="อัพโหลดใบเสร็จ">
         <div class="body-padding" *ngIf="ordersWaitingReceipt">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingReceipt">
@@ -124,30 +124,30 @@
                             {{order.orderId}}
                         </mat-panel-title>
                         <mat-panel-description>
-                            <strong *ngIf="this.order.payment.payEarnest">Pay Earnest</strong>
-                            <strong *ngIf="!this.order.payment.payEarnest">Pay Full</strong>
+                            <strong *ngIf="this.order.payment.payEarnest">ชำระแบบมัดจำ</strong>
+                            <strong *ngIf="!this.order.payment.payEarnest">ชำระแบบเต็มจำนวน</strong>
                         </mat-panel-description>
                     </mat-expansion-panel-header>
                     <p>
-                        <strong>customer name:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
-                        <strong>phone number:</strong> {{order.customer.phoneNumber}}<br><br>
-                        <strong>tour name:</strong> {{order.tour.tourId}}<br><br>
+                        <strong>ชื่อลูกค้า:</strong> {{order.customer.firstName}}  {{order.customer.lastName}}<br><br>
+                        <strong>เบอร์โทรศัพท์:</strong> {{order.customer.phoneNumber}}<br><br>
+                        <strong>ชื่อทัวร์:</strong> {{order.tour.tourId}}<br><br>
                         <strong>tour ID:</strong> {{order.tour.tourName}} <br><br>
-                        <strong>travel period:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
-                        <strong>person count:</strong> {{order.personCount}} <br><br>
-                        <strong>net price:</strong> ฿ {{order.netPrice}} <br><br>                        
-                        <span *ngIf="this.order.payment.payEarnest"> <strong>Earnest payment date:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
-                        <strong>Full payment date:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
+                        <strong>พีเรียดการเดินทาง:</strong> from {{getStringDate(order.startDate)}} to {{getStringDate(order.endDate)}}<br><br>
+                        <strong>จำนวนคน:</strong> {{order.personCount}} <br><br>
+                        <strong>ราคาสุทธิ:</strong> ฿ {{order.netPrice}} <br><br>                        
+                        <span *ngIf="this.order.payment.payEarnest"> <strong>วันชำระค่ามัดจำ:</strong>  {{ order.payment.earnestPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br></span>
+                        <strong>วันชำระเต็มจำนวน:</strong> {{ order.payment.fullPaymentDate.toDate()  | date:"dd/MM/yyyy" }} <br><br>
                     </p>
-                    <span *ngIf="order.payment.receipt">
+                    <span *ngIf="order.payment.receipt"><h5>
                         <p>
-                            current receipt file : <a href="{{order.payment.receipt.downloadURL}}"
-                                target="_blank">download</a>
-                        </p>
-                        <h4>Reupload receipt</h4><br>
+                            ไฟล์ใบเสร็จ : <a href="{{order.payment.receipt.downloadURL}}"
+                                target="_blank">ดาวน์โหลด</a>
+                        </p></h5>
+                        <h4>อัพโหลดใบเสร็จใหม่อีกครั้ง</h4><br>
                     </span>
                     <span *ngIf="!order.payment.receipt">
-                        <h4>Upload Receipt</h4>
+                        <h4>อัพโหลดใบเสร็จ</h4>
                     </span>
                     <uploader [orderId]="order.orderId" [documentName]="'receipt'"
                         [path]="path + order.orderId + '/receipt'"></uploader>

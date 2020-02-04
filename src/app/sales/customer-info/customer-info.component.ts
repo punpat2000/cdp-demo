@@ -8,6 +8,7 @@ import { Order } from '../../models/order.model';
 import { OrderService } from '../../providers/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentStatusDialogComponent } from '../payment-status-dialog/payment-status-dialog.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer-info',
@@ -19,7 +20,7 @@ export class CustomerInfoComponent implements OnInit, OnDestroy {
   public customer: Customer;
   public orderArray: Array<Order>;
 
-  public displayedColumns: string[] = ['orderId', 'tourId', 'salesId', 'referral', 'status', 'actions'];
+  public displayedColumns: string[] = ['orderId', 'tourId', 'referral', 'status', 'actions'];
   public showSpinner: boolean = false;
   public loadFailed: boolean = false;
 
@@ -73,5 +74,9 @@ export class CustomerInfoComponent implements OnInit, OnDestroy {
   goToAddOrder(customerId:string){
     this.dataShare.changeCustomerId(customerId);
     this.router.navigate(['customers/order-input']);
+  }
+
+  dateToString(dateObj:Date):string{
+    return moment(dateObj).format('DD/MM/YYYY');
   }
 }
