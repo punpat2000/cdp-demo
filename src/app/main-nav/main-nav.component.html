@@ -9,12 +9,19 @@
     <mat-toolbar color="primary" >เมนู</mat-toolbar>
     <mat-nav-list *ngIf="isloggedIn && role">
       <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')" >หน้าหลัก</a>
+      <mat-divider></mat-divider>
       <a mat-list-item *ngIf="role.editor || role.admin" (click)="goTo('/orders')">ออเดอร์ทั้งหมด</a>
-      <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">ลูกค้าของฉัน</a>
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/customer-input')">เพิ่มลูกค้า</a>
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/tour-input')">เพิ่มทัวร์</a>
-      <a mat-list-item (click)="goTo('/landing-page')">แก้ไขโปรไฟล์</a>
+      <mat-divider></mat-divider>
       <a mat-list-item *ngIf="role.accountant || role.admin" (click)="goTo('/accountant/orders')">ตรวจสอบการชำระเงิน</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">ลูกค้าของฉัน</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/customer-input')">เพิ่มลูกค้า</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/tour-input')">เพิ่มทัวร์</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item (click)="goTo('/landing-page')">แก้ไขโปรไฟล์</a>
+      <mat-divider></mat-divider>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

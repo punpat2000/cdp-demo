@@ -27,9 +27,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { PaymentStatusDialogComponent } from './sales/payment-status-dialog/payment-status-dialog.component';
 import { MatInputModule } from '@angular/material';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -50,7 +51,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     PaymentStatusDialogComponent,
     ConfirmationDialogComponent,
   ],
-  entryComponents: [PaymentStatusDialogComponent,ConfirmationDialogComponent],
+  entryComponents: [PaymentStatusDialogComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,6 +61,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     FirebaseUIModule.forRoot(firebaseUiAuthConfig),
     AngularFireAuthModule,
     BrowserAnimationsModule,
+    MatDividerModule,
     LayoutModule,
     FormsModule,
     ReactiveFormsModule,
