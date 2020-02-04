@@ -145,9 +145,9 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
     this.customerService.getCustomerServiceEventEmitter().pipe(takeUntilNgDestroy(this))
     .subscribe(event => {
       if(event==='addCustomerSuccess'){
-        this.sbs.openSuccessSnackBar('Add customer successfully!');
+        this.sbs.openSuccessSnackBar('บันทึกข้อมูลลูกค้าสำเร็จ');
       } else if (event ==='addCustomerFailed'){
-        this.sbs.openFailSnackBar('Error occured. Try again later.');
+        this.sbs.openFailSnackBar('กรุณาลองใหม่อีกครั้ง');
       }
     });
   }
@@ -211,7 +211,7 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
 
   submit(): void {
     if (!this.customerForm.valid){
-      this.sbs.openFailSnackBar(`Invalid form`);
+      this.sbs.openFailSnackBar(`รูปแบบข้อมูลของฟอร์มผิดหลาด กรุณาลองใหม่อีกครั้ง`);
       return;
     }
     const firstName = this.customerForm.get('firstName').value;
@@ -244,7 +244,7 @@ export class CustomerInputComponent implements OnInit,OnDestroy {
       }
       this.customerService.addCustomer(customer);
     } else {
-      this.sbs.openFailSnackBar(`Invalid form`);
+      this.sbs.openFailSnackBar(`รูปแบบข้อมูลของฟอร์มผิดหลาด กรุณาลองใหม่อีกครั้ง`);
       return;
     }
   }
