@@ -34,9 +34,11 @@ export class ConfirmationDialogComponent {
 
   confirmInvoice() {
     this.orderService.confirmInvoice(this.data.orderId);
+    this.dialogRef.close();
   }
   confirmReceipt() {
     this.orderService.confirmReceipt(this.data.orderId);
+    this.dialogRef.close();
   }
 
 }

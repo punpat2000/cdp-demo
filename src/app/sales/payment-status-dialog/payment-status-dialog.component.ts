@@ -145,9 +145,6 @@ export class PaymentStatusDialogComponent implements OnInit, OnDestroy {
     console.log('move');
   }
 
-  confirmInvoice(orderId: string) {
-    this.orderService.confirmInvoice(orderId);
-  }
   confirmReceipt(orderId: string) {
     this.orderService.confirmReceipt(orderId);
   }
