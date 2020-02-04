@@ -8,13 +8,13 @@
     [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list *ngIf="isloggedIn && role">
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')">Home</a>
-      <a mat-list-item *ngIf="role.editor || role.admin" (click)="goTo('/orders')">Order List</a>
-      <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">Customer List</a>
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/customer-input')">Customer Input</a>
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/tour-input')">Tour Input</a>
-      <a mat-list-item (click)="goTo('/landing-page')">Edit Profile</a>
-      <a mat-list-item *ngIf="role.accountant || role.admin" (click)="goTo('/accountant/orders')">Accountant orders</a>
+      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')">หน้าหลัก</a>
+      <a mat-list-item *ngIf="role.editor || role.admin" (click)="goTo('/orders')">ออเดอร์ทั้งหมด</a>
+      <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">ลูกค้าของฉัน</a>
+      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/customer-input')">เพิ่มลูกค้า</a>
+      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/tour-input')">เพิ่มทัวร์</a>
+      <a mat-list-item (click)="goTo('/landing-page')">แก้ไขโปรไฟล์</a>
+      <a mat-list-item *ngIf="role.accountant || role.admin" (click)="goTo('/accountant/orders')">ตรวจสอบการชำระเงิน</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -29,7 +29,7 @@
       </button>
       <span>kw-cdp-prototype</span>
       <span class="spacer "></span>
-      <a [routerLink]="" (click)="logOut()">Sign Out</a>
+      <a [routerLink]="" (click)="logOut()">ลงชื่อออก</a>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>
