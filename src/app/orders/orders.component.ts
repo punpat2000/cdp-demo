@@ -40,7 +40,7 @@ export class OrdersComponent implements OnInit {
   }
   statusThai(s:string):string{
     if(s==='waitingForInvoice'){
-      return 'รออินวอยซ์';
+      return 'รอ Invoice';
     } else if ('waitingForEarnestPayment'){
       return 'รอค่ามัดจำ';
     } else if ('waitingForFullPayment'){
