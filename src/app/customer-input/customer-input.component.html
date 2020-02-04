@@ -1,5 +1,5 @@
 <div class="body-padding">
-    <form [formGroup]="customerForm">
+    <form [formGroup]="customerForm" (submit)="submit()"> 
         <p>
             <mat-form-field>
                 <input matInput placeholder="Name" type="text" formControlName="firstName">
@@ -76,9 +76,6 @@
                 </mat-error>
             </mat-form-field>
         </p>
+        <button mat-raised-button color="accent" type="submit">Submit</button>
     </form>
-    <button mat-raised-button color="accent" (click)="submit()">Submit</button>
-    <div class="w3-panel w3-red" *ngIf="!this.customerForm.valid && this.showAlert">
-        <p>Customer form not valid!</p>
-    </div>
 </div>

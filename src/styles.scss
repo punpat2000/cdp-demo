@@ -1,47 +1,61 @@
 /* You can add global styles to this file, and also import other style files */
-@import './css-templates/w3.scss';
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import '~firebaseui/dist/firebaseui.css';
-@import './css-templates/example.scss';
+@import "./css-templates/w3.scss";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~firebaseui/dist/firebaseui.css";
+@import "./css-templates/example.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-.body-padding{
-    padding: 20px;
+.body-padding {
+  padding: 20px;
 }
 
 table {
-    width: 100%;
+  width: 100%;
 }
 
-.completed{
-    color: rgb(93, 230, 40);
+.completed {
+  color: rgb(93, 230, 40);
+}
+
+.dropzone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-width: 80vw;
+  font-weight: 200;
+  height: 300px;
+  border: 2px dashed #f16624;
+  border-radius: 5px;
+  background: white;
+  margin: 10px 0;
+
+  &.hovering {
+    border: 2px solid #f16624;
+    color: #dadada !important;
   }
 
-  .dropzone { 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column; 
-    min-width: 80vw;
-    font-weight: 200;
-    height: 300px;
-    border: 2px dashed #f16624;
-    border-radius: 5px;
-    background: white;
-    margin: 10px 0;
-  
-    &.hovering {
-        border: 2px solid #f16624;
-        color: #dadada !important;
-    }
-  
-    .file-label {
-        font-size: 1.2em;
-    }
+  .file-label {
+    font-size: 1.2em;
   }
-  
-  progress::-webkit-progress-value {
-    transition: width 0.1s ease;
-  }
+}
+
+progress::-webkit-progress-value {
+  transition: width 0.1s ease;
+}
+
+.snack-error {
+  background: #f44336 !important;
+
+  width: 10px !important;
+  //padding: 10px !important; // spacing between the text and boundary
+  color: white;
+}

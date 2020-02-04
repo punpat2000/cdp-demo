@@ -1,5 +1,5 @@
 <div class="body-padding">
-    <form [formGroup]="tourForm">
+    <form [formGroup]="tourForm" (submit)="submit()">
         <p>
             <mat-form-field>
                 <input matInput placeholder="Tour ID" type="text" formControlName="tourId">
@@ -25,6 +25,6 @@
                 </mat-error>
             </mat-form-field>
         </p>
+        <button mat-flat-button color="primary" type="submit">Submit</button>
     </form>
-    <button mat-flat-button color="primary" (click)="submit()">Submit</button>
 </div>

@@ -1,15 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Customer } from '../models/customer.model'
 import { CustomerService } from '../providers/customer.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-customer-input',
   templateUrl: './customer-input.component.html',
-  styleUrls: ['./customer-input.component.scss']
+  styleUrls: ['./customer-input.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class CustomerInputComponent implements OnInit {
+
   public customerForm: FormGroup;
   public showAlert: boolean = false;
   public referral = ["Facebook", "Instagram", "LINE@", "Friends and family", "Other"];
@@ -96,8 +100,20 @@ export class CustomerInputComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private _snackBar: MatSnackBar,
   ) {
+  }
+  openFailSnackBar(m:string):void {
+    this._snackBar.open(m, 'Close',{
+      panelClass : 'snack-error'
+    });
+  }
+  openSuccessSnackBar(m:string):void{
+    this._snackBar.open(m, 'Close',{
+      panelClass : 'snack-error',
+      duration: 5*1000,
+    });
   }
 
   ngOnInit() {
@@ -175,6 +191,10 @@ export class CustomerInputComponent implements OnInit {
   }
 
   submit(): void {
+    if (!this.customerForm.valid){
+      this.openFailSnackBar(`Invalid form`);
+      return;
+    }
     const firstName = this.customerForm.get('firstName').value;
     const lastName = this.customerForm.get('lastName').value;
     const gender = this.customerForm.get('gender').value;
