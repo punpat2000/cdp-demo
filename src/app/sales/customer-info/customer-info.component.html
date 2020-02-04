@@ -14,7 +14,7 @@
         <p>
             <strong>เพศ:</strong> {{customer.gender}}<br>
             <strong>เบอร์โทรศัพท์:</strong> {{customer.phoneNumber}}<br>
-            <strong>วันเกิด:</strong> {{customer.birthDate.toDate() | date:"dd/MM/yyyy"}}<br>
+            <strong>วันเกิด:</strong> {{dateToString(customer.birthDate)}}<br>
             <strong>ที่อยู่ปัจจุบัน:</strong> {{customer.currentAddress.address}}<br>
             <strong>จังหวัด:</strong> {{customer.currentAddress.province}}<br>
             <strong>รหัสไปรษณีย์:</strong> {{customer.currentAddress.postalCode}}<br>
