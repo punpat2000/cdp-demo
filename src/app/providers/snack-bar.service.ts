@@ -11,13 +11,13 @@ export class SnackBarService {
     ) { }
 
   openFailSnackBar(m:string):void {
-    this._snackBar.open(m, 'Close',{
+    this._snackBar.open(m, 'ปิด',{
       panelClass : 'snack-error'
     });
   }
   openSuccessSnackBar(m:string):void{
     //console.log('open succ');
-    this._snackBar.open(m, 'Close',{
+    this._snackBar.open(m, 'ปิด',{
       panelClass : 'snack-success',
       duration: 5*1000,
     });

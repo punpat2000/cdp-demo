@@ -39,11 +39,11 @@ export class TourInputComponent implements OnInit, OnDestroy {
       .pipe(takeUntilNgDestroy(this))
       .subscribe(event => {
         if (event === "tourExists") {
-          this.sbs.openFailSnackBar('Tour already exists!')
+          this.sbs.openFailSnackBar('ตรวจพบทัวร์ในระบบอยู่แล้ว กรุณาลองใหม่อีกครั้ง')
         } else if (event === "addTourSuccess") {
-          this.sbs.openSuccessSnackBar(`Add tour succesfully!`)
+          this.sbs.openSuccessSnackBar(`บันทึกรายการทัวร์สำเร็จ`)
         } else if (event === "addTourFailed") {
-          this.sbs.openFailSnackBar('Failed to add tour.');
+          this.sbs.openFailSnackBar('กรุณาลองใหม่อีกครั้ง');
         }
         this.showSpinner = false;
       });
@@ -66,7 +66,7 @@ export class TourInputComponent implements OnInit, OnDestroy {
   }
   submit(): void {
     if (!this.tourForm.valid) {
-      this.sbs.openFailSnackBar(`Invalid form. Please try again.`);
+      this.sbs.openFailSnackBar(`กรุณาลองใหม่อีกครั้ง`);
       return;
     }
     this.showSpinner = true;

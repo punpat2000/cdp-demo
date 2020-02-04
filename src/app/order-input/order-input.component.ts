@@ -87,27 +87,25 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     this.orderService.getOrderServiceEventEmitter().pipe(takeUntilNgDestroy(this))
     .subscribe(event => {
       if(event==='addOrderSuccess'){
-        this.sbs.openSuccessSnackBar('Add order successfully!');
+        this.sbs.openSuccessSnackBar('บันทึกออเดอร์สำเร็จ');
       } else if (event ==='addOrderFailed'){
-        this.sbs.openFailSnackBar('Failed to add order.');
+        this.sbs.openFailSnackBar('บันทึกออเดอร์สำเร็จ กรุณาลองใหม่อีกครั้ง');
       }
     });
     this.customerService.getCustomerServiceEventEmitter().pipe(takeUntilNgDestroy(this))
     .subscribe(event => {
       if(event==='addCustomerSuccess'){
-        this.sbs.openSuccessSnackBar('Add customer successfully!');
+        this.sbs.openSuccessSnackBar('บันทึกข้อมูลลูกค้าสำเร็จ');
       } else if (event ==='addCustomerFailed'){
-        this.sbs.openFailSnackBar('Error occured. Try again later.');
+        this.sbs.openFailSnackBar('พบข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
       }
     });
     this.tourService.getAddTourEvent().pipe(takeUntilNgDestroy(this))
     .subscribe(event => {
       if(event==='addTourSuccess'){
-        this.sbs.openSuccessSnackBar('Add tour successfully!');
-      } else if (event ==='addTourFailed'){
-        this.sbs.openFailSnackBar('Failed to add tour. Please try again!');
+        this.sbs.openSuccessSnackBar('บันทึกรายการทัวร์สำเร็จ');
       } else if (event === 'tourDNE'){
-        this.sbs.openFailSnackBar('Tour does not exist!');
+        this.sbs.openFailSnackBar('ไม่พบทัวร์ กรุณาลองใหม่อีกครั้ง');
       }
     });
     this.orderForm.get('startDate').valueChanges
@@ -139,6 +137,10 @@ export class OrderInputComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
+    if(!this.orderForm.valid){
+      this.sbs.openFailSnackBar(`กรุณาลองใหม่อีกครั้ง`);
+      return;
+    }
     const customerId = this.customerId;
     const tourId = this.orderForm.get('tourId').value;
     const salesId = this.salesId;
@@ -228,7 +230,7 @@ export class OrderInputComponent implements OnInit, OnDestroy {
           } else {
             console.log(`error`);
             this.showSpinner = false;
-            this.sbs.openFailSnackBar(`Failed to load. Please try again.`);
+            this.sbs.openFailSnackBar(`กรุณาลองใหม่อีกครั้ง`);
           }
         });
       }this.showSpinner = false;

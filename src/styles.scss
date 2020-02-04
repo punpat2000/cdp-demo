@@ -58,4 +58,6 @@ progress::-webkit-progress-value {
   width: 10px !important;
   //padding: 10px !important; // spacing between the text and boundary
   color: white;
+  max-width: 100% !important;
+  width: 100%;
 }
