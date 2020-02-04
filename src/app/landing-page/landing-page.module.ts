@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatInputModule } from '@angular/material/input'; 
 import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [LandingPageComponent],
@@ -15,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatProgressBarModule,
     MatInputModule,
     MatFormFieldModule,
+    MatButtonModule,
     FormsModule,
     RouterModule.forChild([
       {

@@ -1,10 +1,10 @@
 <div class="body-padding">
 <header *ngIf="user">
     <h1 *ngIf="!role">
-        To complete your registration please ask the IT staff to assign your role.<br>
+        กรุณาติดต่อแผนก IT<br>
     </h1>
     <h1 *ngIf="role">
-        your role is {{this.role}}
+        บทบาทของคุณคือ {{this.role}}
     </h1>
 </header>
 <div *ngIf="loadFailed">
@@ -14,16 +14,16 @@
 </div>
 <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
 <div *ngIf="this.user">
-    <h3 *ngIf="this.user.displayName">Your display name is {{this.user.displayName}}</h3>
+    <h3 *ngIf="this.user.displayName">ชื่อเล่นของคุณคือ {{this.user.displayName}}</h3>
     <h3 *ngIf="!this.user.displayName">You have not set your display name. Please set it below</h3>
     <p>
         <mat-form-field appearance="outline">
-          <mat-label>Display Name</mat-label>
+          <mat-label>ชื่อเล่น</mat-label>
           <input matInput [(ngModel)]="displayName">
           <mat-hint></mat-hint>
         </mat-form-field>
       </p>
-      <button (click)="updateDisplayName()">change display name</button>
+      <button mat-button-raised color="accent" (click)="updateDisplayName()">เปลี่ยนชื่อเล่น</button>
 </div>
 
 </div>
