@@ -6,9 +6,9 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar color="primary" >เมนู</mat-toolbar>
     <mat-nav-list *ngIf="isloggedIn && role">
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')">หน้าหลัก</a>
+      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')" >หน้าหลัก</a>
       <a mat-list-item *ngIf="role.editor || role.admin" (click)="goTo('/orders')">ออเดอร์ทั้งหมด</a>
       <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">ลูกค้าของฉัน</a>
       <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/customer-input')">เพิ่มลูกค้า</a>
