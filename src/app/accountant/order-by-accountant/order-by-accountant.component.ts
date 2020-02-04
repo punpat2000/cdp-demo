@@ -38,10 +38,7 @@ export class OrderByAccountantComponent implements OnInit, OnDestroy {
   path: string = "orders/";
 
   constructor(
-    private orderService: OrderService,
-    private customerService: CustomerService,
-    private tourService: TourService,
-    private afStorage: AngularFireStorage,
+    private orderService: OrderService
   ) { }
 
   ngOnInit() {
@@ -51,27 +48,34 @@ export class OrderByAccountantComponent implements OnInit, OnDestroy {
   ngOnDestroy() { }
 
   loadData() {
-    this.orderService.queryOrderAccountant('waitingForInvoice')
+    this.orderService.queryOrderInvoice()
       .pipe(takeUntilNgDestroy(this))
       .subscribe(orders => {
         this.ordersWaitingInvoice = orders;
         console.log(this.ordersWaitingInvoice);
       });
-    this.orderService.queryOrderAccountant('waitingForEarnestPayment')
+    this.orderService.queryOrderEarnestBankTransfer()
       .pipe(takeUntilNgDestroy(this))
       .subscribe(orders => {
         this.ordersWaitingEarnestBankTransferConfirmation = orders;
       });
-    this.orderService.queryOrderAccountant('waitingForFullPayment')
+    this.orderService.queryOrderFullBankTransfer()
       .pipe(takeUntilNgDestroy(this))
       .subscribe(orders => {
         this.ordersWaitingFullBankTransferConfirmation = orders;
       });
-    this.orderService.queryOrderAccountant('waitingForReceipt')
+    this.orderService.queryOrderReceipt()
       .pipe(takeUntilNgDestroy(this))
       .subscribe(orders => {
         this.ordersWaitingReceipt = orders;
       });
   }
 
+  confirmEarnestReceipt(orderId:string){
+    this.orderService.confirmEarnestReceipt(orderId);
+  }
+
+  confirmFullReceipt(orderId:string){
+    this.orderService.confirmFullReceipt(orderId);
+  }
 }

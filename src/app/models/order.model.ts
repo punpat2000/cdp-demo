@@ -22,13 +22,26 @@ export interface Payment{
     fullPaymentDate: Date,
     paidEarnest:boolean,
     paidFull:boolean,
-    bankTransferReceiptFull:string,
-    bankTransferReceiptEarnest:string,
-    invoice:string,
-    receipt:string,
+
+    bankTransferReceiptFull:file,
+    bankTransferReceiptFullConfirmed:boolean,
+
+    bankTransferReceiptEarnest:file,
+    bankTransferReceiptEarnestConfirmed:boolean,
+
+    invoice:file,
+    invoiceConfirmed:boolean,
+
+    receipt:file,
+    receiptConfirmed:boolean,
 }
 
 export interface TravelPeriod{
     startDate: Date,
     endDate: Date
+}
+
+export interface file{
+    downloadURL: string,
+    path: string
 }

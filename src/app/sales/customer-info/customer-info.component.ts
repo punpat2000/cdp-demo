@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { DataShareService } from '../providers/data-share.service';
-import { CustomerService } from '../providers/customer.service';
-import { Customer } from '../models/customer.model';
+import { Component, OnInit, OnDestroy} from '@angular/core';
+import { DataShareService } from '../../providers/data-share.service';
+import { CustomerService } from '../../providers/customer.service';
+import { Customer } from '../../models/customer.model';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 import { Router } from '@angular/router';
-import { Order } from '../models/order.model';
-import { OrderService } from '../providers/order.service';
+import { Order } from '../../models/order.model';
+import { OrderService } from '../../providers/order.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentStatusDialogComponent } from '../payment-status-dialog/payment-status-dialog.component';
 
