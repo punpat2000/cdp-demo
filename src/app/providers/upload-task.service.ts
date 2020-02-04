@@ -66,7 +66,11 @@ export class UploadTaskService {
           this.paymentService.uploadReceipt(this.orderId, uploadedFile);
           console.log('receipt updated');
         }
-        this.afs.collection('files').add(uploadedFile);
+        this.afs.collection('files').add(uploadedFile).then(()=> {
+          console.log('here');
+          this.file = null;
+          console.log('file nulled');
+        });
       }),
     );
   }

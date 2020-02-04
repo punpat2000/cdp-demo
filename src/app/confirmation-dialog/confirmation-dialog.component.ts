@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { OrderService } from '../providers/order.service';
 
+
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
@@ -23,8 +24,10 @@ export class ConfirmationDialogComponent {
       this.confirmInvoice();
       console.log('confirm invoice');
     }else if(this.data.documentName === "earnest payment receipt"){
+      this.confirmEarnestReceipt();
       console.log('confirm earnest');
     }else if(this.data.documentName === "full payment receipt"){
+      this.confirmFullReceipt();
       console.log('confirm full');
     }else if(this.data.documentName === "receipt"){
       this.confirmReceipt();
@@ -38,6 +41,14 @@ export class ConfirmationDialogComponent {
   }
   confirmReceipt() {
     this.orderService.confirmReceipt(this.data.orderId);
+    this.dialogRef.close();
+  }
+  confirmEarnestReceipt(){
+    this.orderService.confirmEarnestReceipt(this.data.orderId);
+    this.dialogRef.close();
+  }
+  confirmFullReceipt(){
+    this.orderService.confirmFullReceipt(this.data.orderId);
     this.dialogRef.close();
   }
 

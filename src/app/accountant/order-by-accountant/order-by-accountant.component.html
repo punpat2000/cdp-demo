@@ -1,6 +1,6 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Invoice">
-        <div class="body-padding">
+        <div class="body-padding" *ngIf="ordersWaitingInvoice">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingInvoice">
                     <mat-expansion-panel-header>
@@ -21,7 +21,8 @@
                     </p>
                     <span *ngIf="order.payment.invoice">
                         <p>
-                            current invoice file : <a href="{{order.payment.invoice.downloadURL}}" target="_blank">download</a>
+                            current invoice file : <a href="{{order.payment.invoice.downloadURL}}"
+                                target="_blank">download</a>
                         </p>
                         <h4>Reupload invoice</h4><br>
                     </span>
@@ -35,7 +36,7 @@
         </div>
     </mat-tab>
     <mat-tab label="Earnest Bank Transfer Confirmation">
-        <div class="body-padding">
+        <div class="body-padding" *ngIf="ordersWaitingEarnestBankTransferConfirmation">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingEarnestBankTransferConfirmation">
                     <mat-expansion-panel-header>
@@ -55,14 +56,18 @@
                         Full payment date <br>
                     </p>
                     <h4>Confirm bank transfer</h4>
-                    <span>Earnest bank transfer file : <a href="{{order.payment.bankTransferReceiptEarnest.downloadURL}}" target="_blank">download</a></span><br><br>
-                    <button mat-raised-button color="accent" (click)=(confirmEarnestReceipt(order.orderId))>confirm transaction</button>
+                    <span>Earnest bank transfer file : <a
+                            href="{{order.payment.bankTransferReceiptEarnest.downloadURL}}"
+                            target="_blank">download</a></span><br><br>
+                    <!-- <button mat-raised-button color="accent" (click)=(confirmEarnestReceipt(order.orderId))>confirm
+                        transaction</button> -->
+                        <button mat-raised-button (click)="openConfirmationDialog('earnest payment receipt',order.orderId)">Confirm Transaction</button>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-tab>
     <mat-tab label="Full Bank Transfer Confirmation">
-        <div class="body-padding">
+        <div class="body-padding" *ngIf="ordersWaitingFullBankTransferConfirmation">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingFullBankTransferConfirmation">
                     <mat-expansion-panel-header>
@@ -73,15 +78,25 @@
                             {{order.customer.firstName}} {{order.customer.lastName}}
                         </mat-panel-description>
                     </mat-expansion-panel-header>
-                    <h4>Confirm bank transfer</h4><br>
-                    <span>Full bank transfer file : <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}" target="_blank">download</a></span><br><br>
-                    <button mat-raised-button color="accent" (click)=(confirmFullReceipt(order.orderId))>confirm transaction</button>
+                    <span *ngIf="order.payment.bankTransferReceiptFull">
+                        <h4>Confirm bank transfer</h4><br>
+                        <span>Full bank transfer file : <a href="{{order.payment.bankTransferReceiptFull.downloadURL}}"
+                                target="_blank">download</a></span><br><br>
+                        <!-- <button mat-raised-button color="accent" (click)=(confirmFullReceipt(order.orderId))>confirm
+                            transaction</button> -->
+                            <button mat-raised-button (click)="openConfirmationDialog('full payment receipt',order.orderId)">Confirm Transaction</button>
+                    </span>
+                    <span *ngIf="!order.payment.bankTransferReceiptFull">
+                        <h3>
+                            waiting for full transfer receipt from sales.
+                        </h3>
+                    </span>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-tab>
     <mat-tab label="Receipt">
-        <div class="body-padding">
+        <div class="body-padding" *ngIf="ordersWaitingReceipt">
             <mat-accordion>
                 <mat-expansion-panel *ngFor="let order of ordersWaitingReceipt">
                     <mat-expansion-panel-header>
@@ -102,7 +117,8 @@
                     </p>
                     <span *ngIf="order.payment.receipt">
                         <p>
-                            current receipt file : <a href="{{order.payment.receipt.downloadURL}}" target="_blank">download</a>
+                            current receipt file : <a href="{{order.payment.receipt.downloadURL}}"
+                                target="_blank">download</a>
                         </p>
                         <h4>Reupload receipt</h4><br>
                     </span>
