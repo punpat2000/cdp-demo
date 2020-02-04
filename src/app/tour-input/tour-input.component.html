@@ -5,27 +5,27 @@
             <mat-form-field>
                 <input matInput placeholder="Tour ID" type="text" formControlName="tourId">
                 <mat-error *ngIf="checkTourId()">
-                    Tour ID <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> Tour ID
                 </mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field>
-                <input matInput placeholder="Tour Name" type="text" formControlName="tourName">
+                <input matInput placeholder="ชื่อทัวร์" type="text" formControlName="tourName">
                 <mat-error *ngIf="checkTourName()">
-                    Tour name <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> ชื่อทัวร์
                 </mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field>
                 <span matPrefix>฿ &nbsp;</span>
-                <input matInput placeholder="Price" type="number" formControlName="price">
+                <input matInput placeholder="ราคา" type="number" formControlName="price">
                 <mat-error *ngIf="checkPrice()">
-                    Price <strong>required</strong>
+                    <strong>จำเป็นต้องกรอก</strong> ราคา
                 </mat-error>
             </mat-form-field>
         </p>
-        <button mat-raised-button color="accent" type="submit">Submit</button>
+        <button mat-raised-button color="accent" type="submit">ยืนยัน</button>
     </form>
 </div>
