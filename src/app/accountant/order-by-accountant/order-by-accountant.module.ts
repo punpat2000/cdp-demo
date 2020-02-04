@@ -8,6 +8,7 @@ import { UploaderComponent } from 'src/app/accountant/file-upload/uploader/uploa
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     CommonModule,
     MatTabsModule,
     MatExpansionModule,
+    MatButtonModule,
     RouterModule.forChild([
       {
         path: '',
