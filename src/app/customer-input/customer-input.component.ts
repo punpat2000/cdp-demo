@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Customer } from '../models/customer.model'
 import { CustomerService } from '../providers/customer.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 
-import {MatSnackBar} from '@angular/material/snack-bar';
+
+import { takeUntilNgDestroy } from 'take-until-ng-destroy';
+import { SnackBarService } from '../providers/snack-bar.service';
 
 @Component({
   selector: 'app-customer-input',
@@ -12,7 +14,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./customer-input.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class CustomerInputComponent implements OnInit {
+export class CustomerInputComponent implements OnInit,OnDestroy {
 
   public customerForm: FormGroup;
   public showAlert: boolean = false;
@@ -101,22 +103,13 @@ export class CustomerInputComponent implements OnInit {
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
     private afAuth: AngularFireAuth,
-    private _snackBar: MatSnackBar,
+    private sbs: SnackBarService,
   ) {
   }
-  openFailSnackBar(m:string):void {
-    this._snackBar.open(m, 'Close',{
-      panelClass : 'snack-error'
-    });
-  }
-  openSuccessSnackBar(m:string):void{
-    this._snackBar.open(m, 'Close',{
-      panelClass : 'snack-error',
-      duration: 5*1000,
-    });
-  }
+  
 
   ngOnInit() {
+    this.listenToEventEmitter();
     this.customerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -127,12 +120,25 @@ export class CustomerInputComponent implements OnInit {
       province: ['', Validators.required],
       email: [''],
       referral: ['', Validators.required],
-      //day: ['', Validators.required],
-      //month: ['', Validators.required],
-     //year: ['', Validators.required],
       date: ['', Validators.required],
     });
   }
+
+  ngOnDestroy(){
+    this.sbs.closeSnackBar();
+  }
+
+  listenToEventEmitter(){
+    this.customerService.getCustomerServiceEventEmitter().pipe(takeUntilNgDestroy(this))
+    .subscribe(event => {
+      if(event==='addCustomerSuccess'){
+        this.sbs.openSuccessSnackBar('Add customer successfully!');
+      } else if (event ==='addCustomerFailed'){
+        this.sbs.openFailSnackBar('Error occured. Try again later.');
+      }
+    });
+  }
+  
 
   checkFirstName(): boolean {
     return (!this.customerForm.controls.firstName.valid
@@ -192,15 +198,12 @@ export class CustomerInputComponent implements OnInit {
 
   submit(): void {
     if (!this.customerForm.valid){
-      this.openFailSnackBar(`Invalid form`);
+      this.sbs.openFailSnackBar(`Invalid form`);
       return;
     }
     const firstName = this.customerForm.get('firstName').value;
     const lastName = this.customerForm.get('lastName').value;
     const gender = this.customerForm.get('gender').value;
-    //const day = this.customerForm.get('day').value;
-    //const month = this.customerForm.get('month').value;
-    //const year = this.customerForm.get('year').value;
     const birthDate = this.customerForm.get('date').value; //new Date(year + "-" + month + "-" + day);
     const phoneNumber = "0"+this.customerForm.get('phoneNumber').toString();
     const currentAddress = {
@@ -229,9 +232,8 @@ export class CustomerInputComponent implements OnInit {
       }
       this.customerService.addCustomer(customer);
     } else {
-      console.log(`invalid`)
-      this.showAlert = true;
+      this.sbs.openFailSnackBar(`Invalid form`);
+      return;
     }
-
   }
 }

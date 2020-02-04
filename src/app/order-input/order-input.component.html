@@ -1,16 +1,5 @@
 <div class="body-padding">
   <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
-  <div *ngIf="loadFailed">
-    <h2>
-      Loading Timeout. Please try again later.
-    </h2>
-  </div>
-  <div *ngIf="tourNotFound">
-    <h2>
-      Tour not found. Please try again later.
-    </h2>
-  </div>
-  <div>
     <form [formGroup]="orderForm" (submit)="submit()">
       <p>
         <mat-form-field appearance="outline">

@@ -17,7 +17,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [OrderInputComponent],
@@ -25,7 +24,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     CommonModule,
     FormsModule,
     MatCheckboxModule,
-    MatSnackBarModule,
     MatProgressBarModule,
     MatDatepickerModule,
     MatNativeDateModule,

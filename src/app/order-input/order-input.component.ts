@@ -13,6 +13,8 @@ import { User } from '../models/user.model';
 import { Tour } from '../models/tour.model';
 import { TourService } from '../providers/tour.service'
 import { Router } from '@angular/router';
+import { SnackBarService } from '../providers/snack-bar.service';
+
 
 
 @Component({
@@ -41,10 +43,12 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     private customerService: CustomerService,
     private authService: AuthService,
     private tourService: TourService,
-    private router: Router
+    private router: Router,
+    private sbs: SnackBarService,
   ) { }
 
   ngOnInit() {
+    this.listenToEventEmitter();
     this.authService.getUserData().pipe(take(1)).subscribe(data => {
       this.sales = data;
     })
@@ -74,7 +78,37 @@ export class OrderInputComponent implements OnInit, OnDestroy {
       netPrice: ['', Validators.required]
     })
   }
+  listenToEventEmitter(){
+    this.orderService.getOrderServiceEventEmitter().pipe(takeUntilNgDestroy(this))
+    .subscribe(event => {
+      if(event==='addOrderSuccess'){
+        this.sbs.openSuccessSnackBar('Add order successfully!');
+      } else if (event ==='addOrderFailed'){
+        this.sbs.openFailSnackBar('Failed to add order.');
+      }
+    });
+    this.customerService.getCustomerServiceEventEmitter().pipe(takeUntilNgDestroy(this))
+    .subscribe(event => {
+      if(event==='addCustomerSuccess'){
+        this.sbs.openSuccessSnackBar('Add customer successfully!');
+      } else if (event ==='addCustomerFailed'){
+        this.sbs.openFailSnackBar('Error occured. Try again later.');
+      }
+    });
+    this.tourService.getAddTourEvent().pipe(takeUntilNgDestroy(this))
+    .subscribe(event => {
+      if(event==='addTourSuccess'){
+        this.sbs.openSuccessSnackBar('Add tour successfully!');
+      } else if (event ==='addTourFailed'){
+        this.sbs.openFailSnackBar('Failed to add tour. Please try again!');
+      } else if (event === 'tourDNE'){
+        this.sbs.openFailSnackBar('Tour does not exist!');
+      }
+    });
+  }
+
   ngOnDestroy() {
+    this.sbs.closeSnackBar();
   }
 
   checkTour(): boolean {
@@ -120,8 +154,6 @@ export class OrderInputComponent implements OnInit, OnDestroy {
     console.log(tourIdInput);
     this.tourService.checkTour(tourIdInput).toPromise().then(data => {
       this.showSpinner = true;
-    this.tourNotFound= false;
-    this.loadFailed = false;
       if (data) {
         this.tourService.getTour(tourIdInput).pipe(take(1)).subscribe(data => {
           if (data) {
@@ -184,14 +216,12 @@ export class OrderInputComponent implements OnInit, OnDestroy {
               this.orderService.addOrder(order);
               this.showSpinner = false;
             } else {
-              console.log(`false : invalid tour`);
-              this.tourNotFound = true;
               this.showSpinner = false;
             }
           } else {
             console.log(`error`);
             this.showSpinner = false;
-            this.loadFailed =true;
+            this.sbs.openFailSnackBar(`Failed to load. Please try again.`);
           }
         });
       }this.showSpinner = false;

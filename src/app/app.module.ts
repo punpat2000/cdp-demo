@@ -28,6 +28,9 @@ import { PaymentStatusDialogComponent } from './sales/payment-status-dialog/paym
 import { MatInputModule } from '@angular/material';
 
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 
 const firebaseUiAuthConfig: firebaseui.auth.Config = {
   signInFlow: 'popup',
@@ -66,6 +69,7 @@ const firebaseUiAuthConfig: firebaseui.auth.Config = {
     MatIconModule,
     MatListModule,
     MatStepperModule,
+    MatSnackBarModule,
   ],
   providers: [
     AngularFireAuthGuard,

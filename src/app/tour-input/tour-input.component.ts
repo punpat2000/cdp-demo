@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Tour } from '../models/tour.model';
 import { TourService } from '../providers/tour.service';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
+import { SnackBarService } from '../providers/snack-bar.service';
 
 @Component({
   selector: 'app-tour-input',
@@ -11,46 +12,40 @@ import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 })
 export class TourInputComponent implements OnInit, OnDestroy {
 
-
   public tourForm: FormGroup;
   public tourExists: boolean = false;
-
   public showSpinner: boolean = false;
-  public loadFailed: boolean = false;
-  public addTourFailed: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
     private tourService: TourService,
+    private sbs: SnackBarService,
   ) { }
 
   ngOnInit() {
+    this.listenForEvents();
     this.tourForm = this.formBuilder.group({
       tourId: ['', Validators.required],
       tourName: ['', Validators.required],
       price: ['', Validators.required],
     });
-    this.listenForEvents();
   }
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this.sbs.closeSnackBar();
+  }
 
   listenForEvents() {
     this.tourService.getAddTourEvent()
       .pipe(takeUntilNgDestroy(this))
       .subscribe(event => {
         if (event === "tourExists") {
-          this.tourExists = true;
-        } else {
-          this.tourExists = false;
-          this.showSpinner = false;
-        }
-
-        if (event === "addTourSuccess") {
-          this.showSpinner = false;
+          this.sbs.openFailSnackBar('Tour already exists!')
+        } else if (event === "addTourSuccess") {
+          this.sbs.openSuccessSnackBar(`Add tour succesfully!`)
         } else if (event === "addTourFailed") {
-          this.showSpinner = false;
-          this.addTourFailed = true;
+          this.sbs.openFailSnackBar('Failed to add tour.');
         }
+        this.showSpinner = false;
       });
   }
 
@@ -70,8 +65,10 @@ export class TourInputComponent implements OnInit, OnDestroy {
         || this.tourForm.controls.price.touched));
   }
   submit(): void {
-    this.addTourFailed = false;
-    this.loadFailed = false;
+    if (!this.tourForm.valid) {
+      this.sbs.openFailSnackBar(`Invalid form. Please try again.`);
+      return;
+    }
     this.showSpinner = true;
     if (this.tourForm.valid) {
       const tour: Tour = {
@@ -80,8 +77,6 @@ export class TourInputComponent implements OnInit, OnDestroy {
         price: this.tourForm.get('price').value,
       }
       this.tourService.addTour(tour);
-    } else {
-      console.log(`invalid tour!`);
     }
   }
 
