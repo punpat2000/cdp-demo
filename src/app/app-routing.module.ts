@@ -4,7 +4,7 @@ import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from
 import { AuthorizationGuard } from './guard/authorization.guard';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
-const redirectLoggedInToHome = () => redirectLoggedInTo(['']);
+const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 
 const routes: Routes = [
   {
@@ -15,10 +15,10 @@ const routes: Routes = [
   { 
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-    canActivate: [AngularFireAuthGuard, AuthorizationGuard],
+    canActivate: [AuthorizationGuard,AngularFireAuthGuard],
     data: { 
       authGuardPipe: redirectUnauthorizedToLogin,
-      allowedRoles: ['editor','admin','sales','accountant']
+      allowedRoles: ['editor','admin', 'sales','accountant']
     }
   },
   {

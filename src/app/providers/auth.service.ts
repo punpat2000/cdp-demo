@@ -82,7 +82,7 @@ export class AuthService {
             user=>{
                 user;
                 if(user.role.unspecified === true) {
-                    role = null;
+                    role = "unspecified";
                 }
                 else if(user.role.admin === true) {
                     role = "admin";

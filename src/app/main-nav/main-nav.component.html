@@ -1,36 +1,45 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav 
-    #drawer 
-    class="sidenav"
-    fixedInViewport ="false"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+  <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-    <mat-toolbar color="primary" >เมนู</mat-toolbar>
+    <mat-toolbar color="primary">เมนู</mat-toolbar>
     <mat-nav-list *ngIf="isloggedIn && role">
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/home')" >หน้าหลัก</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item *ngIf="role.editor || role.admin" (click)="goTo('/orders')">ออเดอร์ทั้งหมด</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item *ngIf="role.accountant || role.admin" (click)="goTo('/accountant/orders')">ตรวจสอบการชำระเงิน</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item *ngIf="role.sales || role.admin" (click)="goTo('/customers')">ลูกค้าของฉัน</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/customer-input')">เพิ่มลูกค้า</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item *ngIf="!role.unspecified" (click)="goTo('/tour-input')">เพิ่มทัวร์</a>
-      <mat-divider></mat-divider>
-      <a mat-list-item (click)="goTo('/landing-page')">แก้ไขโปรไฟล์</a>
-      <mat-divider></mat-divider>
+      <span *ngIf="!role.unspecified">
+        <a mat-list-item  (click)="goTo('/home')">หน้าหลัก</a>
+        <mat-divider></mat-divider>
+      </span>
+      <span *ngIf="role.editor || role.admin">
+        <a mat-list-item  (click)="goTo('/orders')">ออเดอร์ทั้งหมด</a>
+        <mat-divider></mat-divider>
+      </span>
+      <span *ngIf="role.accountant || role.admin">
+        <a mat-list-item 
+          (click)="goTo('/accountant/orders')">ตรวจสอบการชำระเงิน</a>
+        <mat-divider></mat-divider>
+      </span>
+      <span *ngIf="role.sales || role.admin">
+        <a mat-list-item  (click)="goTo('/customers')">ลูกค้าของฉัน</a>
+        <mat-divider></mat-divider>
+      </span>
+      <span *ngIf="!role.unspecified && (role.editor || role.admin || role.sales) ">
+        <a mat-list-item 
+          (click)="goTo('/customer-input')">เพิ่มลูกค้า</a>
+        <mat-divider></mat-divider>
+      </span>
+      <span *ngIf="!role.unspecified && (role.editor || role.admin || role.sales)">
+        <a mat-list-item 
+          (click)="goTo('/tour-input')">เพิ่มทัวร์</a>
+        <mat-divider></mat-divider>
+      </span>
+      <span>
+        <a mat-list-item (click)="goTo('/landing-page')">แก้ไขโปรไฟล์</a>
+        <mat-divider></mat-divider>
+      </span>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
