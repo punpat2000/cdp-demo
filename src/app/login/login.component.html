@@ -1,1 +1,15 @@
-<div><firebase-ui></firebase-ui></div>
+<div>
+    <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+    <button (click)="signIn()" *ngIf="!afAuth.auth.currentUser">
+        Guest Sign-in
+    </button>
+    <div *ngIf="userCreated">
+        <div *ngIf="afAuth.auth.currentUser">
+        <h5>Select role to access demo.</h5>
+        <button (click)="chooseRole('acc')">Accountant</button>
+        <button (click)="chooseRole('sales')">Sales</button>
+        <button (click)="chooseRole('editor')">Editor</button>
+    </div>
+</div>
+    
+</div>

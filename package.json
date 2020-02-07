@@ -1,5 +1,5 @@
 {
-  "name": "kw-cdp-prototype",
+  "name": "kw-cdp-demo",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -22,7 +22,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "firebase": "^7.8.0",
+    "firebase": "^7.8.1",
     "firebaseui": "^4.4.0",
     "firebaseui-angular": "^4.0.1",
     "moment": "^2.24.0",

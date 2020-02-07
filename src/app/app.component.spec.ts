@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'kw-cdp-prototype'`, () => {
+  it(`should have as title 'kw-cdp-demo'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('kw-cdp-prototype');
+    expect(app.title).toEqual('kw-cdp-demo');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('kw-cdp-prototype app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('kw-cdp-demo app is running!');
   });
 });

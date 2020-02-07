@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "kw-cdp-prototype": {
+    "kw-cdp-demo": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/kw-cdp-prototype",
+            "outputPath": "dist/kw-cdp-demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kw-cdp-prototype:build"
+            "browserTarget": "kw-cdp-demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kw-cdp-prototype:build:production"
+              "browserTarget": "kw-cdp-demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "kw-cdp-prototype:build"
+            "browserTarget": "kw-cdp-demo:build"
           }
         },
         "test": {
@@ -117,16 +117,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "kw-cdp-prototype:serve"
+            "devServerTarget": "kw-cdp-demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "kw-cdp-prototype:serve:production"
+              "devServerTarget": "kw-cdp-demo:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "kw-cdp-prototype"
+  "defaultProject": "kw-cdp-demo"
 }

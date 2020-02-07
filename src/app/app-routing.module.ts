@@ -9,29 +9,29 @@ const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   { 
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomeModule),
-    canActivate: [AuthorizationGuard,AngularFireAuthGuard],
-    data: { 
-      authGuardPipe: redirectUnauthorizedToLogin,
-      allowedRoles: ['editor','admin', 'sales','accountant']
-    }
+    // canActivate: [AuthorizationGuard,AngularFireAuthGuard],
+    // data: { 
+    //   authGuardPipe: redirectUnauthorizedToLogin,
+    //   allowedRoles: ['editor','admin', 'sales','accountant']
+    // }
   },
   {
     path: 'login',
     loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectLoggedInToHome }
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: redirectLoggedInToHome }
   },
   {
     path: 'landing-page',
     loadChildren: () => import('./landing-page/landing-page.module').then(m => m.LandingPageModule),
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToLogin }
+    // canActivate: [AngularFireAuthGuard],
+    // data: { authGuardPipe: redirectUnauthorizedToLogin }
   },
   {
     path: 'orders',

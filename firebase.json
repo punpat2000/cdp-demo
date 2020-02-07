@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/kw-cdp-prototype",
+    "public": "dist/kw-cdp-demo",
     "ignore": [
       "firebase.json",
       "**/.*",

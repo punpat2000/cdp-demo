@@ -38,8 +38,10 @@ export class MainNavComponent implements OnDestroy {
         console.log(this.isloggedIn);
       });
       this.authService.getUserData().pipe(takeUntilNgDestroy(this)).subscribe(user=>{
-        this.role = user.role;
-      })
+        if(user){
+          this.role = user.role;
+        }
+      });
     }
 
     goTo(page:string){
@@ -47,7 +49,8 @@ export class MainNavComponent implements OnDestroy {
     }
     logOut(){
       this.afAuth.auth.signOut();
-      location.reload();
+      this.router.navigate(['login']);
+      //location.reload();
     }
     ngOnDestroy(){}
 }

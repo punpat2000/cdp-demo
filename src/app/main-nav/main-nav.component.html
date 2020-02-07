@@ -3,9 +3,9 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary">เมนู</mat-toolbar>
-    <mat-nav-list *ngIf="isloggedIn && role">
+    <mat-nav-list *ngIf="role && isLoggedIn">
       <span *ngIf="!role.unspecified">
-        <a mat-list-item  (click)="goTo('/home')">หน้าหลัก</a>
+        <a mat-list-item  (click)="goTo('/home')">Choose Role</a>
         <mat-divider></mat-divider>
       </span>
       <span *ngIf="role.editor || role.admin">
@@ -43,7 +43,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>kw-cdp-prototype</span>
+      <span>Customer Data Platform Demo</span>
       <span class="spacer "></span>
       <a [routerLink]="" (click)="logOut()">ลงชื่อออก</a>
     </mat-toolbar>

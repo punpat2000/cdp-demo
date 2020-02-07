@@ -1,3 +1,8 @@
 <div class="body-padding">
-<header><h3>Home</h3></header>
+<header><h3>Choose Role</h3></header>
+<div *ngIf="afAuth.auth.currentUser">
+    <button mat-raised-button color='primary' (click)="chooseRole('acc')">Accountant</button>
+    <button mat-raised-button color='primary' (click)="chooseRole('sales')">Sales</button>
+    <button mat-raised-button color='primary' (click)="chooseRole('editor')">Editor</button>
+</div>
 </div>
