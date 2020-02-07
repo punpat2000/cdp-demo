@@ -6,6 +6,8 @@ import { UserRoles } from '../models/user.model';
 import { take } from 'rxjs/operators';
 import { takeUntilNgDestroy } from 'take-until-ng-destroy';
 import { Router } from '@angular/router';
+import { LoadingService } from '../providers/loading.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -14,29 +16,35 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit, OnDestroy {
 
+  public $load:Observable<boolean>;
+
   constructor(
     private afAuth: AngularFireAuth,
     private authService: AuthService,
     private router: Router,
+    private ldService : LoadingService,
     ) { }
     public userCreated:boolean=false;
     public showSpinner:boolean=false;
 
   ngOnInit() {
+    this.$load = this.ldService.eventEmitter();
     this.authService.getEmitter().pipe(takeUntilNgDestroy(this)).subscribe(event=>{
       if(event=='created'){
         console.log('here');
         this.userCreated = true;
         this.showSpinner = false;
+        this.ldService.next(false);
         //this.router.navigate(['home']);
       } 
-    })
+    });
   }
   ngOnDestroy(){
   }
 
   signIn(): void {
     this.showSpinner = true;
+    this.ldService.next(true);
     this.afAuth.auth.signInAnonymously().then(()=>{
       location.reload();
     }).catch(error => {

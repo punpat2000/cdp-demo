@@ -3,7 +3,7 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
     <mat-toolbar color="primary">เมนู</mat-toolbar>
-    <mat-nav-list *ngIf="role && isLoggedIn">
+    <mat-nav-list *ngIf="user">
       <span *ngIf="!role.unspecified">
         <a mat-list-item  (click)="goTo('/home')">Choose Role</a>
         <mat-divider></mat-divider>
@@ -45,7 +45,7 @@
       </button>
       <span>Customer Data Platform Demo</span>
       <span class="spacer "></span>
-      <a [routerLink]="" (click)="logOut()">ลงชื่อออก</a>
+      <a [routerLink]="" (click)="logOut()" *ngIf="afAuth.auth.currentUser">ลงชื่อออก</a>
     </mat-toolbar>
     <ng-content></ng-content>
   </mat-sidenav-content>

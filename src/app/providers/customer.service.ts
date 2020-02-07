@@ -3,6 +3,7 @@ import { Customer } from '../models/customer.model';
 import { CustomerServiceModel } from '../models/customer-service.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable, from, of, Subject } from 'rxjs';
+import { database } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class CustomerService implements CustomerServiceModel {
     return this.customerServiceEventEmitter.asObservable();
   }
 
-  addCustomer(cus: Customer): void {
+  addCustomerTest(cus: Customer): void {
     this.afs.collection(`customers`)
       .add(cus)
       .then(data => {
@@ -32,6 +33,21 @@ export class CustomerService implements CustomerServiceModel {
         this.customerServiceEventEmitter.next('addCustomerFailed');
         console.log('error', err);
       });
+  }
+
+  async addCustomer(cus: Customer) {
+    try {
+      const docRef = await this.afs.collection(`customers`).add(cus)
+      this.afs.doc(`customers/${docRef.id}`).update({ customerId: docRef.id })
+        .then(() => {
+          console.log(`id added to customer`);
+        });
+      this.customerServiceEventEmitter.next('addCustomerSuccess');
+      console.log('customer added!');
+    } catch (err) {
+      this.customerServiceEventEmitter.next('addCustomerFailed');
+      console.log('error', err);
+    }
   }
 
   updateCustomer(newCus: Customer): void {

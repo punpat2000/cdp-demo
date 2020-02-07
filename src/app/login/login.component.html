@@ -1,5 +1,5 @@
 <div>
-    <mat-progress-bar mode="indeterminate" *ngIf="showSpinner"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="(ldService.$loadEvent | async)"></mat-progress-bar>
     <button (click)="signIn()" *ngIf="!afAuth.auth.currentUser">
         Guest Sign-in
     </button>
