@@ -5,11 +5,11 @@
     </button>
     <div *ngIf="userCreated">
         <div *ngIf="afAuth.auth.currentUser">
-        <h5>Select role to access demo.</h5>
-        <button (click)="chooseRole('acc')">Accountant</button>
-        <button (click)="chooseRole('sales')">Sales</button>
-        <button (click)="chooseRole('editor')">Editor</button>
+            <h5>Select role to access demo.</h5>
+            <button mat-raised-button color='primary' (click)="chooseRole('acc')">Accountant</button>
+            <button mat-raised-button color='primary' (click)="chooseRole('sales')">Sales</button>
+            <button mat-raised-button color='primary' (click)="chooseRole('editor')">Editor</button>
+        </div>
     </div>
-</div>
-    
+
 </div>

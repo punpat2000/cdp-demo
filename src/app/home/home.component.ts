@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
   ) { }
 
   ngOnInit() {

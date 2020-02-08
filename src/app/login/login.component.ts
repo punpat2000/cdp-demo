@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   public $load:Observable<boolean>;
 
   constructor(
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
     private authService: AuthService,
     private router: Router,
-    private ldService : LoadingService,
+    public ldService : LoadingService,
     ) { }
     public userCreated:boolean=false;
     public showSpinner:boolean=false;

@@ -30,7 +30,7 @@ export class MainNavComponent implements OnDestroy, OnInit {
   constructor(
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    private afAuth: AngularFireAuth,
+    public afAuth: AngularFireAuth,
     private authService: AuthService,
     private ldService: LoadingService,
     ) {}
